@@ -3,7 +3,7 @@ import { Shield, Award, Users, Clock, ArrowRight, CheckCircle2, Phone } from "lu
 import { Button } from "../components/ui/button";
 import heroSection from "../components/assets/heroSection_1.png";
 import generalInsuranceImg from "../components/assets/General_Insurance.jpeg";
-import lifeInsuranceImg from "../components/assets/Card2.jpeg";
+import lifeInsuranceImg from "../components/assets/card2.jpeg";
 import homeInsuranceImg from "../components/assets/Home_Insurance.jpeg";
 import whatsappIcon from "../components/assets/whatsapp.svg";
 
