@@ -396,7 +396,7 @@ export default function Contact() {
 
               {/* Directions CTA */}
               <a
-                href="https://www.google.com/maps?daddr=First+Floor,+Dhasan+Complex,+No+292D/16,+MS+Rd,+Vetturnimadam,+Nagercoil,+Tamil+Nadu+629003"
+                href="https://maps.app.goo.gl/27wFFkxtFy9FJ6ES9"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group relative mt-auto rounded-2xl border border-secondary/40 bg-secondary/10 backdrop-blur-sm p-5 hover:bg-secondary/20 transition-all duration-300 flex items-center justify-between"
@@ -426,7 +426,7 @@ export default function Contact() {
 
               <iframe
                 title="Office Location"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3944.694484861342!2d77.43193!3d8.17893!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b04f31f2c8b3bad%3A0x1dd4d9a10f99393b!2sDhasan%20Complex%2C%20MS%20Rd%2C%20Vetturnimadam%2C%20Nagercoil%2C%20Tamil%20Nadu%20629003!5e0!3m2!1sen!2sin!4v1712345678901"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d981.2!2d77.4177374!3d8.1903409!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b04f1310fa60cad%3A0x741da081ef913943!2sPremier%20Insurance%20Partners.!5e0!3m2!1sen!2sin!4v1712345678901"
                 width="100%"
                 height="100%"
                 style={{ border: 0, filter: "invert(90%) hue-rotate(180deg) saturate(0.9) brightness(0.85)", minHeight: "420px" }}
