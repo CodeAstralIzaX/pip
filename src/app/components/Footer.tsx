@@ -24,7 +24,7 @@ export function Footer() {
               Protecting what matters most to you and your family with comprehensive insurance solutions.
             </p>
             <div className="flex gap-4">
-              <a href="#" className="hover:text-secondary transition-colors" aria-label="Facebook">
+              <a href="https://www.facebook.com/share/18kKZfCW4S/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" className="hover:text-secondary transition-colors" aria-label="Facebook">
                 <Facebook className="size-5" />
               </a>
               <a href="#" className="hover:text-secondary transition-colors" aria-label="Twitter">
@@ -33,7 +33,7 @@ export function Footer() {
               <a href="#" className="hover:text-secondary transition-colors" aria-label="LinkedIn">
                 <Linkedin className="size-5" />
               </a>
-              <a href="#" className="hover:text-secondary transition-colors" aria-label="Instagram">
+              <a href="https://www.instagram.com/premierinsurancepartners/" target="_blank" rel="noopener noreferrer" className="hover:text-secondary transition-colors" aria-label="Instagram">
                 <Instagram className="size-5" />
               </a>
             </div>
@@ -96,8 +96,8 @@ export function Footer() {
               </li>
               <li className="flex items-center gap-2">
                 <Mail className="size-4 flex-shrink-0 text-secondary" />
-                <a href="mailto:info@premierinsurance.com" className="hover:text-secondary transition-colors">
-                  info@premierinsurance.com
+                <a href="mailto:info@premierinsurance-partners.in" className="hover:text-secondary transition-colors">
+                  info@premierinsurance-partners.in
                 </a>
               </li>
             </ul>

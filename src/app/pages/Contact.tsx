@@ -102,7 +102,7 @@ export default function Contact() {
     {
       icon: Mail,
       title: "Email Us",
-      details: ["info@premierinsurance.com", "claims@premierinsurance.com"],
+      details: ["info@premierinsurance-partners.in", "claims@premierinsurance-partners.in"],
     },
     {
       icon: Clock,
@@ -314,7 +314,7 @@ export default function Contact() {
                   </a>
                 </Button>
                 <Button asChild size="lg" variant="outline" className="border-blue-600 text-blue-600 hover:bg-blue-50">
-                  <a href="mailto:info@premierinsurance.com">
+                  <a href="mailto:info@premierinsurance-partners.in">
                     <Mail className="mr-2 size-5" />
                     Email Us
                   </a>

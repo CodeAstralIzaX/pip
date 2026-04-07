@@ -48,7 +48,7 @@ app.post('/api/send-email', async (req, res) => {
     // Create email content for admin
     const adminMailOptions = {
       from: process.env.EMAIL_USER,
-      to: process.env.ADMIN_EMAIL || 'info@premierinsurance.com',
+  to: process.env.ADMIN_EMAIL || 'info@premierinsurance-partners.in',
       subject: `New Contact Form Submission - ${service}`,
       html: `
         <h2>New Contact Form Submission</h2>

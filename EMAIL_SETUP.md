@@ -23,7 +23,7 @@ Edit the `.env` file with your email service credentials:
 EMAIL_SERVICE=gmail
 EMAIL_USER=your-email@gmail.com
 EMAIL_PASSWORD=your-app-password
-ADMIN_EMAIL=info@premierinsurance.com
+ADMIN_EMAIL=info@premierinsurance-partners.in
 PORT=3001
 NODE_ENV=development
 ```

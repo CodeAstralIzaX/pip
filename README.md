@@ -1,5 +1,7 @@
 # Premier Insurance Partners — Deployment Guide
 
+Website: https://premierinsurance-partners.in
+
 This repository contains a Vite + React frontend and a small Express server (`server.js`) that handles contact form email sending. This README explains how to build and deploy the app on Hostinger (Node hosting) and other common options.
 
 ## Quick local commands
@@ -31,7 +33,7 @@ Set the following environment variables in your Hostinger Dashboard (or other ho
 - `EMAIL_USER` — SMTP user (e.g. Gmail address)
 - `EMAIL_PASSWORD` — SMTP password or app-password (Gmail requires an app password)
 - `EMAIL_SERVICE` — optional, defaults to `gmail`
-- `ADMIN_EMAIL` — optional, where contact form submissions are sent (defaults to `info@premierinsurance.com`)
+- `ADMIN_EMAIL` — optional, where contact form submissions are sent (defaults to `info@premierinsurance-partners.in`)
 - `PORT` — optional, the host will usually set this automatically
 
 ## Hostinger deployment (recommended)
