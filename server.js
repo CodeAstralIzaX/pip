@@ -3,6 +3,8 @@ import nodemailer from 'nodemailer';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import path from 'path';
+import helmet from 'helmet';
+import rateLimit from 'express-rate-limit';
 
 dotenv.config();
 
@@ -12,6 +14,29 @@ const PORT = process.env.PORT || 3001;
 // Middleware
 app.use(cors());
 app.use(express.json());
+// Basic security headers
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: ["'self'", "https://www.googletagmanager.com", "https://www.google-analytics.com"],
+        styleSrc: ["'self'", "'unsafe-inline'"],
+        imgSrc: ["'self'", "data:", "https://maps.googleapis.com", "https://maps.gstatic.com"],
+        connectSrc: ["'self'", "https://www.google-analytics.com"],
+      },
+    },
+  })
+);
+
+// Rate limiter to protect the contact endpoint from abuse
+const limiter = rateLimit({
+  windowMs: 60 * 1000, // 1 minute
+  max: 6, // limit each IP to 6 requests per windowMs
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+app.use('/api/send-email', limiter);
 
 // Configure nodemailer transporter
 // Using Gmail or your preferred email service

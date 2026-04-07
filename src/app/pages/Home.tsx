@@ -92,7 +92,7 @@ export default function Home() {
               </div>
             </div>
             <div className="hidden lg:flex items-center justify-center">
-              <img src={heroSection} alt="Premier Insurance Partners Header" className="h-125 w-250" />
+              <img src={heroSection} alt="Premier Insurance Partners Header" loading="lazy" decoding="async" width={760} height={520} className="h-125 w-250" />
             </div>
           </div>
         </div>

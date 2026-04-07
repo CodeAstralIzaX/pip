@@ -16,6 +16,10 @@ export function Footer() {
                 <img
                   src={logoHeader}
                   alt="Premier Insurance Partners"
+                  loading="lazy"
+                  decoding="async"
+                  width={80}
+                  height={80}
                   className="relative h-20 w-auto drop-shadow-[0_0_10px_rgba(204,156,66,0.4)] group-hover:drop-shadow-[0_0_18px_rgba(204,156,66,0.7)] transition-all duration-300"
                 />
               </span>
