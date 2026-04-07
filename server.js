@@ -2,6 +2,7 @@ import express from 'express';
 import nodemailer from 'nodemailer';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import path from 'path';
 
 dotenv.config();
 
@@ -108,6 +109,27 @@ app.post('/api/send-email', async (req, res) => {
 // Health check endpoint
 app.get('/api/health', (req, res) => {
   res.json({ status: 'Server is running' });
+});
+
+// Serve static files from the Vite build (dist) if present.
+// This makes the same server responsible for the API and the frontend
+// when deploying a fullstack app to hosts like Hostinger.
+const distPath = path.join(process.cwd(), 'dist');
+app.use(express.static(distPath));
+
+// Fallback to index.html for client-side routing (SPA). Keep API routes above.
+app.get('/*', (req, res) => {
+  // Do not attempt to serve index for API routes
+  if (req.path.startsWith('/api')) {
+    return res.status(404).json({ error: 'Not found' });
+  }
+
+  res.sendFile(path.join(distPath, 'index.html'), (err) => {
+    if (err) {
+      console.error('Error sending index.html:', err);
+      res.status(500).send('Internal Server Error');
+    }
+  });
 });
 
 app.listen(PORT, () => {
