@@ -27,11 +27,6 @@ export default function Home() {
       image: SERVICE_IMAGES.life,
       slug: "life",
     },
-    {
-      title: "Home Insurance",
-      image: SERVICE_IMAGES.home,
-      slug: "home",
-    },
   ];
 
   const features = [
@@ -80,7 +75,7 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
             <div>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-                Protect what matters most with comprehensive cover
+                To serve as a sole, reliable source for addressing all insurance needs of individuals or body of associates by identifying and delivering the best value solutions.
               </h1>
               <p className="text-lg md:text-xl mb-8 text-blue-100">
                
