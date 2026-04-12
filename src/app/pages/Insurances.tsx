@@ -1,13 +1,12 @@
 import React from "react";
 import { Link, useParams, useNavigate } from "react-router";
-import { ArrowRight, ChevronRight, Shield, Phone, CheckCircle2, Info, X } from "lucide-react";
+import { ArrowRight, ChevronRight, Shield, Phone, CheckCircle2, Info } from "lucide-react";
 import { Button } from "../components/ui/button";
 import {
   Sheet,
   SheetContent,
   SheetHeader,
   SheetTitle,
-  SheetClose,
 } from "../components/ui/sheet";
 import whatsappIcon from "../components/assets/whatsapp.svg";
 
@@ -1597,9 +1596,6 @@ export default function Insurances() {
                 className="relative px-6 pt-8 pb-6 text-white"
                 style={{ background: activeCategory.heroGradient }}
               >
-                <SheetClose className="absolute top-4 right-4 rounded-full bg-white/10 hover:bg-white/20 p-1.5 transition">
-                  <X className="size-4 text-white" />
-                </SheetClose>
                 <p className="text-xs font-semibold uppercase tracking-widest text-white/60 mb-2">{activeCategory.label}</p>
                 <SheetHeader>
                   <SheetTitle className="text-white text-xl font-bold leading-snug text-left">
