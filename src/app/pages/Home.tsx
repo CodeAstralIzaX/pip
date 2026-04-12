@@ -11,7 +11,7 @@ import whatsappIcon from "../components/assets/whatsapp.svg";
 const SERVICE_IMAGES = {
   general: generalInsuranceImg,
   life:    lifeInsuranceImg,
-  home:    homeInsuranceImg,
+  health:  homeInsuranceImg,   // swap with a dedicated health image when available
 };
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -26,6 +26,11 @@ export default function Home() {
       title: "Life Insurance",
       image: SERVICE_IMAGES.life,
       slug: "life",
+    },
+    {
+      title: "Health Insurance",
+      image: SERVICE_IMAGES.health,
+      slug: "health",
     },
   ];
 

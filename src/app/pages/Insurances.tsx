@@ -985,6 +985,7 @@ export default function Insurances() {
   React.useEffect(() => {
     setActiveSubId(activeCategory.subCategories[0].id);
     setSelectedPlan(null);
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
   }, [activeCategory.id]);
 
   const activeSub =
