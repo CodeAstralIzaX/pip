@@ -31,12 +31,6 @@ export function Footer() {
               <a href="https://www.facebook.com/share/18kKZfCW4S/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" className="hover:text-secondary transition-colors" aria-label="Facebook">
                 <Facebook className="size-5" />
               </a>
-              <a href="#" className="hover:text-secondary transition-colors" aria-label="Twitter">
-                <Twitter className="size-5" />
-              </a>
-              <a href="#" className="hover:text-secondary transition-colors" aria-label="LinkedIn">
-                <Linkedin className="size-5" />
-              </a>
               <a href="https://www.instagram.com/premierinsurancepartners/" target="_blank" rel="noopener noreferrer" className="hover:text-secondary transition-colors" aria-label="Instagram">
                 <Instagram className="size-5" />
               </a>
@@ -73,14 +67,9 @@ export function Footer() {
                 <Link to="/insurances" className="hover:text-secondary transition-colors">Life Insurance</Link>
               </li>
               <li>
-                <Link to="/insurances" className="hover:text-secondary transition-colors">Home Insurance</Link>
-              </li>
-              <li>
                 <Link to="/insurances" className="hover:text-secondary transition-colors">Health Insurance</Link>
               </li>
-              <li>
-                <Link to="/insurances" className="hover:text-secondary transition-colors">Business Insurance</Link>
-              </li>
+             
             </ul>
           </div>
 
