@@ -76,10 +76,10 @@ export default function Home() {
         }}
       >
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(0,0,0,0.35)_100%)]" />
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-14 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-14 md:py-24 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center min-h-[320px]">
             <div>
-              <h1 className="text-xl md:text-2xl lg:text-3xl font-semibold mb-4 leading-relaxed">
+              <h1 className="text-2xl md:text-3xl lg:text-4xl font-semibold mb-6 leading-relaxed">
                 To serve as a sole, reliable source for addressing all insurance needs of individuals or body of associates by identifying and delivering the best value solutions.
               </h1>
               <div className="flex flex-col sm:flex-row gap-4">
@@ -92,7 +92,7 @@ export default function Home() {
               </div>
             </div>
             <div className="hidden lg:flex items-center justify-center">
-              <img src={heroSection} alt="Premier Insurance Partners Header" loading="lazy" decoding="async" width={560} height={380} className="h-80 w-auto object-contain" />
+              <img src={heroSection} alt="Premier Insurance Partners Header" loading="lazy" decoding="async" width={620} height={420} className="h-96 w-auto object-contain drop-shadow-2xl" />
             </div>
           </div>
         </div>
