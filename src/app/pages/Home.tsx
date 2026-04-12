@@ -79,7 +79,7 @@ export default function Home() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
             <div>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+              <h1 className="text-xl md:text-2xl lg:text-3xl font-semibold mb-6 leading-relaxed">
                 To serve as a sole, reliable source for addressing all insurance needs of individuals or body of associates by identifying and delivering the best value solutions.
               </h1>
               <p className="text-lg md:text-xl mb-8 text-blue-100">
