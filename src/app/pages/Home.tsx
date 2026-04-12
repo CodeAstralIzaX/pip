@@ -127,16 +127,16 @@ export default function Home() {
       </section> */}
 
       {/* Services Section */}
-      <section className="py-16 md:py-24 bg-white">
+      <section className="py-10 md:py-16 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           {/* Section header */}
-          <div className="text-center mb-12">
-            <div className="w-8 h-0.5 bg-primary mx-auto mb-6" />
+          <div className="text-center mb-8">
+            <div className="w-8 h-0.5 bg-primary mx-auto mb-4" />
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Our Insurance Services</h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
               Comprehensive coverage options designed to protect every aspect of your life.
             </p>
-            <div className="w-8 h-0.5 bg-secondary mx-auto mt-6" />
+            <div className="w-8 h-0.5 bg-secondary mx-auto mt-4" />
           </div>
 
           {/* Image cards grid */}
@@ -145,7 +145,7 @@ export default function Home() {
               <Link
                 key={index}
                 to={`/insurances/${service.slug}`}
-                className="group relative rounded-2xl overflow-hidden h-72 md:h-80 block"
+                className="group relative rounded-2xl overflow-hidden h-60 md:h-64 block"
               >
                 {/* Background image */}
                 <img
