@@ -20,14 +20,17 @@ export default function Home() {
     {
       title: "General Insurance",
       image: SERVICE_IMAGES.general,
+      slug: "general",
     },
     {
       title: "Life Insurance",
       image: SERVICE_IMAGES.life,
+      slug: "life",
     },
     {
       title: "Home Insurance",
       image: SERVICE_IMAGES.home,
+      slug: "home",
     },
   ];
 
@@ -144,7 +147,7 @@ export default function Home() {
             {services.map((service, index) => (
               <Link
                 key={index}
-                to="/insurances"
+                to={`/insurances/${service.slug}`}
                 className="group relative rounded-2xl overflow-hidden h-72 md:h-80 block"
               >
                 {/* Background image */}

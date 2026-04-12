@@ -12,6 +12,7 @@ export const router = createBrowserRouter([
     children: [
       { index: true, Component: Home },
       { path: "insurances", Component: Insurances },
+      { path: "insurances/:category", Component: Insurances },
       { path: "claims", Component: Claims },
       { path: "contact", Component: Contact },
     ],

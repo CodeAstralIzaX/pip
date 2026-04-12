@@ -1,223 +1,449 @@
-import { Link } from "react-router";
-import { Target, Eye, Heart, TrendingUp, Users2, Award, ArrowRight } from "lucide-react";
+import React from "react";
+import { Link, useParams, useNavigate } from "react-router";
+import { ArrowRight, ChevronRight, Shield, Phone } from "lucide-react";
 import { Button } from "../components/ui/button";
-import { Card, CardContent } from "../components/ui/card";
-import { ImageWithFallback } from "../components/figma/ImageWithFallback";
+import whatsappIcon from "../components/assets/whatsapp.svg";
 
-export default function About() {
-  const values = [
-    {
-      icon: Heart,
-      title: "Integrity",
-      description: "We operate with honesty and transparency in all our dealings.",
-    },
-    {
-      icon: Users2,
-      title: "Customer First",
-      description: "Your needs and satisfaction are at the heart of everything we do.",
-    },
-    {
-      icon: Award,
-      title: "Excellence",
-      description: "We strive for the highest standards in service and coverage.",
-    },
-    {
-      icon: TrendingUp,
-      title: "Innovation",
-      description: "We continuously improve to offer better solutions for our clients.",
-    },
-  ];
+// ─── Types ────────────────────────────────────────────────────────────────────
+interface Plan {
+  name: string;
+  description: string;
+}
 
-  const stats = [
-    { value: "25+", label: "Years of Experience" },
-    { value: "50,000+", label: "Satisfied Customers" },
-    { value: "98%", label: "Customer Retention" },
-    { value: "24/7", label: "Support Available" },
-  ];
+interface SubCategory {
+  id: string;
+  label: string;
+  plans: Plan[];
+}
 
-  const team = [
-    {
-      name: "Sarah Mitchell",
-      role: "CEO & Founder",
-      description: "25+ years in insurance industry leadership",
-    },
-    {
-      name: "David Chen",
-      role: "Chief Operating Officer",
-      description: "Expert in operational excellence and customer service",
-    },
-    {
-      name: "Emily Rodriguez",
-      role: "Head of Client Relations",
-      description: "Dedicated to ensuring client satisfaction and success",
-    },
-    {
-      name: "Michael Thompson",
-      role: "Senior Insurance Advisor",
-      description: "Specialist in complex coverage solutions",
-    },
-  ];
+interface Category {
+  id: string;
+  label: string;
+  tagline: string;
+  heroGradient: string;
+  subCategories: SubCategory[];
+}
+
+// ─── Data ─────────────────────────────────────────────────────────────────────
+const CATEGORIES: Category[] = [
+  {
+    id: "life",
+    label: "Life Insurance",
+    tagline: "Small steps today, strong future tomorrow",
+    heroGradient: "radial-gradient(100% 100% at 50% 50%, #002E5F 62.5%, #0D5097 100%)",
+    subCategories: [
+      {
+        id: "endowment",
+        label: "Endowment Plans",
+        plans: [
+          { name: "Single Premium Endowment Plan", description: "A single-premium savings plan that provides life cover with a lump-sum maturity benefit." },
+          { name: "New Endowment Plan", description: "Combines savings and protection; ideal for long-term financial goals with bonus participation." },
+          { name: "New Jeevan Anand", description: "An endowment plan offering lifelong protection even after policy maturity along with bonuses." },
+          { name: "Jeevan Lakshya", description: "Provides guaranteed annual income to family if the life assured passes away during the term." },
+          { name: "Jeevan Labh Plan", description: "Limited premium endowment plan with attractive bonuses and a lump sum on maturity." },
+          { name: "Amritbaal", description: "A child-focused endowment plan ensuring funds for key milestones like education and marriage." },
+          { name: "Bima Jyoti", description: "Guaranteed additions-based endowment with predictable returns and life cover." },
+          { name: "Nav Jeevan Shree", description: "Flexible premium payment option with guaranteed additions and maturity benefits." },
+          { name: "Bima Lakshmi", description: "Women-centric endowment plan designed to address unique financial needs of women." },
+        ],
+      },
+      {
+        id: "wholelife",
+        label: "Whole Life Plans",
+        plans: [
+          { name: "Whole Life Policy", description: "Provides lifelong coverage with premiums payable for a limited period and sum assured at age 100." },
+          { name: "LIC Jeevan Umang", description: "Offers whole life cover with annual survival benefits from end of premium-paying term." },
+          { name: "LIC Jeevan Utsav", description: "Whole life plan with guaranteed additions and flexible income or lump-sum payout." },
+        ],
+      },
+      {
+        id: "moneyback",
+        label: "Money Back Plans",
+        plans: [
+          { name: "New Money Back Plan – 20 Years", description: "Provides periodic survival benefits during the term plus full sum assured at maturity." },
+          { name: "New Money Back Plan – 25 Years", description: "25-year money-back plan with regular payouts every 5 years during the policy term." },
+          { name: "Jeevan Tarun", description: "Child money-back plan with flexible survival benefits from age 20 to 24, ideal for education." },
+          { name: "Bima Bachat", description: "Single premium money-back plan with survival benefits paid at regular intervals." },
+        ],
+      },
+      {
+        id: "term",
+        label: "Term Assurance Plans",
+        plans: [
+          { name: "LIC Tech Term", description: "Online pure term plan with high sum assured at affordable premiums — no physical medical." },
+          { name: "LIC Jeevan Amar", description: "Flexible term plan with increasing or level cover options to suit your changing needs." },
+          { name: "LIC New Tech Term", description: "Updated online term plan with premium return option and wider sum assured bands." },
+        ],
+      },
+      {
+        id: "riders",
+        label: "Riders",
+        plans: [
+          { name: "Accidental Death & Disability Benefit Rider", description: "Extra benefit paid on accidental death or permanent disability during the policy term." },
+          { name: "Accident Benefit Rider", description: "Additional sum paid on accidental death; can be attached to select base plans." },
+          { name: "New Critical Illness Benefit Rider", description: "Lump sum on diagnosis of any of the covered 15 critical illnesses." },
+          { name: "Premium Waiver Benefit Rider", description: "Waives future premiums if the proposer dies during the term." },
+        ],
+      },
+    ],
+  },
+  {
+    id: "general",
+    label: "General Insurance",
+    tagline: "Comprehensive protection for every risk you face",
+    heroGradient: "radial-gradient(100% 100% at 50% 50%, #003a1f 62.5%, #006b3a 100%)",
+    subCategories: [
+      {
+        id: "motor",
+        label: "Motor Insurance",
+        plans: [
+          { name: "Private Car Insurance", description: "Comprehensive and third-party cover for your personal car against accidents, theft, and natural calamities." },
+          { name: "Two-Wheeler Insurance", description: "Mandatory and comprehensive policies to protect your bike or scooter on every ride." },
+          { name: "Commercial Vehicle Insurance", description: "Cover for taxis, trucks, buses, and other commercial vehicles including goods in transit." },
+        ],
+      },
+      {
+        id: "health",
+        label: "Health Insurance",
+        plans: [
+          { name: "Individual Health Plan", description: "Covers hospitalisation, day-care procedures, pre- and post-hospitalisation expenses." },
+          { name: "Family Floater Plan", description: "A single sum insured shared by all family members — more economical than individual plans." },
+          { name: "Critical Illness Plan", description: "Lump-sum payout on diagnosis of life-threatening illnesses like cancer, heart attack, or stroke." },
+          { name: "Senior Citizen Health Plan", description: "Designed for individuals above 60 — covers pre-existing diseases after a short waiting period." },
+        ],
+      },
+      {
+        id: "travel",
+        label: "Travel Insurance",
+        plans: [
+          { name: "Domestic Travel Insurance", description: "Covers trip cancellation, medical emergencies, and baggage loss during travel within India." },
+          { name: "International Travel Insurance", description: "Comprehensive cover for overseas travel including medical, repatriation, and loss of passport." },
+          { name: "Student Travel Insurance", description: "Specially designed for students studying abroad covering tuition fee protection and medical expenses." },
+        ],
+      },
+      {
+        id: "fire",
+        label: "Fire & Property",
+        plans: [
+          { name: "Standard Fire & Special Perils", description: "Covers damage to buildings and contents due to fire, lightning, storm, and allied perils." },
+          { name: "Householders Package", description: "All-in-one home insurance covering building, contents, burglary, and electronic equipment." },
+          { name: "Shopkeepers Package", description: "Comprehensive cover for shop premises, stock, employees, and public liability." },
+        ],
+      },
+    ],
+  },
+  {
+    id: "home",
+    label: "Home Insurance",
+    tagline: "Your home is your sanctuary — keep it safe",
+    heroGradient: "radial-gradient(100% 100% at 50% 50%, #4a1a00 62.5%, #9b3d00 100%)",
+    subCategories: [
+      {
+        id: "structure",
+        label: "Structure Cover",
+        plans: [
+          { name: "Building Structure Insurance", description: "Covers the physical structure of your home against fire, flood, storm, earthquake, and other perils." },
+          { name: "Apartment Insurance", description: "Specifically designed for flat owners — covers the interior structure and common area liability." },
+          { name: "Under-Construction Cover", description: "Protects your investment during the construction phase against unforeseen structural damage." },
+        ],
+      },
+      {
+        id: "contents",
+        label: "Contents Cover",
+        plans: [
+          { name: "Household Contents Insurance", description: "Covers furniture, appliances, electronics, and valuables inside your home against theft and damage." },
+          { name: "Jewellery & Valuables Floater", description: "All-risk cover for jewellery, watches, and portable valuables both at home and outside." },
+          { name: "Electronic Equipment Cover", description: "Protection for laptops, home theatres, refrigerators, and other electronic appliances." },
+        ],
+      },
+      {
+        id: "liability",
+        label: "Liability Cover",
+        plans: [
+          { name: "Owner's Liability Insurance", description: "Covers legal liability arising from bodily injury or property damage to third parties on your premises." },
+          { name: "Domestic Servant Liability", description: "Protects you against legal claims by domestic workers injured while working in your home." },
+        ],
+      },
+      {
+        id: "addon",
+        label: "Add-On Covers",
+        plans: [
+          { name: "Rent Compensation", description: "Pays alternative accommodation expenses if your home becomes uninhabitable due to an insured peril." },
+          { name: "Key & Lock Replacement", description: "Covers cost of replacing locks and keys after a burglary or loss." },
+          { name: "Pedal Cycle Cover", description: "Covers your bicycles against accidental damage, theft, and third-party claims." },
+        ],
+      },
+    ],
+  },
+  {
+    id: "health",
+    label: "Health Insurance",
+    tagline: "Your health is your greatest wealth — protect it",
+    heroGradient: "radial-gradient(100% 100% at 50% 50%, #1a003f 62.5%, #4b0082 100%)",
+    subCategories: [
+      {
+        id: "individual",
+        label: "Individual Plans",
+        plans: [
+          { name: "Individual Health Insurance", description: "Covers hospitalisation and related medical expenses for a single person." },
+          { name: "Personal Accident Plan", description: "Provides compensation for accidental death, disability, and medical expenses due to accidents." },
+          { name: "Hospital Cash Benefit", description: "Daily cash allowance for each day of hospitalisation to cover incidental expenses." },
+        ],
+      },
+      {
+        id: "family",
+        label: "Family Plans",
+        plans: [
+          { name: "Family Floater Plan", description: "One sum insured covers all family members — cost-effective and hassle-free." },
+          { name: "Maternity Insurance", description: "Covers normal and C-section delivery expenses along with newborn baby cover." },
+          { name: "Child Health Plan", description: "Tailored plan for children covering hospitalisation, vaccinations, and day-care procedures." },
+        ],
+      },
+      {
+        id: "senior",
+        label: "Senior Citizen Plans",
+        plans: [
+          { name: "Senior Citizen Health Plan", description: "Comprehensive cover for individuals aged 60+ including pre-existing disease coverage." },
+          { name: "Arogya Sanjeevani Policy", description: "Standard health plan with uniform features across all insurers — easy to understand and compare." },
+        ],
+      },
+      {
+        id: "critical",
+        label: "Critical Illness",
+        plans: [
+          { name: "Cancer Care Plan", description: "Lump sum payout at various stages of cancer diagnosis to cover treatment and recovery." },
+          { name: "Heart Care Plan", description: "Covers cardiac surgeries, heart attacks, and related hospitalisation." },
+          { name: "Comprehensive Critical Illness", description: "Covers 30+ critical illnesses including cancer, stroke, organ failure, and more." },
+        ],
+      },
+    ],
+  },
+  {
+    id: "business",
+    label: "Business Insurance",
+    tagline: "Safeguard your business, secure your success",
+    heroGradient: "radial-gradient(100% 100% at 50% 50%, #1a1a00 62.5%, #4d4d00 100%)",
+    subCategories: [
+      {
+        id: "property",
+        label: "Property & Assets",
+        plans: [
+          { name: "Commercial Property Insurance", description: "Covers office buildings, warehouses, and business premises against fire and allied perils." },
+          { name: "Machinery Breakdown Insurance", description: "Covers sudden breakdown of plant and machinery leading to business interruption." },
+          { name: "Electronic Equipment Insurance", description: "All-risk cover for computers, servers, and electronic equipment used in your business." },
+        ],
+      },
+      {
+        id: "bizliability",
+        label: "Liability Insurance",
+        plans: [
+          { name: "Public Liability Insurance", description: "Covers legal liability to third parties for bodily injury or property damage." },
+          { name: "Product Liability Insurance", description: "Protects manufacturers and sellers from claims arising from defective products." },
+          { name: "Professional Indemnity", description: "Protects professionals against claims of negligence or errors in their professional services." },
+          { name: "Directors & Officers Liability", description: "Covers personal liability of directors and officers for wrongful acts in managing the company." },
+        ],
+      },
+      {
+        id: "employee",
+        label: "Employee Benefits",
+        plans: [
+          { name: "Group Health Insurance", description: "Provides health coverage to all employees under a single policy — great for team welfare." },
+          { name: "Group Term Life Insurance", description: "Life cover for employees with low premiums and easy enrollment." },
+          { name: "Workmen's Compensation", description: "Mandatory cover protecting employers from claims by employees injured during work." },
+        ],
+      },
+      {
+        id: "marine",
+        label: "Marine & Transit",
+        plans: [
+          { name: "Marine Cargo Insurance", description: "Covers goods in transit by sea, air, road, or rail against loss and damage." },
+          { name: "Marine Hull Insurance", description: "Covers the vessel itself against damage, collision, fire, and total loss." },
+          { name: "Inland Transit Insurance", description: "Protects cargo transported by road or rail within India." },
+        ],
+      },
+    ],
+  },
+];
+
+function getCategoryById(id: string): Category {
+  return CATEGORIES.find((c) => c.id === id) ?? CATEGORIES[0];
+}
+
+// ─── Component ────────────────────────────────────────────────────────────────
+export default function Insurances() {
+  const { category: categoryParam } = useParams<{ category: string }>();
+  const navigate = useNavigate();
+
+  const activeCategory = getCategoryById(categoryParam ?? CATEGORIES[0].id);
+  const [activeSubId, setActiveSubId] = React.useState(activeCategory.subCategories[0].id);
+
+  React.useEffect(() => {
+    setActiveSubId(activeCategory.subCategories[0].id);
+  }, [activeCategory.id]);
+
+  const activeSub =
+    activeCategory.subCategories.find((s) => s.id === activeSubId) ??
+    activeCategory.subCategories[0];
 
   return (
     <div className="w-full">
-      {/* Hero Section */}
+      {/* ── Hero ───────────────────────────────────────────────── */}
       <section
-        className="relative text-white py-20 md:py-32 overflow-hidden"
-        style={{
-          background: "radial-gradient(100% 100% at 50% 50%, #002E5F 62.5%, #0D5097 100%)",
-        }}
+        className="relative text-white py-16 md:py-24 overflow-hidden"
+        style={{ background: activeCategory.heroGradient }}
       >
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(0,0,0,0.35)_100%)]" />
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="max-w-3xl">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">About Premier Insurance Partners</h1>
-            <p className="text-xl text-blue-100">
-              For over 25 years, we've been dedicated to protecting what matters most to families and businesses across the nation.
-            </p>
-          </div>
+          <nav className="flex items-center gap-1.5 text-sm text-blue-200 mb-6" aria-label="Breadcrumb">
+            <Link to="/" className="hover:text-white transition-colors">Home</Link>
+            <ChevronRight className="size-3.5 shrink-0" />
+            <span className="text-white font-medium">{activeCategory.label}</span>
+          </nav>
+          <h1 className="text-4xl md:text-5xl font-bold mb-3">{activeCategory.label}</h1>
+          <p className="text-lg text-blue-100 italic">&ldquo;{activeCategory.tagline}&rdquo;</p>
         </div>
       </section>
 
-      {/* Stats Section */}
-      <section className="py-12 bg-white border-b">
+      {/* ── Category pills ─────────────────────────────────────── */}
+      <div className="bg-white border-b shadow-sm sticky top-0 z-20 overflow-x-auto">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {stats.map((stat, index) => (
-              <div key={index} className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-blue-600 mb-2">{stat.value}</div>
-                <div className="text-gray-600">{stat.label}</div>
-              </div>
+          <div className="flex gap-1 py-2 min-w-max">
+            {CATEGORIES.map((cat) => (
+              <button
+                key={cat.id}
+                onClick={() => navigate(`/insurances/${cat.id}`)}
+                className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all duration-200 ${
+                  activeCategory.id === cat.id
+                    ? "bg-primary text-white shadow-sm"
+                    : "text-gray-600 hover:bg-gray-100"
+                }`}
+              >
+                {cat.label}
+              </button>
             ))}
           </div>
         </div>
-      </section>
+      </div>
 
-      {/* Story Section */}
-      <section className="py-16 md:py-24 bg-gray-50">
+      {/* ── Main: sidebar + plans ──────────────────────────────── */}
+      <section className="py-10 md:py-16 bg-gray-50">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">Our Story</h2>
-              <div className="space-y-4 text-gray-600">
-                <p>
-                  Premier Insurance Partners was founded in 1999 with a simple mission: to provide honest, reliable insurance coverage with a personal touch that larger companies had forgotten.
-                </p>
-                <p>
-                  What started as a small family business in New York has grown into a trusted partner for over 50,000 families and businesses nationwide. Through every stage of growth, we've maintained our commitment to personalized service and genuine care for our clients.
-                </p>
-                <p>
-                  Today, we combine the resources and coverage options of a major insurance provider with the personalized attention and local expertise of a family-owned business. Our team of experienced professionals is dedicated to understanding your unique needs and finding the right coverage to protect what matters most to you.
-                </p>
+          <div className="flex flex-col lg:flex-row gap-8">
+
+            {/* LEFT SIDEBAR */}
+            <aside className="lg:w-64 shrink-0">
+              <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                <div
+                  className="px-5 py-4 text-white text-sm font-semibold uppercase tracking-wide"
+                  style={{ background: activeCategory.heroGradient }}
+                >
+                  Plan Categories
+                </div>
+                <nav className="flex flex-row lg:flex-col overflow-x-auto lg:overflow-visible">
+                  {activeCategory.subCategories.map((sub) => (
+                    <button
+                      key={sub.id}
+                      onClick={() => setActiveSubId(sub.id)}
+                      className={`flex items-center justify-between px-5 py-3.5 text-sm font-medium text-left whitespace-nowrap lg:whitespace-normal border-b border-gray-50 last:border-b-0 transition-all duration-150 ${
+                        activeSub.id === sub.id
+                          ? "bg-primary/5 text-primary border-l-4 border-l-primary"
+                          : "text-gray-600 hover:bg-gray-50 hover:text-gray-900 border-l-4 border-l-transparent"
+                      }`}
+                    >
+                      <span>{sub.label}</span>
+                      {activeSub.id === sub.id && (
+                        <ChevronRight className="size-4 shrink-0 hidden lg:block" />
+                      )}
+                    </button>
+                  ))}
+                </nav>
               </div>
-            </div>
-            <div>
-              <ImageWithFallback
-                src="https://images.unsplash.com/photo-1770777843445-2a1621b1201d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxidXNpbmVzcyUyMHRlYW0lMjBvZmZpY2UlMjBtb2Rlcm58ZW58MXx8fHwxNzc0Nzg5NTgxfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
-                alt="Our team at work"
-                className="rounded-lg shadow-xl w-full h-auto"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
 
-      {/* Mission & Vision */}
-      <section className="py-16 md:py-24 bg-white">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-            <Card className="border-2 border-blue-100">
-              <CardContent className="p-8">
-                <div className="bg-blue-100 w-14 h-14 rounded-full flex items-center justify-center mb-4">
-                  <Target className="size-7 text-blue-600" />
-                </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">Our Mission</h3>
-                <p className="text-gray-600">
-                  To provide comprehensive, affordable insurance solutions while delivering exceptional customer service that builds lasting relationships and peace of mind for our clients.
-                </p>
-              </CardContent>
-            </Card>
-            <Card className="border-2 border-blue-100">
-              <CardContent className="p-8">
-                <div className="bg-blue-100 w-14 h-14 rounded-full flex items-center justify-center mb-4">
-                  <Eye className="size-7 text-blue-600" />
-                </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">Our Vision</h3>
-                <p className="text-gray-600">
-                  To be the most trusted insurance partner in America, recognized for our integrity, innovation, and unwavering commitment to protecting what matters most to our clients.
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
+              {/* Quick contact */}
+              <div className="mt-6 bg-primary rounded-2xl p-5 text-white shadow-md hidden lg:block">
+                <Shield className="size-8 mb-3 opacity-80" />
+                <p className="text-sm font-semibold mb-1">Need help choosing?</p>
+                <p className="text-xs text-blue-200 mb-4">Talk to our expert advisors.</p>
+                <a
+                  href="https://wa.me/+918778912704?text=Hi%2C%20I%20need%20info%20on%20policies"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-xs font-medium bg-white/10 hover:bg-white/20 transition px-3 py-2 rounded-lg"
+                >
+                  <img src={whatsappIcon} alt="WhatsApp" className="h-4 w-4" />
+                  Chat on WhatsApp
+                </a>
+              </div>
+            </aside>
 
-      {/* Values Section */}
-      <section className="py-16 md:py-24 bg-blue-50">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Our Core Values</h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              These principles guide everything we do and every decision we make.
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {values.map((value, index) => {
-              const Icon = value.icon;
-              return (
-                <Card key={index} className="bg-white hover:shadow-lg transition-shadow">
-                  <CardContent className="p-6 text-center">
-                    <div className="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <Icon className="size-8 text-blue-600" />
+            {/* RIGHT PANEL */}
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center justify-between mb-6">
+                <div>
+                  <h2 className="text-2xl font-bold text-gray-900">{activeSub.label}</h2>
+                  <p className="text-sm text-gray-500 mt-0.5">
+                    {activeSub.plans.length} plan{activeSub.plans.length !== 1 ? "s" : ""} available
+                  </p>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {activeSub.plans.map((plan, i) => (
+                  <div
+                    key={i}
+                    className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 flex flex-col gap-3"
+                  >
+                    <div className="flex items-start gap-3">
+                      <div className="mt-0.5 h-5 w-1 rounded-full bg-primary shrink-0" />
+                      <h3 className="text-base font-semibold text-gray-900 leading-snug">{plan.name}</h3>
                     </div>
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2">{value.title}</h3>
-                    <p className="text-gray-600">{value.description}</p>
-                  </CardContent>
-                </Card>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* Team Section */}
-      <section className="py-16 md:py-24 bg-white">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Meet Our Leadership Team</h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Experienced professionals dedicated to your protection and peace of mind.
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {team.map((member, index) => (
-              <Card key={index} className="border-gray-200 hover:shadow-lg transition-shadow">
-                <CardContent className="p-6 text-center">
-                  <div className="bg-blue-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Users2 className="size-10 text-blue-600" />
+                    <p className="text-sm text-gray-500 leading-relaxed pl-4">{plan.description}</p>
+                    <div className="pl-4">
+                      <Link
+                        to="/contact"
+                        className="inline-flex items-center gap-1 text-xs font-semibold text-primary hover:underline"
+                      >
+                        Get a Quote <ArrowRight className="size-3" />
+                      </Link>
+                    </div>
                   </div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-1">{member.name}</h3>
-                  <p className="text-blue-600 font-medium mb-2">{member.role}</p>
-                  <p className="text-sm text-gray-600">{member.description}</p>
-                </CardContent>
-              </Card>
-            ))}
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-16 md:py-24 bg-gradient-to-r from-blue-600 to-blue-700 text-white">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to Experience the Premier Difference?</h2>
-          <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-            Join thousands of satisfied customers who trust us to protect what matters most.
+      {/* ── CTA ────────────────────────────────────────────────── */}
+      <section
+        className="relative overflow-hidden py-14 md:py-20"
+        style={{ background: "radial-gradient(100% 100% at 50% 50%, #002E5F 62.5%, #0D5097 100%)" }}
+      >
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(0,0,0,0.3)_100%)]" />
+        <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <Phone className="size-12 mx-auto mb-5 text-white/60 stroke-[1.2]" />
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">Ready to secure your future?</h2>
+          <p className="text-lg text-blue-100 mb-8 max-w-xl mx-auto">
+            Our advisors will help you pick the perfect plan for your needs and budget.
           </p>
-          <Button asChild size="lg" className="bg-white text-blue-600 hover:bg-blue-50">
-            <Link to="/contact">
-              Get Your Free Quote
-              <ArrowRight className="ml-2 size-5" />
-            </Link>
-          </Button>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button asChild size="lg" className="bg-white text-primary hover:bg-blue-50">
+              <Link to="/contact">
+                Request a Consultation
+                <ArrowRight className="ml-2 size-5" />
+              </Link>
+            </Button>
+            <a
+              href="https://wa.me/+918778912704?text=Hi%2C%20I%20need%20info%20on%20policies"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-3 px-6 py-3 rounded-full font-semibold text-white text-sm transition-all duration-300 hover:brightness-110 hover:scale-105 shadow-lg"
+              style={{ background: "#cc9c42" }}
+            >
+              <img src={whatsappIcon} alt="WhatsApp" className="h-5 w-5" />
+              Enquire on WhatsApp
+            </a>
+          </div>
         </div>
       </section>
     </div>
