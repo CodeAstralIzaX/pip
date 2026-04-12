@@ -207,7 +207,7 @@ export default function Home() {
 
       {/* CTA Section */}
       <section
-        className="relative overflow-hidden py-16 md:py-24"
+        className="relative overflow-hidden py-10 md:py-16"
         style={{ background: "radial-gradient(100% 100% at 50% 50%, #002E5F 62.5%, #0D5097 100%)" }}
       >
         {/* Gold diagonal shape — hidden on mobile, visible md+ */}
@@ -225,12 +225,12 @@ export default function Home() {
 
         <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center">
           {/* Phone icon */}
-          <Phone className="size-14 mx-auto mb-6 text-white/70 stroke-[1.2]" />
+          <Phone className="size-12 mx-auto mb-4 text-white/70 stroke-[1.2]" />
 
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">
+          <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">
             Ready to Get Started?
           </h2>
-          <p className="text-lg text-blue-100 mb-8 max-w-xl mx-auto">
+          <p className="text-base text-blue-100 mb-6 max-w-xl mx-auto">
             Let's find the right coverage for you and your family.
           </p>
 
