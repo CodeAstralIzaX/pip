@@ -76,9 +76,11 @@
   "devDependencies": {
     "@tailwindcss/vite": "4.1.12",
     "@vitejs/plugin-react": "4.7.0",
+    "sharp": "^0.34.5",
+    "svgo": "^4.0.1",
     "tailwindcss": "4.1.12",
     "vite": "6.3.5",
-    "vite-plugin-imagemin": "^0.6.1"
+    "vite-plugin-image-optimizer": "^2.0.3"
   },
   "peerDependencies": {
     "react": "18.3.1",
