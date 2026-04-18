@@ -34,6 +34,12 @@ export function Footer() {
               <a href="https://www.instagram.com/premierinsurancepartners/" target="_blank" rel="noopener noreferrer" className="hover:text-secondary transition-colors" aria-label="Instagram">
                 <Instagram className="size-5" />
               </a>
+              <a href="https://x.com/PremierInsIndia" target="_blank" rel="noopener noreferrer" className="hover:text-secondary transition-colors" aria-label="X (Twitter)">
+                <Twitter className="size-5" />
+              </a>
+              <a href="https://www.linkedin.com/company/premier-insurance-partners" target="_blank" rel="noopener noreferrer" className="hover:text-secondary transition-colors" aria-label="LinkedIn">
+                <Linkedin className="size-5" />
+              </a>
             </div>
           </div>
 

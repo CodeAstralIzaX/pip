@@ -5,6 +5,28 @@
 [build.environment]
   NODE_VERSION = "20"
 
+# Redirect www → non-www (canonical domain)
+[[redirects]]
+  from   = "https://www.premierinsurance-partners.in/*"
+  to     = "https://premierinsurance-partners.in/:splat"
+  status = 301
+  force  = true
+
+# SPA fallback — serve index.html for all routes
+[[redirects]]
+  from   = "/*"
+  to     = "/index.html"
+  status = 200
+
+# HSTS + security headers on all pages
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+    X-Content-Type-Options    = "nosniff"
+    X-Frame-Options           = "SAMEORIGIN"
+    Referrer-Policy           = "strict-origin-when-cross-origin"
+
 # Never cache JS/CSS assets — they have content-hash filenames so this is safe
 [[headers]]
   for = "/assets/*.js"
