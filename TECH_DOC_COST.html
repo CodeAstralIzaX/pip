@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Premier Insurance Partners — Technical & Cost Evaluation</title>
+<style>
+  @page { margin: 20mm 18mm; size: A4; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; color: #1a1a1a; line-height: 1.6; padding: 40px; max-width: 900px; margin: auto; }
+  h1 { font-size: 26px; color: #002E5F; border-bottom: 3px solid #cc9c42; padding-bottom: 8px; margin-bottom: 6px; }
+  h2 { font-size: 20px; color: #002E5F; margin-top: 32px; margin-bottom: 12px; border-bottom: 1px solid #ddd; padding-bottom: 4px; }
+  h3 { font-size: 16px; color: #333; margin-top: 20px; margin-bottom: 8px; }
+  p, li { font-size: 13px; }
+  ul { padding-left: 20px; margin-bottom: 10px; }
+  li { margin-bottom: 4px; }
+  table { width: 100%; border-collapse: collapse; margin: 10px 0 16px; font-size: 13px; }
+  th, td { border: 1px solid #ccc; padding: 8px 10px; text-align: left; }
+  th { background: #002E5F; color: #fff; font-weight: 600; }
+  tr:nth-child(even) { background: #f7f7f7; }
+  .subtitle { font-size: 14px; color: #666; margin-bottom: 24px; }
+  .highlight { background: #fffbe6; padding: 2px 6px; border-radius: 3px; }
+  .total-row td { font-weight: 700; background: #e8f0fe !important; font-size: 14px; }
+  .section-note { font-size: 12px; color: #777; font-style: italic; margin-top: 4px; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; }
+  .badge-done { background: #d4edda; color: #155724; }
+  .badge-high { background: #f8d7da; color: #721c24; }
+  .badge-med { background: #fff3cd; color: #856404; }
+  .badge-low { background: #d1ecf1; color: #0c5460; }
+  .page-break { page-break-before: always; }
+  .footer { margin-top: 40px; padding-top: 12px; border-top: 2px solid #cc9c42; font-size: 11px; color: #999; text-align: center; }
+  @media print { body { padding: 0; } .no-print { display: none; } }
+</style>
+</head>
+<body>
+
+<h1>Premier Insurance Partners</h1>
+<p class="subtitle">Technical Documentation & Cost Evaluation Report<br/>
+<strong>Date:</strong> 18 April 2026 &nbsp;|&nbsp; <strong>Prepared for:</strong> Premier Insurance Partners &nbsp;|&nbsp; <strong>Version:</strong> 1.0</p>
+
+<!-- ───────────────────────────────────────── -->
+<h2>1. Project Overview</h2>
+<table>
+  <tr><th width="30%">Item</th><th>Details</th></tr>
+  <tr><td>Project Name</td><td>Premier Insurance Partners — Corporate Website</td></tr>
+  <tr><td>Repository</td><td>github.com/CodeAstralIzaX/pip</td></tr>
+  <tr><td>Live URL</td><td>premierinsurance-partners.netlify.app / premierinsurance-partners.in</td></tr>
+  <tr><td>Type</td><td>Single Page Application (SPA) — responsive, mobile-first</td></tr>
+  <tr><td>Hosting</td><td>Netlify (CI/CD from GitHub, auto-deploy on push)</td></tr>
+</table>
+
+<!-- ───────────────────────────────────────── -->
+<h2>2. Technology Stack</h2>
+<table>
+  <tr><th>Layer</th><th>Technology</th><th>Version</th></tr>
+  <tr><td>Frontend Framework</td><td>React</td><td>18.3.1</td></tr>
+  <tr><td>Routing</td><td>React Router</td><td>7.13.0</td></tr>
+  <tr><td>Build Tool</td><td>Vite</td><td>6.3.5</td></tr>
+  <tr><td>CSS Framework</td><td>Tailwind CSS</td><td>4.1.12</td></tr>
+  <tr><td>UI Library</td><td>Radix UI + shadcn/ui</td><td>Latest</td></tr>
+  <tr><td>Image Optimization</td><td>sharp + svgo</td><td>0.34.5 / 4.0.1</td></tr>
+  <tr><td>Language</td><td>TypeScript</td><td>—</td></tr>
+  <tr><td>Hosting & CI/CD</td><td>Netlify</td><td>—</td></tr>
+</table>
+
+<!-- ───────────────────────────────────────── -->
+<h2>3. Pages & Features Delivered</h2>
+
+<h3>3.1 Pages</h3>
+<table>
+  <tr><th>Page</th><th>Route</th><th>Key Features</th></tr>
+  <tr><td>Home</td><td><code>/</code></td><td>Hero with mission statement, 3 service cards (General, Life, Health), CTA section with WhatsApp</td></tr>
+  <tr><td>Insurances</td><td><code>/insurances/:category</code></td><td>3 categories, sub-category sidebar, 40+ plan cards, detail drawer</td></tr>
+  <tr><td>Claims</td><td><code>/claims</code></td><td>Claims information page</td></tr>
+  <tr><td>Contact</td><td><code>/contact</code></td><td>Contact form and details</td></tr>
+</table>
+
+<h3>3.2 Insurance Plans Data</h3>
+<table>
+  <tr><th>Category</th><th>Sub-Categories</th><th>Plans</th></tr>
+  <tr><td>Life Insurance</td><td>Endowment, Money-Back, Term, ULIP, Pension, Child</td><td>~18</td></tr>
+  <tr><td>General Insurance</td><td>Motor, Health, Travel, Fire & Property</td><td>~16</td></tr>
+  <tr><td>Health Insurance</td><td>Individual, Family, Senior Citizen, Critical Illness</td><td>~8</td></tr>
+  <tr class="total-row"><td colspan="2">Total Plans</td><td>~42</td></tr>
+</table>
+
+<h3>3.3 UI/UX Features</h3>
+<ul>
+  <li>Fully responsive design — mobile, tablet, desktop</li>
+  <li>Sticky navigation with intelligent active-state detection</li>
+  <li>Dynamic hero gradients per insurance category</li>
+  <li>Plan detail drawer (slide-in Sheet) with specs, benefits, CTAs</li>
+  <li>Scroll-to-top on all route transitions</li>
+  <li>WhatsApp integration for lead generation</li>
+  <li>Optimized images (compressed JPEG/PNG/SVG at build time)</li>
+  <li>Content-hashed assets with immutable cache headers</li>
+</ul>
+
+<!-- ───────────────────────────────────────── -->
+<div class="page-break"></div>
+<h2>4. SEO & Performance</h2>
+<table>
+  <tr><th>Item</th><th>Status</th><th>Details</th></tr>
+  <tr><td>Meta Description</td><td><span class="badge badge-done">Done</span></td><td>Keyword-rich, targeting all India</td></tr>
+  <tr><td>Keywords Meta Tag</td><td><span class="badge badge-done">Done</span></td><td>life, general, health, motor, LIC, travel insurance</td></tr>
+  <tr><td>Open Graph Tags</td><td><span class="badge badge-done">Done</span></td><td>Title, description, image for social sharing</td></tr>
+  <tr><td>Twitter Cards</td><td><span class="badge badge-done">Done</span></td><td>summary_large_image card</td></tr>
+  <tr><td>JSON-LD Structured Data</td><td><span class="badge badge-done">Done</span></td><td>InsuranceAgency schema with areaServed: India</td></tr>
+  <tr><td>Sitemap</td><td><span class="badge badge-done">Done</span></td><td>7 URLs with priority + lastmod</td></tr>
+  <tr><td>Robots.txt</td><td><span class="badge badge-done">Done</span></td><td>All crawlers allowed, sitemap declared</td></tr>
+  <tr><td>Canonical URL</td><td><span class="badge badge-done">Done</span></td><td>premierinsurance-partners.in</td></tr>
+  <tr><td>Image Optimization</td><td><span class="badge badge-done">Done</span></td><td>sharp + svgo at build time</td></tr>
+  <tr><td>Cache Headers</td><td><span class="badge badge-done">Done</span></td><td>Immutable for hashed assets, no-cache for HTML</td></tr>
+</table>
+
+<!-- ───────────────────────────────────────── -->
+<h2>5. Bug Fixes & Critical Issues Resolved</h2>
+<table>
+  <tr><th>Issue</th><th>Root Cause</th><th>Resolution</th></tr>
+  <tr><td><code>useLayoutEffect</code> undefined crash</td><td>Circular chunk dependency from split vendor build</td><td>Merged all node_modules into single vendor chunk</td></tr>
+  <tr><td>Netlify build crash (silent)</td><td><code>vite-plugin-imagemin</code> native C binaries fail on Linux</td><td>Replaced with pure-JS <code>vite-plugin-image-optimizer</code></td></tr>
+  <tr><td>Stale dist in Git repo</td><td>dist/ committed to version control</td><td>Removed from Git, added to .gitignore, Netlify builds from source</td></tr>
+  <tr><td>Page loads at bottom on navigation</td><td>No scroll reset on route change</td><td>Added scroll-to-top in RootLayout</td></tr>
+  <tr><td>Sheet close button invisible</td><td>Default dark icon on dark background</td><td>White icon with drop-shadow</td></tr>
+  <tr><td>Nav not active on sub-routes</td><td>Exact-match path comparison</td><td>Changed to startsWith() prefix matching</td></tr>
+</table>
+
+<!-- ───────────────────────────────────────── -->
+<h2>6. Cost Evaluation — Development Effort</h2>
+
+<h3>6.1 Work Breakdown</h3>
+<table>
+  <tr><th>Task</th><th>Complexity</th><th>Estimated Hours</th></tr>
+  <tr><td>Project setup, scaffolding, Vite + React + Tailwind config</td><td>Medium</td><td>4</td></tr>
+  <tr><td>Header component (responsive, sticky, active states)</td><td>Medium</td><td>3</td></tr>
+  <tr><td>Footer component (4-column, socials, contact info)</td><td>Low</td><td>2</td></tr>
+  <tr><td>Home page — hero section, service cards, CTA</td><td>Medium</td><td>5</td></tr>
+  <tr><td>Insurance plans — data architecture (42 plans, 3 categories, sub-tabs)</td><td>High</td><td>8</td></tr>
+  <tr><td>Insurance page — category browser UI, sidebar, pill bar, hero gradients</td><td>High</td><td>8</td></tr>
+  <tr><td>Plan detail drawer (Sheet) — specs table, benefits, CTAs</td><td>High</td><td>6</td></tr>
+  <tr><td>Claims page</td><td>Low</td><td>2</td></tr>
+  <tr><td>Contact page</td><td>Low</td><td>2</td></tr>
+  <tr><td>Routing setup with deep-links + scroll-to-top</td><td>Medium</td><td>2</td></tr>
+  <tr><td>SEO — meta tags, OG, Twitter cards, JSON-LD, sitemap, robots.txt</td><td>Medium</td><td>3</td></tr>
+  <tr><td>Build optimization — vendor chunking, image compression</td><td>High</td><td>4</td></tr>
+  <tr><td>Netlify deployment — CI/CD, cache headers, SPA redirects</td><td>Medium</td><td>3</td></tr>
+  <tr><td>Bug fixes (6 critical issues — see Section 5)</td><td>High</td><td>6</td></tr>
+  <tr><td>UI refinements — heights, spacing, fonts, responsive tuning</td><td>Low</td><td>4</td></tr>
+  <tr><td>Testing & QA across devices</td><td>Medium</td><td>3</td></tr>
+  <tr><td>Documentation (TECH_DOC.md)</td><td>Low</td><td>1</td></tr>
+  <tr class="total-row"><td colspan="2">Total Estimated Effort</td><td>7 days</td></tr>
+</table>
+
+<h3>6.2 Cost Summary</h3>
+<table>
+  <tr><th>Item</th><th>Rate</th><th>Amount (₹)</th></tr>
+  <tr><td>Development (7 days)</td><td>₹ ____/day</td><td>—</td></tr>
+  <tr><td>Netlify Hosting (Free tier)</td><td>—</td><td>₹ 0</td></tr>
+  <tr><td>Image assets (own photography/stock)</td><td>—</td><td>—</td></tr>
+  <tr class="total-row"><td colspan="2">Total Project Cost</td><td>₹ __________</td></tr>
+</table>
+<p class="section-note">* Fill in your daily / fixed rate to calculate the total. The 7-day estimate covers design, development, deployment, debugging, SEO, and documentation.</p>
+
+<!-- ───────────────────────────────────────── -->
+<h2>7. Pending Recommendations</h2>
+<table>
+  <tr><th>Item</th><th>Priority</th><th>Effort</th></tr>
+  <tr><td>Submit sitemap to Google Search Console</td><td><span class="badge badge-high">High</span></td><td>30 min</td></tr>
+  <tr><td>Create Google Business Profile</td><td><span class="badge badge-high">High</span></td><td>1 hr</td></tr>
+  <tr><td>Connect custom domain to Netlify</td><td><span class="badge badge-med">Medium</span></td><td>30 min</td></tr>
+  <tr><td>Add per-page &lt;title&gt; tags (react-helmet)</td><td><span class="badge badge-med">Medium</span></td><td>2 hrs</td></tr>
+  <tr><td>Google Analytics / Plausible integration</td><td><span class="badge badge-med">Medium</span></td><td>1 hr</td></tr>
+  <tr><td>Lazy-load route components</td><td><span class="badge badge-low">Low</span></td><td>1 hr</td></tr>
+  <tr><td>Dedicated Health Insurance hero image</td><td><span class="badge badge-low">Low</span></td><td>30 min</td></tr>
+</table>
+
+<!-- ───────────────────────────────────────── -->
+<div class="footer">
+  Premier Insurance Partners — Technical & Cost Evaluation Report &nbsp;|&nbsp; 18 April 2026 &nbsp;|&nbsp; Confidential
+</div>
+
+</body>
+</html>

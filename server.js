@@ -143,16 +143,20 @@ const distPath = path.join(process.cwd(), 'dist');
 app.use(express.static(distPath));
 
 // Fallback to index.html for client-side routing (SPA). Keep API routes above.
-app.get('/*', (req, res) => {
-  // Do not attempt to serve index for API routes
+// Use a simple wildcard route to avoid path-to-regexp issues with certain router
+// versions (some path-to-regexp versions don't accept `/*` as a valid pattern).
+// Use a middleware fallback to serve index.html for non-API requests. Using
+// `app.use` avoids potential path-to-regexp parsing issues with some router
+// versions that choke on certain wildcard route patterns.
+app.use((req, res, next) => {
   if (req.path.startsWith('/api')) {
-    return res.status(404).json({ error: 'Not found' });
+    return next();
   }
 
   res.sendFile(path.join(distPath, 'index.html'), (err) => {
     if (err) {
       console.error('Error sending index.html:', err);
-      res.status(500).send('Internal Server Error');
+      return res.status(500).send('Internal Server Error');
     }
   });
 });
