@@ -48,7 +48,7 @@ export function Header() {
 
             {/* Desktop CTA */}
             <div className="hidden md:flex items-center gap-4">
-            <Button asChild variant="outline" className="border-secondary text-base font-semibold text-gray-900 bg-secondary hover:bg-secondary/90 hover:text-gray-900">
+            <Button asChild variant="outline" className="border-secondary text-base font-semibold text-white bg-secondary hover:bg-secondary/90 hover:text-white">
               <a href="https://wa.me/+918778912704?text=Hi%2C%20I%20need%20info%20on%20policies" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
               <img src={whatsapp} alt="WhatsApp Icon" className="h-5 w-auto" />
               Enquire Now
@@ -86,7 +86,7 @@ export function Header() {
                   {link.name}
                 </Link>
               ))}
-              <Button asChild variant="outline" className="border-secondary text-gray-900 font-semibold bg-secondary hover:bg-secondary/90 hover:text-gray-900 mt-3">
+              <Button asChild variant="outline" className="border-secondary text-white font-semibold bg-secondary hover:bg-secondary/90 hover:text-white mt-3">
                 <a
                   href="https://wa.me/+918778912704?text=Hi%2C%20I%20need%20info%20on%20policies"
                   target="_blank"

@@ -50,7 +50,7 @@ export default function Home() {
                 To serve as a sole, reliable source for addressing all insurance needs of individuals or body of associates by identifying and delivering the best value solutions.
               </h1>
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button asChild size="lg" className="bg-secondary hover:bg-secondary/90 text-gray-900 font-semibold">
+                <Button asChild size="lg" className="bg-secondary hover:bg-secondary/90 text-white font-semibold">
                   <Link to="/insurances">
                     Explore Our Policies
                     <ArrowRight className="ml-2 size-5" />
@@ -147,7 +147,7 @@ export default function Home() {
             href="https://wa.me/+918778912704?text=Hi%2C%20I%20need%20info%20on%20policies"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-3 px-8 py-3 rounded-full font-semibold text-gray-900 transition-all duration-300 hover:brightness-110 hover:scale-105 shadow-lg"
+            className="inline-flex items-center gap-3 px-8 py-3 rounded-full font-semibold text-white transition-all duration-300 hover:brightness-110 hover:scale-105 shadow-lg"
             style={{ background: "#cc9c42" }}
           >
             <img src={whatsappIcon} alt="WhatsApp" className="h-5 w-5" />
