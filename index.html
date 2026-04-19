@@ -12,10 +12,19 @@
       <link rel="apple-touch-icon" sizes="180x180" href="/og-image.png" />
       <link rel="canonical" href="https://premierinsurance-partners.in/" />
 
-      <!-- Google Fonts — preconnect to avoid render-blocking -->
+      <!-- Google Fonts — loaded asynchronously to avoid render-blocking -->
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Miranda+Sans:ital,wght@0,400..700;1,400..700&display=swap" />
+      <!-- media="print" loads non-blocking; onload swaps to "all" once ready -->
+      <link
+        rel="stylesheet"
+        media="print"
+        onload="this.media='all'"
+        href="https://fonts.googleapis.com/css2?family=Miranda+Sans:ital,wght@0,400..700;1,400..700&display=swap"
+      />
+      <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Miranda+Sans:ital,wght@0,400..700;1,400..700&display=swap" />
+      </noscript>
 
       <!-- Open Graph / Social -->
       <meta property="og:title" content="Premier Insurance Partners | LIC & Insurance Plans India" />

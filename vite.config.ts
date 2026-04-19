@@ -34,18 +34,19 @@ export default defineConfig({
   // File types to support raw imports. Never add .css, .tsx, or .ts files to this.
   assetsInclude: ['**/*.svg', '**/*.csv'],
   build: {
-    // Split vendor code and react into separate chunks to reduce initial payload
     rollupOptions: {
       output: {
-        // Keep things simple and avoid circular chunk references by grouping
-        // all node_modules into a single `vendor` chunk. Splitting out a
-        // separate `react-vendor` chunk previously introduced a circular
-        // dependency between chunks which can cause runtime errors like
-        // "useLayoutEffect is undefined" if chunk load order isn't correct.
         manualChunks(id) {
-          if (id.includes('node_modules')) {
-            return 'vendor'
-          }
+          if (!id.includes('node_modules')) return;
+          // lucide-react is a large pure-static icon library (~400KB raw).
+          // Isolating it means the main app bundle doesn't grow when new icons
+          // are added, and browsers can cache it independently.
+          if (id.includes('/lucide-react/')) return 'icons';
+          // Everything else (React, Radix, router, etc.) stays in vendor.
+          // Splitting React into its own chunk previously caused a circular
+          // chunk dependency (vendor → react-vendor → vendor), so we keep
+          // all remaining node_modules together.
+          return 'vendor';
         },
       },
     },

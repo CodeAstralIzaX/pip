@@ -27,7 +27,7 @@
     X-Frame-Options           = "SAMEORIGIN"
     Referrer-Policy           = "strict-origin-when-cross-origin"
 
-# Never cache JS/CSS assets — they have content-hash filenames so this is safe
+# Cache hashed JS/CSS assets for 1 year — content-hash names make this safe
 [[headers]]
   for = "/assets/*.js"
   [headers.values]
@@ -37,6 +37,43 @@
   for = "/assets/*.css"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
+
+# Cache hashed image assets for 1 year
+[[headers]]
+  for = "/assets/*.jpeg"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/assets/*.jpg"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/assets/*.png"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/assets/*.svg"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/assets/*.webp"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Static public assets (favicon, og-image, llms.txt, robots.txt, sitemap.xml)
+[[headers]]
+  for = "/favicon.svg"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
+
+[[headers]]
+  for = "/og-image.png"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
 
 # Never cache index.html — always fetch fresh so users get the latest chunk refs
 [[headers]]

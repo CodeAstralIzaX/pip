@@ -28,7 +28,7 @@ export function Header() {
           {/* Logo */}
 
           <Link to="/" className="flex items-center hover:opacity-80 transition-opacity">
-            <img src={logoHeader} alt="Premier Insurance Partners Header" className="h-20 w-auto" />
+            <img src={logoHeader} alt="Premier Insurance Partners" width={160} height={55} className="h-14 w-auto" />
           </Link>
 
           {/* Desktop Navigation */}
@@ -48,7 +48,7 @@ export function Header() {
 
             {/* Desktop CTA */}
             <div className="hidden md:flex items-center gap-4">
-            <Button asChild variant="outline" className="border-secondary-600 text-base font-medium text-white bg-secondary hover:bg-secondary-foreground hover:text-white">
+            <Button asChild variant="outline" className="border-secondary text-base font-semibold text-gray-900 bg-secondary hover:bg-secondary/90 hover:text-gray-900">
               <a href="https://wa.me/+918778912704?text=Hi%2C%20I%20need%20info%20on%20policies" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
               <img src={whatsapp} alt="WhatsApp Icon" className="h-5 w-auto" />
               Enquire Now
@@ -86,7 +86,7 @@ export function Header() {
                   {link.name}
                 </Link>
               ))}
-              <Button asChild variant="outline" className="border-secondary text-white bg-secondary hover:bg-secondary-foreground hover:text-white mt-3">
+              <Button asChild variant="outline" className="border-secondary text-gray-900 font-semibold bg-secondary hover:bg-secondary/90 hover:text-gray-900 mt-3">
                 <a
                   href="https://wa.me/+918778912704?text=Hi%2C%20I%20need%20info%20on%20policies"
                   target="_blank"
