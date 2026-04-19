@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { MapPin, Phone, Mail, Clock, Send, Loader2, CheckCircle, AlertCircle } from "lucide-react";
+import { sendContactEmail, ContactFormData } from "../utils/emailService";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
@@ -38,44 +39,36 @@ export default function Contact() {
     setSubmitStatus({ type: null, message: "" });
 
     try {
-      const response = await fetch("http://localhost:3001/api/send-email", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      // Use shared emailService utility to avoid duplicated fetch logic and respect VITE_API_URL
+      const payload: ContactFormData = {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        service: formData.service,
+        message: formData.message || undefined,
+      };
 
-      const data = await response.json();
+      const result = await sendContactEmail(payload);
 
-      if (!response.ok) {
-        throw new Error(data.message || "Failed to send email");
+      if (result.success) {
+        setSubmitStatus({
+          type: "success",
+          message: result.message || "Thank you for your inquiry! We'll be in touch soon.",
+        });
+
+        // Clear form on success
+        setFormData({ name: "", email: "", phone: "", service: "", message: "" });
+
+        // Clear success message after 5 seconds
+        setTimeout(() => setSubmitStatus({ type: null, message: "" }), 5000);
+      } else {
+        setSubmitStatus({ type: "error", message: result.message || "Failed to send email." });
       }
-
-      setSubmitStatus({
-        type: "success",
-        message: data.message || "Thank you for your inquiry! We'll be in touch soon.",
-      });
-
-      // Clear form on success
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        service: "",
-        message: "",
-      });
-
-      // Clear success message after 5 seconds
-      setTimeout(() => {
-        setSubmitStatus({ type: null, message: "" });
-      }, 5000);
-    } catch (error) {
-      setSubmitStatus({
-        type: "error",
-        message: error instanceof Error ? error.message : "An error occurred while sending your message. Please try again.",
-      });
-      console.error("Form submission error:", error);
+    } catch (err) {
+      // sendContactEmail already catches and returns a failure shape, but handle unexpected errors here
+      const msg = err instanceof Error ? err.message : "An unexpected error occurred.";
+      setSubmitStatus({ type: "error", message: msg });
+      console.error("Form submission error:", err);
     } finally {
       setIsLoading(false);
     }

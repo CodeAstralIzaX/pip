@@ -1,7 +1,8 @@
-// Email sending utility for the contact form
-// Configure API_URL here - for production, update to your backend URL
+// Email sending utility for the contact form.
+// VITE_API_URL must be set in production (e.g. https://your-backend.com).
+// Falls back to localhost:3001 in local development only.
 
-const API_URL = "http://localhost:3001";
+const API_URL = import.meta.env.VITE_API_URL ?? "http://localhost:3001";
 
 export interface ContactFormData {
   name: string;
@@ -17,20 +18,14 @@ export interface EmailResponse {
   error?: string;
 }
 
-/**
- * Send contact form data to the email API
- * @param formData - Contact form data
- * @returns Promise with response from email API
- */
+/** Send contact form data to the email API. Returns a typed response on both success and failure. */
 export async function sendContactEmail(
   formData: ContactFormData
 ): Promise<EmailResponse> {
   try {
     const response = await fetch(`${API_URL}/api/send-email`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
     });
 
@@ -42,65 +37,9 @@ export async function sendContactEmail(
 
     return data;
   } catch (error) {
-    const errorMessage =
+    const message =
       error instanceof Error ? error.message : "An unknown error occurred";
-    console.error("Email sending error:", errorMessage);
-    return {
-      success: false,
-      message: errorMessage,
-    };
+    console.error("Email sending error:", message);
+    return { success: false, message };
   }
-}
-
-/**
- * Validate email format
- * @param email - Email address to validate
- * @returns True if valid email format
- */
-export function isValidEmail(email: string): boolean {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailRegex.test(email);
-}
-
-/**
- * Validate phone number format (basic)
- * @param phone - Phone number to validate
- * @returns True if phone number looks valid
- */
-export function isValidPhone(phone: string): boolean {
-  const phoneRegex = /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/;
-  return phoneRegex.test(phone.replace(/\s/g, ""));
-}
-
-/**
- * Validate contact form data
- * @param formData - Form data to validate
- * @returns Object with validation errors, empty if valid
- */
-export function validateContactForm(
-  formData: ContactFormData
-): Record<string, string> {
-  const errors: Record<string, string> = {};
-
-  if (!formData.name || formData.name.trim() === "") {
-    errors.name = "Name is required";
-  }
-
-  if (!formData.email || formData.email.trim() === "") {
-    errors.email = "Email is required";
-  } else if (!isValidEmail(formData.email)) {
-    errors.email = "Invalid email format";
-  }
-
-  if (!formData.phone || formData.phone.trim() === "") {
-    errors.phone = "Phone number is required";
-  } else if (!isValidPhone(formData.phone)) {
-    errors.phone = "Invalid phone number format";
-  }
-
-  if (!formData.service || formData.service === "") {
-    errors.service = "Please select an insurance type";
-  }
-
-  return errors;
 }

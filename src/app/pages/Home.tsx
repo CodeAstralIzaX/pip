@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import { Shield, Award, Users, Clock, ArrowRight, CheckCircle2, Phone } from "lucide-react";
+import { ArrowRight, Phone } from "lucide-react";
 import { Button } from "../components/ui/button";
 import heroSection from "../components/assets/heroSection_1.png";
 import generalInsuranceImg from "../components/assets/General_Insurance.jpeg";
@@ -7,13 +7,12 @@ import lifeInsuranceImg from "../components/assets/card2.jpeg";
 import homeInsuranceImg from "../components/assets/Home_Insurance.jpeg";
 import whatsappIcon from "../components/assets/whatsapp.svg";
 
-// ─── Service card images – replace these imports when you have new assets ─────
+// Placeholder: swap homeInsuranceImg for a dedicated health image when one is available
 const SERVICE_IMAGES = {
   general: generalInsuranceImg,
   life:    lifeInsuranceImg,
-  health:  homeInsuranceImg,   // swap with a dedicated health image when available
+  health:  homeInsuranceImg,
 };
-// ─────────────────────────────────────────────────────────────────────────────
 
 export default function Home() {
   const services = [
@@ -32,38 +31,6 @@ export default function Home() {
       image: SERVICE_IMAGES.health,
       slug: "health",
     },
-  ];
-
-  const features = [
-    {
-      icon: Shield,
-      title: "Trusted Protection",
-      description: "Over 25 years of experience protecting families and businesses",
-    },
-    {
-      icon: Award,
-      title: "Award Winning",
-      description: "Recognized for excellence in customer service and satisfaction",
-    },
-    {
-      icon: Users,
-      title: "Expert Advisors",
-      description: "Dedicated insurance professionals ready to help you",
-    },
-    {
-      icon: Clock,
-      title: "24/7 Support",
-      description: "Round-the-clock assistance when you need it most",
-    },
-  ];
-
-  const benefits = [
-    "Competitive rates and flexible payment options",
-    "Fast and easy claims process",
-    "Personalized coverage recommendations",
-    "Bundle and save discounts",
-    "No hidden fees or surprises",
-    "Local agents who care about your community",
   ];
 
   return (
@@ -97,34 +64,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      {/* Features Section
-      <section className="py-16 md:py-24 bg-gray-50">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Why Choose Premier?</h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              We're committed to providing exceptional insurance solutions backed by expertise and care.
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {features.map((feature, index) => {
-              const Icon = feature.icon;
-              return (
-                <Card key={index} className="border-0 shadow-lg hover:shadow-xl transition-shadow">
-                  <CardContent className="p-6">
-                    <div className="bg-blue-100 w-14 h-14 rounded-full flex items-center justify-center mb-4">
-                      <Icon className="size-7 text-blue-600" />
-                    </div>
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2">{feature.title}</h3>
-                    <p className="text-gray-600">{feature.description}</p>
-                  </CardContent>
-                </Card>
-              );
-            })}
-          </div>
-        </div>
-      </section> */}
 
       {/* Services Section */}
       <section className="py-10 md:py-16 bg-white">
@@ -173,37 +112,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      {/* Benefits Section
-      <section className="py-16 md:py-24 bg-blue-50">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-                The Premier Advantage
-              </h2>
-              <p className="text-lg text-gray-600 mb-8">
-                When you choose Premier Insurance Partners, you're choosing a partner dedicated to your protection and peace of mind.
-              </p>
-              <div className="space-y-4">
-                {benefits.map((benefit, index) => (
-                  <div key={index} className="flex items-start gap-3">
-                    <CheckCircle2 className="size-6 text-blue-600 flex-shrink-0 mt-0.5" />
-                    <p className="text-gray-700">{benefit}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="relative">
-              <ImageWithFallback
-                src="https://images.unsplash.com/photo-1761891954650-fe378e1fa3bb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxmYW1pbHklMjBob21lJTIwcHJvdGVjdGlvbnxlbnwxfHx8fDE3NzQ3MDk0Mzl8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
-                alt="Family home protection"
-                className="rounded-lg shadow-xl w-full h-auto"
-              />
-            </div>
-          </div>
-        </div>
-      </section> */}
 
       {/* CTA Section */}
       <section

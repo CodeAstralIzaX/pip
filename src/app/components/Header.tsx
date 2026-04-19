@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router";
-import { Menu, X, Shield } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { Button } from "./ui/button";
 import whatsapp from "./assets/whatsapp.svg";
 import logoHeader from "./assets/Group 5.svg";
@@ -28,12 +28,7 @@ export function Header() {
           {/* Logo */}
 
           <Link to="/" className="flex items-center hover:opacity-80 transition-opacity">
-            {/* <img src={logo} alt="Premier Insurance Partners Logo" className="h-15 w-auto" /> */}
             <img src={logoHeader} alt="Premier Insurance Partners Header" className="h-20 w-auto" />
-            {/* <div className="flex flex-col">
-              <span className="text-lg font-bold text-gray-900 leading-tight">PREMIER</span>
-              <span className="text-xs text-blue-600 leading-tight">INSURANCE PARTNERS</span>
-            </div> */}
           </Link>
 
           {/* Desktop Navigation */}
