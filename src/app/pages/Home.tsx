@@ -17,11 +17,6 @@ const SERVICE_IMAGES = {
 export default function Home() {
   const services = [
     {
-      title: "General Insurance",
-      image: SERVICE_IMAGES.general,
-      slug: "general",
-    },
-    {
       title: "Life Insurance",
       image: SERVICE_IMAGES.life,
       slug: "life",

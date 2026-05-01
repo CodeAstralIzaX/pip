@@ -1,13 +1,23 @@
 import React from "react";
 import { Link, useParams, useNavigate } from "react-router";
-import { ArrowRight, ChevronRight, Shield, Phone, CheckCircle2, Info } from "lucide-react";
-import { Button } from "../components/ui/button";
 import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-} from "../components/ui/sheet";
+  ArrowRight,
+  ChevronRight,
+  Shield,
+  Phone,
+  CheckCircle2,
+  Info,
+  ChevronDown,
+  Users,
+  User,
+  HeartPulse,
+  ShieldCheck,
+  ShieldOff,
+  Clock,
+  BadgeCheck,
+} from "lucide-react";
+import { Button } from "../components/ui/button";
+import { Sheet, SheetContent, SheetHeader, SheetTitle } from "../components/ui/sheet";
 import whatsappIcon from "../components/assets/whatsapp.svg";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -32,13 +42,101 @@ interface SubCategory {
   plans: Plan[];
 }
 
+// ─── Health Section Types ─────────────────────────────────────────────────────
+interface HealthItem {
+  title: string;
+  body: string;
+}
+
+interface HealthSection {
+  id: string;
+  label: string;
+  icon: React.ReactNode;
+  accent: string;
+  items: HealthItem[];
+}
+
 interface Category {
   id: string;
   label: string;
   tagline: string;
   heroGradient: string;
   subCategories: SubCategory[];
+  healthSections?: HealthSection[];
+  healthIntro?: { title: string; body: string }[];
 }
+
+// ─── Health Data ──────────────────────────────────────────────────────────────
+const HEALTH_INTRO = [
+  {
+    title: "Health Insurance for Individuals",
+    body: "Coverage for unexpected medical expenses, tax deduction benefits, coverage for pre- and post-hospitalisation costs. Holistic product with holistic benefits — Star Comprehensive Insurance Policy.\n\nIRDAI UIN: SHAHLIP25037V082425",
+  },
+  {
+    title: "Health Insurance for Family",
+    body: "Coverage for entire family, affordable premiums that don't break the bank, maternity and new born coverage. Well-being and financial safety ensured.",
+  },
+  {
+    title: "Health Insurance for Senior Citizens",
+    body: "Well-being and financial safety ensured, coverage for pre-existing diseases, stress-free retirement. Wealth of benefits to make those golden years count — Senior Citizens Red Carpet Health Insurance Policy.\n\nIRDAI UIN: SHAHLIP22199V062122",
+  },
+];
+
+const HEALTH_SECTIONS: HealthSection[] = [
+  {
+    id: "inclusion",
+    label: "Inclusions",
+    icon: <ShieldCheck className="size-5" />,
+    accent: "#16a34a",
+    items: [
+      { title: "Hospitalisation Expenses", body: "Most Medical Insurance plans cover hospitalisation expenses such as room rents, ICU charges, surgery expenses, doctor consultations, etc. incurred on illness, injury or accidents." },
+      { title: "Pre & Post-Hospitalisation", body: "Understanding the impact of rising medical expenses, most Medical Insurance Policies cover pre and post-hospitalisation expenses related to in-patient hospitalisation." },
+      { title: "Day Care Treatment", body: "Technological advancements have reduced the time of surgeries and treatments that once cost a lot of time. Hence, buy health insurance that cover Day Care treatments and procedures." },
+      { title: "Domiciliary Hospitalization", body: "Some Medical Insurance Policies also cover Domiciliary treatments taken at home on the advice of the medical practitioner." },
+      { title: "Organ Donor Expenses", body: "Most health insurance policies cover Organ Donor Expenses. Organ harvesting and transplantation expenses are covered if the insured person is the recipient." },
+      { title: "Road Traffic Accident", body: "Accidents are unpredictable. Most mediclaim plans cover in-patient hospitalisations due to road traffic accidents." },
+      { title: "AYUSH Cover", body: "In addition to allopathic treatments, most private health Insurance plans also cover alternative systems of medicines such as Ayurveda, Yoga & Naturopathy, Unani, Siddha and Homeopathy." },
+      { title: "Health Check-up", body: "In addition to hospitalisation and other benefits, Medical Insurance Policies also cover the expenses incurred for Health Check-up." },
+      { title: "Automatic Restoration", body: "What if your medical expenses exceed your Sum Insured? At such times, the restoration benefit restores 100% of your Sum Insured automatically after its full or partial exhaustion." },
+    ],
+  },
+  {
+    id: "exclusion",
+    label: "Exclusions",
+    icon: <ShieldOff className="size-5" />,
+    accent: "#dc2626",
+    items: [
+      { title: "Self-Inflicted Injuries", body: "Any form of self-inflicted injuries will not be covered under Medical Insurance policies." },
+      { title: "Obesity / Weight Control", body: "Most health insurance will not cover expenses incurred due to the treatment for obesity or weight control." },
+      { title: "Cosmetic or Plastic Surgery", body: "Most Health Insurance Plans will not cover expenses incurred due to the treatment for cosmetic or plastic surgery if performed to enhance the appearance." },
+      { title: "Hazardous or Adventure Sports", body: "Health Insurance policies will not cover expenses incurred due to any health complications for indulging in hazardous or adventure sports." },
+      { title: "Dental Treatments", body: "Health Insurance Plans will not cover Dental treatment or surgery unless necessitated due to accidental injuries and requiring hospitalisation." },
+      { title: "Medical Aid", body: "Health Insurance Plans will not cover the cost of spectacles, hearing aids, wheelchairs, walkers and crutches and other similar aids." },
+    ],
+  },
+  {
+    id: "waiting",
+    label: "Waiting Periods",
+    icon: <Clock className="size-5" />,
+    accent: "#d97706",
+    items: [
+      { title: "Initial Waiting Period", body: "Initial waiting period denotes the time during which the policyholder has to wait to avail the Health policy benefits. However, it will not apply for hospitalisation expenses due to accidents as they will be covered from day 1." },
+      { title: "Specific Diseases", body: "Specific diseases are a list of diseases or ailments for which the Health Insurance Company has a waiting period. The expenses incurred due to such diseases will be covered after the completion of the waiting period." },
+      { title: "Pre-Existing Diseases", body: "Pre-Existing Diseases (PED) refer to the existing health condition of the person before taking the policy. Every Health Insurance Company has a PED waiting period. PED will be covered after the completion of the waiting period." },
+      { title: "Maternity Benefit", body: "Health Insurance Plans have Maternity Benefits and Newborn Cover. Such benefits can be availed after the completion of the waiting period." },
+    ],
+  },
+  {
+    id: "claims",
+    label: "Claims",
+    icon: <BadgeCheck className="size-5" />,
+    accent: "#2563eb",
+    items: [
+      { title: "Anywhere Cashless Claims", body: "Now avail Anywhere Cashless Claims all across India. With 14,000+ Network Hospitals, we are also one of India's widest medical coverage providers." },
+      { title: "Network Hospitals", body: "We got you covered by offering best health insurance plans under our valuable service providers, agreed network and network hospitals for quality treatment." },
+    ],
+  },
+];
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 const CATEGORIES: Category[] = [
@@ -517,476 +615,13 @@ const CATEGORIES: Category[] = [
     ],
   },
   {
-    id: "general",
-    label: "General Insurance",
-    tagline: "Comprehensive protection for every risk you face",
-    heroGradient: "radial-gradient(100% 100% at 50% 50%, #003a1f 62.5%, #006b3a 100%)",
-    subCategories: [
-      {
-        id: "motor",
-        label: "Motor Insurance",
-        plans: [
-          {
-            name: "Private Car Insurance",
-            description: "Comprehensive and third-party cover for your personal car against accidents, theft, and natural calamities.",
-            details: {
-              eligibility: "All registered private cars",
-              policyTerm: "1 year (renewable annually)",
-              sumAssured: "Based on IDV (Insured Declared Value)",
-              keyBenefits: [
-                "Own damage cover: accidents, fire, theft, natural calamities",
-                "Mandatory third-party liability cover",
-                "Cashless repairs at 5,000+ network garages",
-                "No-Claim Bonus (NCB) up to 50% on renewal",
-                "Add-ons: zero depreciation, roadside assistance, engine protect",
-              ],
-              idealFor: "Car owners who want complete protection for their vehicle and third-party liabilities.",
-            },
-          },
-          {
-            name: "Two-Wheeler Insurance",
-            description: "Mandatory and comprehensive policies to protect your bike or scooter on every ride.",
-            details: {
-              eligibility: "All registered two-wheelers",
-              policyTerm: "1 year or 5-year long-term",
-              sumAssured: "Based on IDV",
-              keyBenefits: [
-                "Third-party liability cover (mandatory by law)",
-                "Own damage protection against accidents & theft",
-                "Cashless claim settlement",
-                "NCB benefit on claim-free years",
-                "Personal accident cover for owner-driver",
-              ],
-              idealFor: "Two-wheeler owners seeking mandatory and comprehensive coverage.",
-            },
-          },
-          {
-            name: "Commercial Vehicle Insurance",
-            description: "Cover for taxis, trucks, buses, and other commercial vehicles including goods in transit.",
-            details: {
-              eligibility: "All commercial vehicles registered with RTO",
-              policyTerm: "1 year (renewable)",
-              sumAssured: "Based on vehicle type and IDV",
-              keyBenefits: [
-                "Comprehensive own damage + third-party cover",
-                "Covers goods in transit (add-on)",
-                "Driver and passenger PA cover",
-                "Fleet discount for 5+ vehicles",
-                "24/7 roadside assistance add-on available",
-              ],
-              idealFor: "Business owners, fleet operators, and logistics companies.",
-            },
-          },
-        ],
-      },
-      {
-        id: "health",
-        label: "Health Insurance",
-        plans: [
-          {
-            name: "Individual Health Plan",
-            description: "Covers hospitalisation, day-care procedures, pre- and post-hospitalisation expenses.",
-            details: {
-              eligibility: "Age 18 – 65 years (renewals lifelong)",
-              policyTerm: "1 year (renewable)",
-              sumAssured: "₹3,00,000 – ₹1,00,00,000",
-              keyBenefits: [
-                "In-patient hospitalisation cover",
-                "60-day pre & 90-day post hospitalisation",
-                "Day-care procedures covered",
-                "Cashless treatment at 10,000+ network hospitals",
-                "Tax benefit under Section 80D",
-              ],
-              idealFor: "Individuals seeking personal health financial protection.",
-            },
-          },
-          {
-            name: "Family Floater Plan",
-            description: "A single sum insured shared by all family members — more economical than individual plans.",
-            details: {
-              eligibility: "Self + spouse + up to 4 children; entry age 91 days – 65 years",
-              policyTerm: "1 year (renewable)",
-              sumAssured: "₹5,00,000 – ₹1,00,00,000 (shared)",
-              keyBenefits: [
-                "Single premium covers entire family",
-                "Any member can use the full sum insured",
-                "New-born covered from day 1 (in some plans)",
-                "No-claim bonus on renewal",
-                "Tax benefit under Section 80D",
-              ],
-              idealFor: "Families looking for comprehensive, cost-effective health coverage.",
-            },
-          },
-          {
-            name: "Critical Illness Plan",
-            description: "Lump-sum payout on diagnosis of life-threatening illnesses like cancer, heart attack, or stroke.",
-            details: {
-              eligibility: "Age 18 – 65 years",
-              policyTerm: "1 year or long term",
-              sumAssured: "₹5,00,000 – ₹1,00,00,000",
-              keyBenefits: [
-                "Covers 36 critical illnesses",
-                "Lump sum paid on diagnosis — no bills needed",
-                "Can be used for treatment, loans, or income replacement",
-                "Survival benefit of 30 days post-diagnosis",
-                "Tax benefit under Section 80D",
-              ],
-              idealFor: "Professionals with high financial liabilities or a family history of critical illness.",
-            },
-          },
-          {
-            name: "Senior Citizen Health Plan",
-            description: "Designed for individuals above 60 — covers pre-existing diseases after a short waiting period.",
-            details: {
-              eligibility: "Age 60 – 80 years",
-              policyTerm: "1 year (renewable for life)",
-              sumAssured: "₹2,00,000 – ₹25,00,000",
-              keyBenefits: [
-                "Pre-existing disease cover after 1–2 year waiting period",
-                "AYUSH treatment covered",
-                "Domiciliary hospitalisation covered",
-                "No pre-policy medical (many plans)",
-                "Higher tax deduction of ₹50,000 under Section 80D",
-              ],
-              idealFor: "Senior citizens needing comprehensive healthcare coverage post-retirement.",
-            },
-          },
-        ],
-      },
-      {
-        id: "travel",
-        label: "Travel Insurance",
-        plans: [
-          {
-            name: "Domestic Travel Insurance",
-            description: "Covers trip cancellation, medical emergencies, and baggage loss during travel within India.",
-            details: {
-              eligibility: "Age 1 day – 70 years",
-              policyTerm: "Per trip (1–180 days)",
-              sumAssured: "Varies by plan",
-              keyBenefits: [
-                "Emergency medical expenses covered",
-                "Trip cancellation & interruption",
-                "Loss/delay of checked-in baggage",
-                "Personal accident cover",
-                "24/7 travel assistance helpline",
-              ],
-              idealFor: "Frequent domestic travellers, especially those on pre-booked tours.",
-            },
-          },
-          {
-            name: "International Travel Insurance",
-            description: "Comprehensive cover for overseas travel including medical, repatriation, and loss of passport.",
-            details: {
-              eligibility: "Age 6 months – 70 years",
-              policyTerm: "Per trip or annual multi-trip",
-              sumAssured: "USD 50,000 – USD 5,00,000",
-              keyBenefits: [
-                "Medical evacuation and repatriation",
-                "Loss of passport & travel documents",
-                "Trip cancellation and delay",
-                "Personal liability cover abroad",
-                "Cashless hospitalisation at overseas network hospitals",
-              ],
-              idealFor: "Frequent international travellers or those going on long overseas trips.",
-            },
-          },
-          {
-            name: "Student Travel Insurance",
-            description: "Specially designed for students studying abroad covering tuition fee protection and medical expenses.",
-            details: {
-              eligibility: "Age 16 – 35 years; enrolled in accredited foreign institution",
-              policyTerm: "Up to 2 years (extendable)",
-              sumAssured: "As per chosen plan",
-              keyBenefits: [
-                "Medical & hospitalisation abroad",
-                "Tuition fee protection if studies interrupted",
-                "Sponsor protection (if sponsor dies/disabled)",
-                "Personal accident and liability cover",
-                "Study interruption benefit",
-              ],
-              idealFor: "Indian students pursuing higher education abroad.",
-            },
-          },
-        ],
-      },
-      {
-        id: "fire",
-        label: "Fire & Property",
-        plans: [
-          {
-            name: "Standard Fire & Special Perils",
-            description: "Covers damage to buildings and contents due to fire, lightning, storm, and allied perils.",
-            details: {
-              eligibility: "Residential and commercial property owners/tenants",
-              policyTerm: "1 year (long-term options available)",
-              sumAssured: "Reinstatement value of property",
-              keyBenefits: [
-                "Fire, lightning, explosion cover",
-                "Storm, cyclone, flood, inundation",
-                "Riot, strike, malicious damage",
-                "Aircraft damage and impact damage",
-                "Option to add earthquake & terrorism covers",
-              ],
-              idealFor: "Property owners who want protection against fire and weather-related property damage.",
-            },
-          },
-          {
-            name: "Householders Package",
-            description: "All-in-one home insurance covering building, contents, burglary, and electronic equipment.",
-            details: {
-              eligibility: "Home owners and tenants",
-              policyTerm: "1 year",
-              sumAssured: "Based on declared value",
-              keyBenefits: [
-                "Building structure cover",
-                "Contents and valuables cover",
-                "Burglary and theft cover",
-                "Electronic equipment cover",
-                "Personal accident cover for residents",
-              ],
-              idealFor: "Homeowners wanting comprehensive protection for their home and belongings.",
-            },
-          },
-          {
-            name: "Shopkeepers Package",
-            description: "Comprehensive cover for shop premises, stock, employees, and public liability.",
-            details: {
-              eligibility: "Shop owners (retail, small business)",
-              policyTerm: "1 year",
-              sumAssured: "Based on stock and asset value",
-              keyBenefits: [
-                "Building and stock protection",
-                "Money in safe and in transit",
-                "Employee fidelity cover",
-                "Public liability to customers",
-                "Neon sign and glass breakage cover",
-              ],
-              idealFor: "Retail shop owners wanting all-in-one business and premises protection.",
-            },
-          },
-        ],
-      },
-    ],
-  },
-  {
     id: "health",
     label: "Health Insurance",
     tagline: "Your health is your greatest wealth — protect it",
     heroGradient: "radial-gradient(100% 100% at 50% 50%, #1a003f 62.5%, #4b0082 100%)",
-    subCategories: [
-      {
-        id: "individual",
-        label: "Individual Plans",
-        plans: [
-          {
-            name: "Individual Health Insurance",
-            description: "Covers hospitalisation and related medical expenses for a single person.",
-            details: {
-              eligibility: "Age 18 – 65 years (lifelong renewals)",
-              policyTerm: "1 year",
-              sumAssured: "₹3,00,000 – ₹1,00,00,000",
-              keyBenefits: [
-                "In-patient hospitalisation expenses",
-                "Pre and post-hospitalisation (60 & 90 days)",
-                "Day-care procedures and organ donor expenses",
-                "Annual health check-up benefit",
-                "Tax deduction under Section 80D",
-              ],
-              idealFor: "Working individuals who want personal health financial security.",
-            },
-          },
-          {
-            name: "Personal Accident Plan",
-            description: "Provides compensation for accidental death, disability, and medical expenses due to accidents.",
-            details: {
-              eligibility: "Age 18 – 65 years",
-              policyTerm: "1 year",
-              sumAssured: "₹5,00,000 – ₹1,00,00,000",
-              keyBenefits: [
-                "100% SA on accidental death",
-                "100% SA on total permanent disability",
-                "50% SA on partial permanent disability",
-                "Weekly compensation for temporary total disability",
-                "Education grant for dependent children",
-              ],
-              idealFor: "Individuals in physically active or high-risk professions.",
-            },
-          },
-          {
-            name: "Hospital Cash Benefit",
-            description: "Daily cash allowance for each day of hospitalisation to cover incidental expenses.",
-            details: {
-              eligibility: "Age 18 – 65 years",
-              policyTerm: "1 year",
-              sumAssured: "₹500 – ₹5,000 per day",
-              keyBenefits: [
-                "Fixed daily cash for each day in hospital",
-                "Doubles for ICU admission",
-                "Covers incidental expenses not covered by health policy",
-                "Can be used alongside any other health plan",
-                "No bills required — flat daily benefit",
-              ],
-              idealFor: "Anyone who wants to offset out-of-pocket daily expenses during hospitalisation.",
-            },
-          },
-        ],
-      },
-      {
-        id: "family",
-        label: "Family Plans",
-        plans: [
-          {
-            name: "Family Floater Plan",
-            description: "One sum insured covers all family members — cost-effective and hassle-free.",
-            details: {
-              eligibility: "Self + spouse + up to 4 children; entry age 91 days – 65 years",
-              policyTerm: "1 year",
-              sumAssured: "₹5,00,000 – ₹1,00,00,000",
-              keyBenefits: [
-                "Full sum insured accessible by any member",
-                "One renewal — lower admin hassle",
-                "No-claim bonus on claim-free years",
-                "Maternity add-on available",
-                "Tax benefit under Section 80D",
-              ],
-              idealFor: "Families seeking affordable, single-policy coverage for all members.",
-            },
-          },
-          {
-            name: "Maternity Insurance",
-            description: "Covers normal and C-section delivery expenses along with newborn baby cover.",
-            details: {
-              eligibility: "Women aged 18 – 45 years; waiting period 2–4 years",
-              policyTerm: "1 year",
-              sumAssured: "₹30,000 – ₹2,00,000 maternity sub-limit",
-              keyBenefits: [
-                "Normal and C-section delivery expenses",
-                "New-born baby covered from day 1",
-                "Pre-natal check-ups (some plans)",
-                "Vaccination cover for new-born",
-                "Complications of pregnancy covered",
-              ],
-              idealFor: "Couples planning a family who want delivery and baby expenses covered.",
-            },
-          },
-          {
-            name: "Child Health Plan",
-            description: "Tailored plan for children covering hospitalisation, vaccinations, and day-care procedures.",
-            details: {
-              eligibility: "Age 91 days – 25 years",
-              policyTerm: "1 year",
-              sumAssured: "₹2,00,000 – ₹20,00,000",
-              keyBenefits: [
-                "Hospitalisation for illness and accidents",
-                "Vaccination schedule coverage",
-                "Dental and vision treatment",
-                "Day-care procedures",
-                "Renewal into adult plan seamlessly",
-              ],
-              idealFor: "Parents who want dedicated health coverage for their children.",
-            },
-          },
-        ],
-      },
-      {
-        id: "senior",
-        label: "Senior Citizen Plans",
-        plans: [
-          {
-            name: "Senior Citizen Health Plan",
-            description: "Comprehensive cover for individuals aged 60+ including pre-existing disease coverage.",
-            details: {
-              eligibility: "Age 60 – 80 years",
-              policyTerm: "1 year (lifelong renewals)",
-              sumAssured: "₹2,00,000 – ₹25,00,000",
-              keyBenefits: [
-                "Pre-existing disease covered after 1–2 year waiting period",
-                "AYUSH treatment covered",
-                "Domiciliary hospitalisation",
-                "Ambulance charges covered",
-                "Higher 80D deduction of ₹50,000",
-              ],
-              idealFor: "Senior citizens who need extensive healthcare coverage post-retirement.",
-            },
-          },
-          {
-            name: "Arogya Sanjeevani Policy",
-            description: "Standard health plan with uniform features across all insurers — easy to understand and compare.",
-            details: {
-              eligibility: "Age 18 – 65 years; family floater option available",
-              policyTerm: "1 year",
-              sumAssured: "₹1,00,000 – ₹10,00,000",
-              keyBenefits: [
-                "Standardised plan — same features across all insurers",
-                "In-patient treatment and day-care",
-                "AYUSH treatment covered",
-                "Cataract treatment limit included",
-                "Easy to compare due to uniform terms",
-              ],
-              idealFor: "First-time buyers or those wanting a simple, transparent baseline health plan.",
-            },
-          },
-        ],
-      },
-      {
-        id: "critical",
-        label: "Critical Illness",
-        plans: [
-          {
-            name: "Cancer Care Plan",
-            description: "Lump sum payout at various stages of cancer diagnosis to cover treatment and recovery.",
-            details: {
-              eligibility: "Age 18 – 65 years; no tobacco users preferred",
-              policyTerm: "1 year or long-term",
-              sumAssured: "₹10,00,000 – ₹50,00,000",
-              keyBenefits: [
-                "25% SA paid at early/minor stage diagnosis",
-                "100% SA paid at major/advanced stage",
-                "Waiver of future premiums post early-stage diagnosis",
-                "Income benefit of 1% per month after major stage",
-                "Tax benefit under Section 80D",
-              ],
-              idealFor: "Individuals with family history of cancer or those wanting dedicated cancer financial protection.",
-            },
-          },
-          {
-            name: "Heart Care Plan",
-            description: "Covers cardiac surgeries, heart attacks, and related hospitalisation.",
-            details: {
-              eligibility: "Age 18 – 65 years",
-              policyTerm: "1 year",
-              sumAssured: "₹5,00,000 – ₹50,00,000",
-              keyBenefits: [
-                "Heart attack (first occurrence)",
-                "Open heart and bypass surgery",
-                "Angioplasty and stent procedures",
-                "Lump sum paid directly to policyholder",
-                "Tax benefit under Section 80D",
-              ],
-              idealFor: "Those with risk factors for heart disease or family history of cardiac conditions.",
-            },
-          },
-          {
-            name: "Comprehensive Critical Illness",
-            description: "Covers 30+ critical illnesses including cancer, stroke, organ failure, and more.",
-            details: {
-              eligibility: "Age 18 – 65 years",
-              policyTerm: "1 year or 2/3-year long term",
-              sumAssured: "₹5,00,000 – ₹1,00,00,000",
-              keyBenefits: [
-                "Covers 32+ listed critical illnesses",
-                "Lump sum on first diagnosis",
-                "No requirement to submit hospital bills",
-                "Income replacement during recovery",
-                "Can be taken independently or as rider",
-              ],
-              idealFor: "High-income earners with dependents wanting complete critical illness financial protection.",
-            },
-          },
-        ],
-      },
-    ],
+    subCategories: [],
+    healthSections: HEALTH_SECTIONS,
+    healthIntro: HEALTH_INTRO,
   },
 ];
 
@@ -1004,17 +639,151 @@ function DetailRow({ label, value }: { label: string; value: string }) {
   );
 }
 
+// ─── Health Intro Cards ───────────────────────────────────────────────────────
+const INTRO_ICONS = [
+  <User className="size-6" />,
+  <Users className="size-6" />,
+  <HeartPulse className="size-6" />,
+];
+
+function HealthIntroCards({ items }: { items: { title: string; body: string }[] }) {
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+      {items.map((item, i) => (
+        <div
+          key={i}
+          className="bg-white rounded-2xl border border-purple-100 shadow-sm p-5 flex flex-col gap-3"
+        >
+          <div className="flex items-center justify-center w-11 h-11 rounded-xl bg-purple-50 text-purple-700">
+            {INTRO_ICONS[i]}
+          </div>
+          <h3 className="text-sm font-bold text-gray-900 leading-snug">{item.title}</h3>
+          <p className="text-xs text-gray-500 leading-relaxed whitespace-pre-line">{item.body}</p>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+// ─── Health Section Accordion Card ───────────────────────────────────────────
+function HealthSectionCard({ section }: { section: HealthSection }) {
+  const [openIndex, setOpenIndex] = React.useState<number | null>(null);
+
+  const toggle = (i: number) => setOpenIndex(openIndex === i ? null : i);
+
+  return (
+    <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+      {/* Section Header */}
+      <div
+        className="flex items-center gap-3 px-6 py-4 text-white"
+        style={{ background: `linear-gradient(135deg, ${section.accent}ee, ${section.accent}99)` }}
+      >
+        <div className="flex items-center justify-center w-9 h-9 rounded-lg bg-white/20">
+          {section.icon}
+        </div>
+        <div>
+          <h3 className="text-base font-bold leading-none">{section.label}</h3>
+          <p className="text-xs text-white/70 mt-0.5">{section.items.length} items</p>
+        </div>
+      </div>
+
+      {/* Accordion Items */}
+      <div className="divide-y divide-gray-50">
+        {section.items.map((item, i) => (
+          <div key={i}>
+            <button
+              onClick={() => toggle(i)}
+              className="w-full flex items-center justify-between px-6 py-4 text-left hover:bg-gray-50 transition-colors group"
+            >
+              <div className="flex items-center gap-3">
+                <span
+                  className="w-1.5 h-1.5 rounded-full shrink-0"
+                  style={{ background: section.accent }}
+                />
+                <span className="text-sm font-semibold text-gray-800 group-hover:text-gray-900">
+                  {item.title}
+                </span>
+              </div>
+              <ChevronDown
+                className="size-4 text-gray-400 shrink-0 transition-transform duration-200"
+                style={{ transform: openIndex === i ? "rotate(180deg)" : "rotate(0deg)" }}
+              />
+            </button>
+            {openIndex === i && (
+              <div className="px-6 pb-4">
+                <p
+                  className="text-sm text-gray-600 leading-relaxed pl-4 border-l-2"
+                  style={{ borderColor: section.accent }}
+                >
+                  {item.body}
+                </p>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ─── Health Page Panel ────────────────────────────────────────────────────────
+function HealthPanel({ category }: { category: Category }) {
+  return (
+    <div className="flex-1 min-w-0">
+      <div className="mb-6">
+        <h2 className="text-2xl font-bold text-gray-900 mb-1">Health Insurance Plans</h2>
+        <p className="text-sm text-gray-500">
+          A shield that protects you and your family from financial instability during health emergencies.
+        </p>
+      </div>
+
+      {/* Intro type cards */}
+      {category.healthIntro && <HealthIntroCards items={category.healthIntro} />}
+
+      {/* Section accordion cards — 2 col grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        {category.healthSections?.map((section) => (
+          <HealthSectionCard key={section.id} section={section} />
+        ))}
+      </div>
+
+      {/* CTA */}
+      <div className="mt-8 flex flex-col sm:flex-row gap-3">
+        <Button asChild className="bg-purple-700 hover:bg-purple-800 text-white">
+          <Link to="/contact">
+            Get a Quote
+            <ArrowRight className="ml-2 size-4" />
+          </Link>
+        </Button>
+        <a
+          href="https://wa.me/+918778912704?text=Hi%2C%20I%20need%20info%20on%20health%20insurance"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg font-semibold text-white text-sm transition-all hover:brightness-110 shadow"
+          style={{ background: "#cc9c42" }}
+        >
+          <img src={whatsappIcon} alt="WhatsApp" className="h-4 w-4" />
+          Enquire on WhatsApp
+        </a>
+      </div>
+    </div>
+  );
+}
+
 // ─── Component ────────────────────────────────────────────────────────────────
 export default function Insurances() {
   const { category: categoryParam } = useParams<{ category: string }>();
   const navigate = useNavigate();
 
   const activeCategory = getCategoryById(categoryParam ?? CATEGORIES[0].id);
-  const [activeSubId, setActiveSubId] = React.useState(activeCategory.subCategories[0].id);
+
+  const [activeSubId, setActiveSubId] = React.useState(
+    activeCategory.subCategories[0]?.id ?? ""
+  );
   const [selectedPlan, setSelectedPlan] = React.useState<Plan | null>(null);
 
   React.useEffect(() => {
-    setActiveSubId(activeCategory.subCategories[0].id);
+    setActiveSubId(activeCategory.subCategories[0]?.id ?? "");
     setSelectedPlan(null);
     window.scrollTo({ top: 0, left: 0, behavior: "instant" });
   }, [activeCategory.id]);
@@ -1022,6 +791,9 @@ export default function Insurances() {
   const activeSub =
     activeCategory.subCategories.find((s) => s.id === activeSubId) ??
     activeCategory.subCategories[0];
+
+  const hasSubCategories = activeCategory.subCategories.length > 0;
+  const isHealth = activeCategory.id === "health";
 
   return (
     <div className="w-full">
@@ -1063,90 +835,95 @@ export default function Insurances() {
         </div>
       </div>
 
-      {/* ── Main: sidebar + plans ──────────────────────────────── */}
+      {/* ── Main ───────────────────────────────────────────────── */}
       <section className="py-10 md:py-16 bg-gray-50">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col lg:flex-row gap-8">
 
-            {/* LEFT SIDEBAR */}
-            <aside className="lg:w-64 shrink-0">
-              <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-                <div
-                  className="px-5 py-4 text-white text-sm font-semibold uppercase tracking-wide"
-                  style={{ background: activeCategory.heroGradient }}
-                >
-                  Plan Categories
+            {/* LEFT SIDEBAR — only for categories with subcategories */}
+            {hasSubCategories && (
+              <aside className="lg:w-64 shrink-0">
+                <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                  <div
+                    className="px-5 py-4 text-white text-sm font-semibold uppercase tracking-wide"
+                    style={{ background: activeCategory.heroGradient }}
+                  >
+                    Plan Categories
+                  </div>
+                  <nav className="flex flex-row lg:flex-col overflow-x-auto lg:overflow-visible">
+                    {activeCategory.subCategories.map((sub) => (
+                      <button
+                        key={sub.id}
+                        onClick={() => setActiveSubId(sub.id)}
+                        className={`flex items-center justify-between px-5 py-3.5 text-sm font-medium text-left whitespace-nowrap lg:whitespace-normal border-b border-gray-50 last:border-b-0 transition-all duration-150 ${
+                          activeSub?.id === sub.id
+                            ? "bg-primary/5 text-primary border-l-4 border-l-primary"
+                            : "text-gray-600 hover:bg-gray-50 hover:text-gray-900 border-l-4 border-l-transparent"
+                        }`}
+                      >
+                        <span>{sub.label}</span>
+                        {activeSub?.id === sub.id && (
+                          <ChevronRight className="size-4 shrink-0 hidden lg:block" />
+                        )}
+                      </button>
+                    ))}
+                  </nav>
                 </div>
-                <nav className="flex flex-row lg:flex-col overflow-x-auto lg:overflow-visible">
-                  {activeCategory.subCategories.map((sub) => (
-                    <button
-                      key={sub.id}
-                      onClick={() => setActiveSubId(sub.id)}
-                      className={`flex items-center justify-between px-5 py-3.5 text-sm font-medium text-left whitespace-nowrap lg:whitespace-normal border-b border-gray-50 last:border-b-0 transition-all duration-150 ${
-                        activeSub.id === sub.id
-                          ? "bg-primary/5 text-primary border-l-4 border-l-primary"
-                          : "text-gray-600 hover:bg-gray-50 hover:text-gray-900 border-l-4 border-l-transparent"
-                      }`}
-                    >
-                      <span>{sub.label}</span>
-                      {activeSub.id === sub.id && (
-                        <ChevronRight className="size-4 shrink-0 hidden lg:block" />
-                      )}
-                    </button>
-                  ))}
-                </nav>
-              </div>
 
-              {/* Quick contact */}
-              <div className="mt-6 bg-primary rounded-2xl p-5 text-white shadow-md hidden lg:block">
-                <Shield className="size-8 mb-3 opacity-80" />
-                <p className="text-sm font-semibold mb-1">Need help choosing?</p>
-                <p className="text-xs text-blue-200 mb-4">Talk to our expert advisors.</p>
-                <a
-                  href="https://wa.me/+918778912704?text=Hi%2C%20I%20need%20info%20on%20policies"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-xs font-medium bg-white/10 hover:bg-white/20 transition px-3 py-2 rounded-lg"
-                >
-                  <img src={whatsappIcon} alt="WhatsApp" className="h-4 w-4" />
-                  Chat on WhatsApp
-                </a>
-              </div>
-            </aside>
+                <div className="mt-6 bg-primary rounded-2xl p-5 text-white shadow-md hidden lg:block">
+                  <Shield className="size-8 mb-3 opacity-80" />
+                  <p className="text-sm font-semibold mb-1">Need help choosing?</p>
+                  <p className="text-xs text-blue-200 mb-4">Talk to our expert advisors.</p>
+                  <a
+                    href="https://wa.me/+918778912704?text=Hi%2C%20I%20need%20info%20on%20policies"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 text-xs font-medium bg-white/10 hover:bg-white/20 transition px-3 py-2 rounded-lg"
+                  >
+                    <img src={whatsappIcon} alt="WhatsApp" className="h-4 w-4" />
+                    Chat on WhatsApp
+                  </a>
+                </div>
+              </aside>
+            )}
 
             {/* RIGHT PANEL */}
-            <div className="flex-1 min-w-0">
-              <div className="flex items-center justify-between mb-6">
-                <div>
-                  <h2 className="text-2xl font-bold text-gray-900">{activeSub.label}</h2>
-                  <p className="text-sm text-gray-500 mt-0.5">
-                    {activeSub.plans.length} plan{activeSub.plans.length !== 1 ? "s" : ""} available
-                  </p>
+            {isHealth ? (
+              <HealthPanel category={activeCategory} />
+            ) : (
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center justify-between mb-6">
+                  <div>
+                    <h2 className="text-2xl font-bold text-gray-900">{activeSub?.label}</h2>
+                    <p className="text-sm text-gray-500 mt-0.5">
+                      {activeSub?.plans.length} plan{activeSub?.plans.length !== 1 ? "s" : ""} available
+                    </p>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {activeSub?.plans.map((plan, i) => (
+                    <button
+                      key={i}
+                      onClick={() => setSelectedPlan(plan)}
+                      className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 hover:shadow-md hover:-translate-y-0.5 hover:border-primary/20 transition-all duration-200 flex flex-col gap-3 text-left group"
+                    >
+                      <div className="flex items-start gap-3">
+                        <div className="mt-0.5 h-5 w-1 rounded-full bg-primary shrink-0" />
+                        <h3 className="text-base font-semibold text-gray-900 leading-snug group-hover:text-primary transition-colors">{plan.name}</h3>
+                      </div>
+                      <p className="text-sm text-gray-500 leading-relaxed pl-4">{plan.description}</p>
+                      <div className="pl-4 flex items-center justify-between">
+                        <span className="inline-flex items-center gap-1 text-xs font-semibold text-primary">
+                          View Details <Info className="size-3" />
+                        </span>
+                        <ChevronRight className="size-4 text-gray-300 group-hover:text-primary group-hover:translate-x-0.5 transition-all" />
+                      </div>
+                    </button>
+                  ))}
                 </div>
               </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {activeSub.plans.map((plan, i) => (
-                  <button
-                    key={i}
-                    onClick={() => setSelectedPlan(plan)}
-                    className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 hover:shadow-md hover:-translate-y-0.5 hover:border-primary/20 transition-all duration-200 flex flex-col gap-3 text-left group"
-                  >
-                    <div className="flex items-start gap-3">
-                      <div className="mt-0.5 h-5 w-1 rounded-full bg-primary shrink-0 group-hover:bg-primary" />
-                      <h3 className="text-base font-semibold text-gray-900 leading-snug group-hover:text-primary transition-colors">{plan.name}</h3>
-                    </div>
-                    <p className="text-sm text-gray-500 leading-relaxed pl-4">{plan.description}</p>
-                    <div className="pl-4 flex items-center justify-between">
-                      <span className="inline-flex items-center gap-1 text-xs font-semibold text-primary">
-                        View Details <Info className="size-3" />
-                      </span>
-                      <ChevronRight className="size-4 text-gray-300 group-hover:text-primary group-hover:translate-x-0.5 transition-all" />
-                    </div>
-                  </button>
-                ))}
-              </div>
-            </div>
+            )}
           </div>
         </div>
       </section>
@@ -1156,7 +933,6 @@ export default function Insurances() {
         <SheetContent side="right" className="w-full sm:max-w-lg overflow-y-auto p-0">
           {selectedPlan && (
             <>
-              {/* Header */}
               <div
                 className="relative px-6 pt-8 pb-6 text-white"
                 style={{ background: activeCategory.heroGradient }}
@@ -1170,10 +946,7 @@ export default function Insurances() {
                 <p className="mt-2 text-sm text-blue-100 leading-relaxed">{selectedPlan.description}</p>
               </div>
 
-              {/* Body */}
               <div className="px-6 py-6 space-y-7">
-
-                {/* Plan specs */}
                 <div>
                   <h3 className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-3">Plan Specifications</h3>
                   <div className="bg-gray-50 rounded-xl px-4 py-1">
@@ -1192,7 +965,6 @@ export default function Insurances() {
                   </div>
                 </div>
 
-                {/* Key benefits */}
                 <div>
                   <h3 className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-3">Key Benefits</h3>
                   <ul className="space-y-2.5">
@@ -1205,7 +977,6 @@ export default function Insurances() {
                   </ul>
                 </div>
 
-                {/* Ideal for */}
                 {selectedPlan.details.idealFor && (
                   <div className="bg-primary/5 border border-primary/10 rounded-xl p-4">
                     <p className="text-xs font-bold uppercase tracking-widest text-primary mb-1.5">Ideal For</p>
@@ -1213,7 +984,6 @@ export default function Insurances() {
                   </div>
                 )}
 
-                {/* CTA */}
                 <div className="flex flex-col gap-3 pt-2">
                   <Button asChild className="w-full bg-primary hover:bg-primary/90">
                     <Link to="/contact" onClick={() => setSelectedPlan(null)}>
