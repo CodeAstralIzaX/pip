@@ -907,7 +907,7 @@ export default function Insurances() {
       ) : (
         <section className="relative text-white py-20 md:py-28 overflow-hidden">
           <div className="absolute inset-0">
-            <img src={isHealth ? claimsFormImg : familyHealthImg} alt={activeCategory.label} className="w-full h-full object-cover" />
+            <img src={familyHealthImg} alt={activeCategory.label} className="w-full h-full object-cover" />
             <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/85 to-primary/60" />
           </div>
           <div className="pointer-events-none absolute inset-0 section-pattern opacity-10" />

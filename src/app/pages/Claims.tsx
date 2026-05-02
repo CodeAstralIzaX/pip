@@ -1,7 +1,7 @@
 import { Link } from "react-router";
 import { ChevronRight, FileText, ClipboardCheck, Search, CheckCircle2 } from "lucide-react";
 import { ContactCTA } from "../components/ContactCTA";
-import heroFamilyImg from "../components/assets/hero_family.jpg";
+import claimsFormImg from "../components/assets/claims_form.jpg";
 
 
 export default function Claims() {
@@ -37,7 +37,7 @@ export default function Claims() {
       {/* Hero Section */}
       <section className="relative text-white py-20 md:py-28 overflow-hidden">
         <div className="absolute inset-0">
-          <img src={heroFamilyImg} alt="Insurance Claims" className="w-full h-full object-cover" />
+          <img src={claimsFormImg} alt="Insurance Claims" className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/85 to-primary/60" />
         </div>
         <div className="pointer-events-none absolute inset-0 section-pattern opacity-10" />
