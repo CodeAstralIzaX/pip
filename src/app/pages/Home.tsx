@@ -27,10 +27,16 @@ export default function Home() {
   return (
     <div className="w-full">
       {/* ── Hero Section ─────────────────────────────────────────── */}
-      <section className="relative text-white overflow-hidden min-h-[520px]" style={{ background: "linear-gradient(135deg, #001a38 0%, #002147 40%, #003366 100%)" }}>
+      <section className="relative text-white overflow-hidden min-h-[520px]" style={{
+        backgroundImage: `url(${heroFamilyImg})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundAttachment: "fixed"
+      }}>
+        {/* Faded overlay for readability */}
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/85 to-primary/75" />
         {/* Subtle texture overlay */}
         <div className="pointer-events-none absolute inset-0 section-pattern opacity-40" />
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-secondary/5" />
 
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -65,12 +71,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="hidden lg:flex items-center justify-center">
-              <div className="relative">
-                <div className="absolute -inset-3 bg-secondary/20 rounded-2xl blur-xl" />
-                <img src={heroFamilyImg} alt="Happy family with insurance protection" loading="lazy" decoding="async" className="relative h-[360px] w-auto object-cover rounded-2xl shadow-2xl border-2 border-white/10" />
-              </div>
-            </div>
+            <div className="hidden lg:flex items-center justify-center" />
           </div>
         </div>
 
