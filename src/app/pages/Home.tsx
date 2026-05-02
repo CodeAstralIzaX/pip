@@ -1,155 +1,196 @@
 import { Link } from "react-router";
-import { ArrowRight, Phone } from "lucide-react";
+import { ArrowRight, Shield, Heart, ChevronRight, Compass, Handshake, ClipboardCheck } from "lucide-react";
 import { Button } from "../components/ui/button";
-import heroSection from "../components/assets/heroSection_1.png";
-import generalInsuranceImg from "../components/assets/General_Insurance.jpeg";
+import { ContactCTA } from "../components/ContactCTA";
+import heroFamilyImg from "../components/assets/hero_family.jpg";
 import lifeInsuranceImg from "../components/assets/card2.jpeg";
 import homeInsuranceImg from "../components/assets/Home_Insurance.jpeg";
-import whatsappIcon from "../components/assets/whatsapp.svg";
-
-// Placeholder: swap homeInsuranceImg for a dedicated health image when one is available
-const SERVICE_IMAGES = {
-  general: generalInsuranceImg,
-  life:    lifeInsuranceImg,
-  health:  homeInsuranceImg,
-};
 
 export default function Home() {
   const services = [
     {
       title: "Life Insurance",
-      image: SERVICE_IMAGES.life,
+      description: "Secure your family's future with comprehensive life coverage plans.",
+      image: lifeInsuranceImg,
       slug: "life",
+      icon: Shield,
     },
     {
       title: "Health Insurance",
-      image: SERVICE_IMAGES.health,
+      description: "Protection against medical expenses for you and your loved ones.",
+      image: homeInsuranceImg,
       slug: "health",
+      icon: Heart,
     },
   ];
 
   return (
     <div className="w-full">
-      {/* Hero Section */}
-      <section
-        className="relative text-white overflow-hidden"
-        style={{
-          background: "radial-gradient(100% 100% at 50% 50%, #002E5F 62.5%, #0D5097 100%)",
-        }}
-      >
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(0,0,0,0.35)_100%)]" />
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-14 md:py-24 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center min-h-[320px]">
+      {/* ── Hero Section ─────────────────────────────────────────── */}
+      <section className="relative text-white overflow-hidden min-h-[520px]" style={{ background: "linear-gradient(135deg, #001a38 0%, #002147 40%, #003366 100%)" }}>
+        {/* Subtle texture overlay */}
+        <div className="pointer-events-none absolute inset-0 section-pattern opacity-40" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-secondary/5" />
+
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
-              <h1 className="text-2xl md:text-3xl lg:text-4xl font-semibold mb-6 leading-relaxed">
-                To serve as a sole, reliable source for addressing all insurance needs of individuals or body of associates by identifying and delivering the best value solutions.
+              {/* Tagline */}
+              <div className="flex items-center gap-2 mb-6">
+                <div className="gold-divider" />
+                <span className="text-secondary text-xs font-semibold tracking-[0.2em] uppercase font-sans">Trusted Insurance Partners</span>
+              </div>
+
+              <h1 className="text-3xl md:text-4xl lg:text-[2.75rem] font-bold mb-6 leading-tight">
+                To serve as a sole, reliable source for addressing all{" "}
+                <span className="text-secondary">insurance needs</span>
               </h1>
+
+              <p className="text-white/70 text-base md:text-lg leading-relaxed mb-8 max-w-lg font-sans">
+                Identifying and delivering the best value solutions for individuals and associations across India.
+              </p>
+
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button asChild size="lg" className="bg-secondary hover:bg-secondary/90 text-white font-semibold">
+                <Button asChild size="lg" className="bg-secondary hover:bg-secondary/90 text-white font-semibold text-base px-8 py-5 shadow-lg hover:shadow-xl transition-all duration-300 rounded-lg">
                   <Link to="/insurances">
                     Explore Our Policies
                     <ArrowRight className="ml-2 size-5" />
                   </Link>
                 </Button>
+                <Button asChild size="lg" variant="outline" className="border-white bg-white/10 text-white hover:bg-white hover:text-primary font-semibold text-base px-8 py-5 rounded-lg backdrop-blur-sm">
+                  <Link to="/contact">
+                    Get Free Consultation
+                  </Link>
+                </Button>
               </div>
             </div>
+
             <div className="hidden lg:flex items-center justify-center">
-              <img src={heroSection} alt="Premier Insurance Partners Header" loading="lazy" decoding="async" width={620} height={420} className="h-96 w-auto object-contain drop-shadow-2xl" />
+              <div className="relative">
+                <div className="absolute -inset-3 bg-secondary/20 rounded-2xl blur-xl" />
+                <img src={heroFamilyImg} alt="Happy family with insurance protection" loading="lazy" decoding="async" className="relative h-[360px] w-auto object-cover rounded-2xl shadow-2xl border-2 border-white/10" />
+              </div>
             </div>
           </div>
         </div>
+
+        {/* Bottom gold accent line */}
+        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-secondary to-transparent" />
       </section>
 
-      {/* Services Section */}
-      <section className="py-10 md:py-16 bg-white">
+      {/* ── Trust Indicators ─────────────────────────────────────── */}
+      <section className="py-6 bg-white border-b border-gray-100">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Section header */}
-          <div className="text-center mb-8">
-            <div className="w-8 h-0.5 bg-primary mx-auto mb-4" />
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Our Insurance Services</h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Comprehensive coverage options designed to protect every aspect of your life.
-            </p>
-            <div className="w-8 h-0.5 bg-secondary mx-auto mt-4" />
-          </div>
-
-          {/* Image cards grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {services.map((service, index) => (
-              <Link
-                key={index}
-                to={`/insurances/${service.slug}`}
-                className="group relative rounded-2xl overflow-hidden h-60 md:h-64 block"
-              >
-                {/* Background image */}
-                <img
-                  src={service.image}
-                  alt={service.title}
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-                {/* Dark overlay */}
-                <div className="absolute inset-0 bg-primary/50 group-hover:bg-primary/60 transition-colors duration-300" />
-
-                {/* Text content */}
-                <div className="absolute inset-0 p-7 flex flex-col justify-end">
-                  <div>
-                  <h3 className="text-2xl font-bold text-white leading-snug">
-                    {service.title}
-                  </h3>
-                  </div>
-                  <div className="flex items-center gap-2 text-white/90 text-sm font-medium group-hover:gap-3 transition-all duration-300">
-                  Learn more
-                  <ArrowRight className="size-4" />
-                  </div>
-                </div>
-              </Link>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+            {[
+              { value: "15+", label: "Years Experience" },
+              { value: "5000+", label: "Happy Clients" },
+              { value: "₹100Cr+", label: "Claims Settled" },
+              { value: "24/7", label: "Customer Support" },
+            ].map((stat, i) => (
+              <div key={i} className="py-3">
+                <p className="text-2xl font-bold text-primary">{stat.value}</p>
+                <p className="text-xs text-gray-500 font-medium tracking-wide uppercase font-sans">{stat.label}</p>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section
-        className="relative overflow-hidden py-10 md:py-16"
-        style={{ background: "radial-gradient(100% 100% at 50% 50%, #002E5F 62.5%, #0D5097 100%)" }}
-      >
-        {/* Gold diagonal shape — hidden on mobile, visible md+ */}
-        <div
-          className="pointer-events-none absolute top-0 right-0 h-full hidden md:block"
-          style={{
-            width: "320px",
-            background: "#cc9c42",
-            clipPath: "polygon(45% 0%, 100% 0%, 100% 100%, 15% 100%)",
-          }}
-        />
+      {/* ── Services Section ─────────────────────────────────────── */}
+      <section className="py-16 md:py-20 bg-gray-50 section-pattern">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Section header */}
+          <div className="text-center mb-12">
+            <span className="text-secondary text-xs font-semibold tracking-[0.2em] uppercase font-sans">What We Offer</span>
+            <h2 className="text-3xl md:text-4xl font-bold text-primary mt-3 mb-4">Our Insurance Services</h2>
+            <div className="gold-divider mx-auto mb-4" />
+            <p className="text-base text-gray-500 max-w-2xl mx-auto font-sans">
+              Comprehensive coverage options designed to protect every aspect of your life, backed by India's most trusted insurers.
+            </p>
+          </div>
 
-        {/* Subtle dark vignette */}
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(0,0,0,0.3)_100%)]" />
+          {/* Service cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            {services.map((service, index) => {
+              const Icon = service.icon;
+              return (
+                <Link
+                  key={index}
+                  to={`/insurances/${service.slug}`}
+                  className="group relative rounded-2xl overflow-hidden h-80 block shadow-lg hover:shadow-2xl transition-all duration-500"
+                >
+                  {/* Background image */}
+                  <img
+                    src={service.image}
+                    alt={service.title}
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                  {/* Gradient overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/50 to-transparent group-hover:from-primary/90 transition-colors duration-500" />
 
-        <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          {/* Phone icon */}
-          <Phone className="size-12 mx-auto mb-4 text-white/70 stroke-[1.2]" />
-
-          <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">
-            Ready to Get Started?
-          </h2>
-          <p className="text-base text-blue-100 mb-6 max-w-xl mx-auto">
-            Let's find the right coverage for you and your family.
-          </p>
-
-          {/* WhatsApp enquire button */}
-          <a
-            href="https://wa.me/+918778912704?text=Hi%2C%20I%20need%20info%20on%20policies"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-3 px-8 py-3 rounded-full font-semibold text-white transition-all duration-300 hover:brightness-110 hover:scale-105 shadow-lg"
-            style={{ background: "#cc9c42" }}
-          >
-            <img src={whatsappIcon} alt="WhatsApp" className="h-5 w-5" />
-            Enquire Now
-          </a>
+                  {/* Content */}
+                  <div className="absolute inset-0 p-7 flex flex-col justify-end">
+                    <div className="mb-3">
+                      <div className="w-12 h-12 rounded-xl bg-secondary/20 border border-secondary/30 flex items-center justify-center mb-3 group-hover:bg-secondary/30 transition-colors">
+                        <Icon className="size-6 text-secondary" />
+                      </div>
+                      <h3 className="text-2xl font-bold text-white leading-snug mb-1">{service.title}</h3>
+                      <p className="text-white/70 text-sm font-sans">{service.description}</p>
+                    </div>
+                    <div className="flex items-center gap-2 text-secondary text-sm font-semibold group-hover:gap-3 transition-all duration-300 font-sans">
+                      View Plans
+                      <ChevronRight className="size-4" />
+                    </div>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
         </div>
       </section>
+
+      {/* ── Why Choose Us ──────────────────────────────────────── */}
+      <section className="py-16 md:py-20 bg-white">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <span className="text-secondary text-xs font-semibold tracking-[0.2em] uppercase font-sans">Why Premier</span>
+            <h2 className="text-3xl md:text-4xl font-bold text-primary mt-3 mb-4">Why Choose Us</h2>
+            <div className="gold-divider mx-auto" />
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            {[
+              {
+                title: "Expert Guidance",
+                desc: "Our certified advisors help you navigate complex insurance options with personalized, unbiased advice.",
+                Icon: Compass,
+              },
+              {
+                title: "Trusted Partnerships",
+                desc: "We work with India's top insurers — LIC, Star Health, and more — to bring you the best coverage.",
+                Icon: Handshake,
+              },
+              {
+                title: "Hassle-Free Claims",
+                desc: "From filing to settlement, we guide you through every step to ensure smooth and timely claim processing.",
+                Icon: ClipboardCheck,
+              },
+            ].map((item, i) => (
+              <div key={i} className="bg-gray-50 rounded-2xl p-7 card-premium text-center group">
+                <div className="w-14 h-14 mx-auto rounded-2xl bg-primary/5 border border-primary/10 flex items-center justify-center mb-5 group-hover:bg-secondary/10 group-hover:border-secondary/20 transition-colors duration-300">
+                  <item.Icon className="size-7 text-primary group-hover:text-secondary transition-colors duration-300" strokeWidth={1.5} />
+                </div>
+                <h3 className="text-lg font-bold text-primary mb-2">{item.title}</h3>
+                <p className="text-sm text-gray-500 leading-relaxed font-sans">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Contact CTA ──────────────────────────────────────────── */}
+      <ContactCTA />
     </div>
   );
 }

@@ -108,41 +108,47 @@ export default function Contact() {
     <div className="w-full">
       {/* Hero Section */}
       <section
-        className="relative text-white py-20 md:py-32 overflow-hidden"
-        style={{
-          background: "radial-gradient(100% 100% at 50% 50%, #002E5F 62.5%, #0D5097 100%)",
-        }}
+        className="relative text-white py-20 md:py-28 overflow-hidden"
+        style={{ background: "linear-gradient(135deg, #001a38 0%, #002147 50%, #003366 100%)" }}
       >
-        {/* subtle radial vignette overlay */}
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(0,0,0,0.35)_100%)]" />
+        <div className="pointer-events-none absolute inset-0 section-pattern opacity-20" />
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-3xl">
+            <div className="flex items-center gap-2 mb-6">
+              <div className="gold-divider" />
+              <span className="text-secondary text-xs font-semibold tracking-[0.2em] uppercase font-sans">Contact Us</span>
+            </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">Get in Touch</h1>
-            <p className="text-xl text-blue-100">
+            <p className="text-lg text-white/60 font-sans">
               Have questions? We're here to help. Reach out to us and we'll respond as soon as possible.
             </p>
           </div>
         </div>
+        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-secondary to-transparent" />
       </section>
 
       {/* Contact Info Cards */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-14 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {contactInfo.map((info, index) => {
               const Icon = info.icon;
               return (
-                <Card key={index} className="border-0 shadow-lg hover:shadow-xl transition-shadow">
-                  <CardContent className="p-6">
-                    <div className="bg-blue-100 w-12 h-12 rounded-full flex items-center justify-center mb-4">
-                      <Icon className="size-6 text-blue-600" />
+                <Card key={index} className="border-0 shadow-lg hover:shadow-xl transition-shadow card-premium">
+                  <CardContent className="p-7">
+                    <div className="flex items-start gap-5">
+                      <div className="bg-primary/5 w-13 h-13 rounded-xl flex items-center justify-center shrink-0" style={{ width: 52, height: 52 }}>
+                        <Icon className="size-6 text-primary" />
+                      </div>
+                      <div>
+                        <h3 className="font-bold text-primary text-base mb-2">{info.title}</h3>
+                        {info.details.map((detail, detailIndex) => (
+                          <p key={detailIndex} className="text-sm text-gray-600 leading-relaxed">
+                            {detail}
+                          </p>
+                        ))}
+                      </div>
                     </div>
-                    <h3 className="font-semibold text-gray-900 mb-2">{info.title}</h3>
-                    {info.details.map((detail, detailIndex) => (
-                      <p key={detailIndex} className="text-sm text-gray-600">
-                        {detail}
-                      </p>
-                    ))}
                   </CardContent>
                 </Card>
               );
@@ -152,7 +158,7 @@ export default function Contact() {
       </section>
 
       {/* Contact Form */}
-      <section className="py-16 md:py-24 bg-white">
+      <section className="py-14 md:py-20 bg-gray-50 section-pattern">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl mx-auto">
             <div className="text-center mb-12">
@@ -269,7 +275,7 @@ export default function Contact() {
                     />
                   </div>
 
-                  <div className="bg-blue-50 p-4 rounded-lg">
+                  <div className="bg-gray-50 p-4 rounded-lg">
                     <p className="text-sm text-gray-600">
                       By submitting this form, you agree to be contacted by Premier Insurance Partners regarding your inquiry. We respect your privacy and will never share your information with third parties.
                     </p>
@@ -278,7 +284,7 @@ export default function Contact() {
                   <Button
                     type="submit"
                     size="lg"
-                    className="w-full bg-blue-600 hover:bg-blue-700"
+                    className="w-full bg-primary hover:bg-primary/90"
                     disabled={isLoading}
                   >
                     {isLoading ? (
@@ -300,13 +306,13 @@ export default function Contact() {
             <div className="mt-8 text-center">
               <p className="text-gray-600 mb-4">Prefer to talk to someone right away?</p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button asChild size="lg" variant="outline" className="border-blue-600 text-blue-600 hover:bg-blue-50">
+                <Button asChild size="lg" variant="outline" className="border-primary text-primary hover:bg-primary/5">
                   <a href="tel:+918778912704">
                     <Phone className="mr-2 size-5" />
                     Call +91 87789 12704
                   </a>
                 </Button>
-                <Button asChild size="lg" variant="outline" className="border-blue-600 text-blue-600 hover:bg-blue-50">
+                <Button asChild size="lg" variant="outline" className="border-primary text-primary hover:bg-primary/5">
                   <a href="mailto:info@premierinsurance-partners.in">
                     <Mail className="mr-2 size-5" />
                     Email Us
@@ -319,10 +325,10 @@ export default function Contact() {
       </section>
 
       {/* Map Section — Futuristic */}
-      <section className="relative bg-[#020c1b] overflow-hidden">
+      <section className="relative bg-primary overflow-hidden">
 
         {/* Ambient glow blobs */}
-        <div className="pointer-events-none absolute -top-32 -left-32 w-[500px] h-[500px] rounded-full bg-blue-600/10 blur-[120px]" />
+        <div className="pointer-events-none absolute -top-32 -left-32 w-[500px] h-[500px] rounded-full bg-white/5 blur-[120px]" />
         <div className="pointer-events-none absolute -bottom-32 -right-32 w-[400px] h-[400px] rounded-full bg-secondary/10 blur-[100px]" />
 
         <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-16">

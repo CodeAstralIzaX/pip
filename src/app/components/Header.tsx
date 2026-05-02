@@ -22,43 +22,45 @@ export function Header() {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80">
+    <header className="sticky top-0 z-50 w-full bg-white shadow-[0_1px_3px_rgba(0,33,71,0.08)] backdrop-blur-sm">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 items-center justify-between">
+        <div className="flex h-24 items-center justify-between">
           {/* Logo */}
-
-          <Link to="/" className="flex items-center hover:opacity-80 transition-opacity">
-            <img src={logoHeader} alt="Premier Insurance Partners" width={160} height={55} className="h-14 w-auto" />
+          <Link to="/" className="flex items-center hover:opacity-90 transition-opacity">
+            <img src={logoHeader} alt="Premier Insurance Partners" width={240} height={80} className="h-20 w-auto" />
           </Link>
 
           {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden md:flex items-center gap-1">
             {navLinks.map((link) => (
               <Link
-              key={link.path}
-              to={link.path}
-              className={`text-base font-medium transition-colors hover:text-secondary ${
-                isActive(link.path) ? "text-secondary text-lg" : "text-gray-700 text-base"
-              }`}
+                key={link.path}
+                to={link.path}
+                className={`relative px-5 py-2.5 rounded-lg text-sm font-semibold tracking-wide transition-all duration-200 font-sans ${
+                  isActive(link.path)
+                    ? "bg-primary text-white shadow-md"
+                    : "text-gray-600 hover:text-primary hover:bg-primary/5"
+                }`}
+                style={{ fontFamily: "var(--font-family-sans)" }}
               >
-              {link.name}
+                {link.name}
               </Link>
             ))}
-            </nav>
+          </nav>
 
-            {/* Desktop CTA */}
-            <div className="hidden md:flex items-center gap-4">
-            <Button asChild variant="outline" className="border-secondary text-base font-semibold text-white bg-secondary hover:bg-secondary/90 hover:text-white">
+          {/* Desktop CTA */}
+          <div className="hidden md:flex items-center gap-4">
+            <Button asChild className="bg-secondary hover:bg-secondary/90 text-white font-semibold shadow-md hover:shadow-lg transition-all duration-200 rounded-lg px-6">
               <a href="https://wa.me/+918778912704?text=Hi%2C%20I%20need%20info%20on%20policies" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
-              <img src={whatsapp} alt="WhatsApp Icon" className="h-5 w-auto" />
-              Enquire Now
+                <img src={whatsapp} alt="WhatsApp Icon" className="h-5 w-auto" />
+                Enquire Now
               </a>
             </Button>
-            </div>
+          </div>
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden p-2 hover:bg-gray-100 rounded-md transition-colors"
+            className="md:hidden p-2 hover:bg-gray-100 rounded-lg transition-colors"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label="Toggle menu"
           >
@@ -72,21 +74,23 @@ export function Header() {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <nav className="md:hidden py-4 border-t">
+          <nav className="md:hidden py-4 border-t border-gray-100">
             <div className="flex flex-col gap-1">
               {navLinks.map((link) => (
                 <Link
                   key={link.path}
                   to={link.path}
-                  className={`text-base font-medium transition-colors hover:text-secondary px-2 py-2 rounded-md ${
-                    isActive(link.path) ? "text-secondary font-semibold" : "text-gray-700"
+                  className={`text-sm font-semibold transition-all duration-200 px-4 py-3 rounded-lg ${
+                    isActive(link.path)
+                      ? "bg-primary text-white shadow-sm"
+                      : "text-gray-600 hover:bg-gray-50"
                   }`}
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {link.name}
                 </Link>
               ))}
-              <Button asChild variant="outline" className="border-secondary text-white font-semibold bg-secondary hover:bg-secondary/90 hover:text-white mt-3">
+              <Button asChild className="bg-secondary text-white font-semibold hover:bg-secondary/90 mt-3 shadow-md">
                 <a
                   href="https://wa.me/+918778912704?text=Hi%2C%20I%20need%20info%20on%20policies"
                   target="_blank"

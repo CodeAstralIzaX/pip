@@ -18,7 +18,14 @@ import {
 } from "lucide-react";
 import { Button } from "../components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "../components/ui/sheet";
+import { ContactCTA } from "../components/ContactCTA";
 import whatsappIcon from "../components/assets/whatsapp.svg";
+import familyHealthImg from "../components/assets/family_health.jpg";
+import coupleWalkingImg from "../components/assets/couple_walking.png";
+import elderlyImg from "../components/assets/elderly_couple.png";
+import graduationImg from "../components/assets/graduation.png";
+import claimsFormImg from "../components/assets/claims_form.jpg";
+
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 interface PlanDetail {
@@ -63,22 +70,39 @@ interface Category {
   heroGradient: string;
   subCategories: SubCategory[];
   healthSections?: HealthSection[];
-  healthIntro?: { title: string; body: string }[];
+  healthIntro?: { title: string; irdai?: string; points: string[] }[];
 }
 
 // ─── Health Data ──────────────────────────────────────────────────────────────
 const HEALTH_INTRO = [
   {
     title: "Health Insurance for Individuals",
-    body: "Coverage for unexpected medical expenses, tax deduction benefits, coverage for pre- and post-hospitalisation costs. Holistic product with holistic benefits — Star Comprehensive Insurance Policy.\n\nIRDAI UIN: SHAHLIP25037V082425",
+    irdai: "IRDAI UIN: SHAHLIP25037V082425",
+    points: [
+      "Coverage for unexpected medical expenses",
+      "Tax deduction benefits",
+      "Coverage for pre- and post-hospitalisation costs",
+      "Holistic product with holistic benefits — Star Comprehensive Insurance Policy",
+    ],
   },
   {
     title: "Health Insurance for Family",
-    body: "Coverage for entire family, affordable premiums that don't break the bank, maternity and new born coverage. Well-being and financial safety ensured.",
+    points: [
+      "Coverage for entire family",
+      "Affordable premiums that don't break the bank",
+      "Maternity and new born coverage",
+      "Well-being and financial safety ensured",
+    ],
   },
   {
     title: "Health Insurance for Senior Citizens",
-    body: "Well-being and financial safety ensured, coverage for pre-existing diseases, stress-free retirement. Wealth of benefits to make those golden years count — Senior Citizens Red Carpet Health Insurance Policy.\n\nIRDAI UIN: SHAHLIP22199V062122",
+    irdai: "IRDAI UIN: SHAHLIP22199V062122",
+    points: [
+      "Well-being and financial safety ensured",
+      "Coverage for pre-existing diseases",
+      "Stress-free retirement",
+      "Wealth of benefits to make those golden years count — Senior Citizens Red Carpet Health Insurance Policy",
+    ],
   },
 ];
 
@@ -87,7 +111,7 @@ const HEALTH_SECTIONS: HealthSection[] = [
     id: "inclusion",
     label: "Inclusions",
     icon: <ShieldCheck className="size-5" />,
-    accent: "#16a34a",
+    accent: "#002147",
     items: [
       { title: "Hospitalisation Expenses", body: "Most Medical Insurance plans cover hospitalisation expenses such as room rents, ICU charges, surgery expenses, doctor consultations, etc. incurred on illness, injury or accidents." },
       { title: "Pre & Post-Hospitalisation", body: "Understanding the impact of rising medical expenses, most Medical Insurance Policies cover pre and post-hospitalisation expenses related to in-patient hospitalisation." },
@@ -104,7 +128,7 @@ const HEALTH_SECTIONS: HealthSection[] = [
     id: "exclusion",
     label: "Exclusions",
     icon: <ShieldOff className="size-5" />,
-    accent: "#dc2626",
+    accent: "#8b3a3a",
     items: [
       { title: "Self-Inflicted Injuries", body: "Any form of self-inflicted injuries will not be covered under Medical Insurance policies." },
       { title: "Obesity / Weight Control", body: "Most health insurance will not cover expenses incurred due to the treatment for obesity or weight control." },
@@ -118,7 +142,7 @@ const HEALTH_SECTIONS: HealthSection[] = [
     id: "waiting",
     label: "Waiting Periods",
     icon: <Clock className="size-5" />,
-    accent: "#d97706",
+    accent: "#cc9c42",
     items: [
       { title: "Initial Waiting Period", body: "Initial waiting period denotes the time during which the policyholder has to wait to avail the Health policy benefits. However, it will not apply for hospitalisation expenses due to accidents as they will be covered from day 1." },
       { title: "Specific Diseases", body: "Specific diseases are a list of diseases or ailments for which the Health Insurance Company has a waiting period. The expenses incurred due to such diseases will be covered after the completion of the waiting period." },
@@ -143,7 +167,7 @@ const CATEGORIES: Category[] = [
   {
     id: "life",
     label: "Life Insurance",
-    tagline: "Small steps today, strong future tomorrow",
+    tagline: "The best gift you can give your child is a secure future",
     heroGradient: "radial-gradient(100% 100% at 50% 50%, #002E5F 62.5%, #0D5097 100%)",
     subCategories: [
       {
@@ -483,69 +507,10 @@ const CATEGORIES: Category[] = [
           },
         ],
       },
-      {
-        id: "term",
-        label: "Term Assurance Plans",
-        plans: [
-          {
-            name: "LIC Tech Term",
-            description: "Online pure term plan with high sum assured at affordable premiums — no physical medical.",
-            details: {
-              eligibility: "Age 18 – 65 years",
-              policyTerm: "10 – 40 years",
-              premiumPayingTerm: "Regular, limited, or single pay",
-              sumAssured: "₹50,00,000 and above",
-              keyBenefits: [
-                "Very low premiums for high life cover",
-                "Available online — no agent or branch needed",
-                "Option to increase cover at key life events",
-                "Level or increasing death benefit options",
-                "Tax benefit under Section 80C & 10(10D)",
-              ],
-              idealFor: "Young earners seeking maximum life cover at the lowest possible premium.",
-            },
-          },
-          {
-            name: "LIC Jeevan Amar",
-            description: "Flexible term plan with increasing or level cover options to suit your changing needs.",
-            details: {
-              eligibility: "Age 18 – 65 years",
-              policyTerm: "10 – 40 years",
-              premiumPayingTerm: "Regular, limited (5/10 yrs), or single",
-              sumAssured: "₹25,00,000 and above",
-              keyBenefits: [
-                "Choose level or increasing sum assured",
-                "Special rates for non-tobacco users",
-                "Lower premiums for women",
-                "High sum assured bands reduce per-unit premium",
-                "Tax benefit under Section 80C & 10(10D)",
-              ],
-              idealFor: "Families who want flexible death benefit options to match growing financial liabilities.",
-            },
-          },
-          {
-            name: "LIC New Tech Term",
-            description: "Updated online term plan with premium return option and wider sum assured bands.",
-            details: {
-              eligibility: "Age 18 – 65 years",
-              policyTerm: "10 – 40 years",
-              premiumPayingTerm: "Regular, limited, or single pay",
-              sumAssured: "₹50,00,000 and above",
-              keyBenefits: [
-                "Option to get all premiums back on maturity (TROP)",
-                "Wider sum assured range",
-                "Accelerated critical illness benefit available",
-                "Completely online — quick issuance",
-                "Tax benefit under Section 80C & 10(10D)",
-              ],
-              idealFor: "Those who want pure term protection but also wish to recover premiums if they outlive the policy.",
-            },
-          },
-        ],
-      },
+
       {
         id: "riders",
-        label: "Riders",
+        label: "Riders — Optional Add-ons",
         plans: [
           {
             name: "Accidental Death & Disability Benefit Rider",
@@ -618,7 +583,7 @@ const CATEGORIES: Category[] = [
     id: "health",
     label: "Health Insurance",
     tagline: "Your health is your greatest wealth — protect it",
-    heroGradient: "radial-gradient(100% 100% at 50% 50%, #1a003f 62.5%, #4b0082 100%)",
+    heroGradient: "radial-gradient(100% 100% at 50% 50%, #002E5F 62.5%, #0D5097 100%)",
     subCategories: [],
     healthSections: HEALTH_SECTIONS,
     healthIntro: HEALTH_INTRO,
@@ -639,6 +604,129 @@ function DetailRow({ label, value }: { label: string; value: string }) {
   );
 }
 
+// ─── Life Insurance Quote Cards ───────────────────────────────────────────────
+const LIFE_QUOTES = [
+  { image: coupleWalkingImg, quote: "Small steps today, strong future tomorrow" },
+  { image: graduationImg, quote: "The best gift you can give your child is a secure future" },
+  { image: elderlyImg, quote: "Retirement planning starts whenever you're ready, start today" },
+];
+
+// ─── Life Hero Auto-Slider ───────────────────────────────────────────────────
+function LifeHeroSlider({ tagline }: { tagline: string }) {
+  const [current, setCurrent] = React.useState(0);
+
+  React.useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrent((prev) => (prev + 1) % LIFE_QUOTES.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
+
+  return (
+    <section className="relative text-white py-20 md:py-28 overflow-hidden min-h-[420px]">
+      {/* Sliding background images */}
+      {LIFE_QUOTES.map((slide, i) => (
+        <div
+          key={i}
+          className="absolute inset-0 transition-opacity duration-1000 ease-in-out"
+          style={{ opacity: current === i ? 1 : 0 }}
+        >
+          <img src={slide.image} alt={slide.quote} className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/80 to-primary/50" />
+        </div>
+      ))}
+
+      <div className="pointer-events-none absolute inset-0 section-pattern opacity-10" />
+
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <nav className="flex items-center gap-1.5 text-sm text-white/50 mb-8 font-sans" aria-label="Breadcrumb">
+          <Link to="/" className="hover:text-white transition-colors">Home</Link>
+          <ChevronRight className="size-3.5 shrink-0" />
+          <span className="text-white font-medium">Life Insurance</span>
+        </nav>
+
+        <div className="max-w-2xl">
+          <div className="flex items-center gap-2 mb-5">
+            <div className="gold-divider" />
+            <span className="text-secondary text-xs font-semibold tracking-[0.2em] uppercase font-sans">Life Insurance Plans</span>
+          </div>
+
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 leading-tight">Life Insurance</h1>
+
+          {/* Auto-sliding quote */}
+          <div className="relative h-16 mb-6 overflow-hidden">
+            {LIFE_QUOTES.map((slide, i) => (
+              <p
+                key={i}
+                className="absolute inset-0 text-lg md:text-xl text-white/80 italic font-sans transition-all duration-700 ease-in-out"
+                style={{
+                  opacity: current === i ? 1 : 0,
+                  transform: current === i ? "translateY(0)" : "translateY(20px)",
+                }}
+              >
+                &ldquo;{slide.quote}&rdquo;
+              </p>
+            ))}
+          </div>
+
+          {/* Dot indicators */}
+          <div className="flex items-center gap-2 mb-6">
+            {LIFE_QUOTES.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setCurrent(i)}
+                className={`h-2 rounded-full transition-all duration-300 ${
+                  current === i
+                    ? "w-8 bg-secondary"
+                    : "w-2 bg-white/30 hover:bg-white/50"
+                }`}
+                aria-label={`Slide ${i + 1}`}
+              />
+            ))}
+          </div>
+
+          <a
+            href="https://wa.me/+918778912704?text=Hi%2C%20I%20need%20info%20on%20life%20insurance"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg font-semibold text-white text-sm bg-secondary hover:bg-secondary/90 shadow-lg hover:shadow-xl transition-all duration-200 font-sans"
+          >
+            Get a Quote
+            <ArrowRight className="size-4" />
+          </a>
+        </div>
+      </div>
+
+      <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-secondary to-transparent" />
+    </section>
+  );
+}
+
+function LifeQuoteCards() {
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mt-8 mb-4">
+      {LIFE_QUOTES.map((item, i) => (
+        <div
+          key={i}
+          className="group relative rounded-2xl overflow-hidden h-56 shadow-lg hover:shadow-xl transition-shadow duration-300"
+        >
+          <img
+            src={item.image}
+            alt={item.quote}
+            className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/30 to-transparent" />
+          <div className="absolute inset-0 p-5 flex flex-col justify-end">
+            <p className="text-white font-semibold text-base leading-snug drop-shadow-lg">
+              &ldquo;{item.quote}&rdquo;
+            </p>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 // ─── Health Intro Cards ───────────────────────────────────────────────────────
 const INTRO_ICONS = [
   <User className="size-6" />,
@@ -646,19 +734,35 @@ const INTRO_ICONS = [
   <HeartPulse className="size-6" />,
 ];
 
-function HealthIntroCards({ items }: { items: { title: string; body: string }[] }) {
+function HealthIntroCards({ items }: { items: { title: string; irdai?: string; points: string[] }[] }) {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+    <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-8">
       {items.map((item, i) => (
         <div
           key={i}
-          className="bg-white rounded-2xl border border-purple-100 shadow-sm p-5 flex flex-col gap-3"
+          className="bg-white rounded-2xl border border-gray-200 shadow-sm p-5 flex flex-col gap-3"
         >
-          <div className="flex items-center justify-center w-11 h-11 rounded-xl bg-purple-50 text-purple-700">
-            {INTRO_ICONS[i]}
+          <div className="flex items-center gap-3">
+            <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-primary/5 text-primary shrink-0">
+              {INTRO_ICONS[i]}
+            </div>
+            <h3 className="text-sm font-bold text-gray-900 leading-snug">{item.title}</h3>
           </div>
-          <h3 className="text-sm font-bold text-gray-900 leading-snug">{item.title}</h3>
-          <p className="text-xs text-gray-500 leading-relaxed whitespace-pre-line">{item.body}</p>
+          {/* Feedback #6: IRDAI number comes first */}
+          {item.irdai && (
+            <p className="text-xs font-semibold text-primary bg-primary/5 px-3 py-1.5 rounded-lg inline-block">
+              {item.irdai}
+            </p>
+          )}
+          {/* Feedback #7: Bullet points instead of paragraph */}
+          <ul className="space-y-1.5">
+            {item.points.map((point, j) => (
+              <li key={j} className="flex items-start gap-2 text-xs text-gray-600 leading-relaxed">
+                <CheckCircle2 className="size-3.5 text-primary shrink-0 mt-0.5" />
+                <span>{point}</span>
+              </li>
+            ))}
+          </ul>
         </div>
       ))}
     </div>
@@ -749,7 +853,7 @@ function HealthPanel({ category }: { category: Category }) {
 
       {/* CTA */}
       <div className="mt-8 flex flex-col sm:flex-row gap-3">
-        <Button asChild className="bg-purple-700 hover:bg-purple-800 text-white">
+        <Button asChild className="bg-primary hover:bg-primary/90 text-white">
           <Link to="/contact">
             Get a Quote
             <ArrowRight className="ml-2 size-4" />
@@ -798,34 +902,55 @@ export default function Insurances() {
   return (
     <div className="w-full">
       {/* ── Hero ───────────────────────────────────────────────── */}
-      <section
-        className="relative text-white py-16 md:py-24 overflow-hidden"
-        style={{ background: activeCategory.heroGradient }}
-      >
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(0,0,0,0.35)_100%)]" />
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <nav className="flex items-center gap-1.5 text-sm text-blue-200 mb-6" aria-label="Breadcrumb">
-            <Link to="/" className="hover:text-white transition-colors">Home</Link>
-            <ChevronRight className="size-3.5 shrink-0" />
-            <span className="text-white font-medium">{activeCategory.label}</span>
-          </nav>
-          <h1 className="text-4xl md:text-5xl font-bold mb-3">{activeCategory.label}</h1>
-          <p className="text-lg text-blue-100 italic">&ldquo;{activeCategory.tagline}&rdquo;</p>
-        </div>
-      </section>
+      {activeCategory.id === "life" ? (
+        <LifeHeroSlider tagline={activeCategory.tagline} />
+      ) : (
+        <section className="relative text-white py-20 md:py-28 overflow-hidden">
+          <div className="absolute inset-0">
+            <img src={isHealth ? claimsFormImg : familyHealthImg} alt={activeCategory.label} className="w-full h-full object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/85 to-primary/60" />
+          </div>
+          <div className="pointer-events-none absolute inset-0 section-pattern opacity-10" />
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <nav className="flex items-center gap-1.5 text-sm text-white/50 mb-8 font-sans" aria-label="Breadcrumb">
+              <Link to="/" className="hover:text-white transition-colors">Home</Link>
+              <ChevronRight className="size-3.5 shrink-0" />
+              <span className="text-white font-medium">{activeCategory.label}</span>
+            </nav>
+            <div className="max-w-2xl">
+              <div className="flex items-center gap-2 mb-5">
+                <div className="gold-divider" />
+                <span className="text-secondary text-xs font-semibold tracking-[0.2em] uppercase font-sans">Insurance Plans</span>
+              </div>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 leading-tight">{activeCategory.label}</h1>
+              <p className="text-lg text-white/70 italic font-sans mb-6">&ldquo;{activeCategory.tagline}&rdquo;</p>
+              <a
+                href="https://wa.me/+918778912704?text=Hi%2C%20I%20need%20info%20on%20policies"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-lg font-semibold text-white text-sm bg-secondary hover:bg-secondary/90 shadow-lg hover:shadow-xl transition-all duration-200 font-sans"
+              >
+                Get a Quote
+                <ArrowRight className="size-4" />
+              </a>
+            </div>
+          </div>
+          <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-secondary to-transparent" />
+        </section>
+      )}
 
       {/* ── Category pills ─────────────────────────────────────── */}
-      <div className="bg-white border-b shadow-sm sticky top-0 z-20 overflow-x-auto">
+      <div className="bg-white border-b border-gray-100 shadow-sm sticky top-0 z-20 overflow-x-auto">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex gap-1 py-2 min-w-max">
+          <div className="flex gap-1 py-2.5 min-w-max">
             {CATEGORIES.map((cat) => (
               <button
                 key={cat.id}
                 onClick={() => navigate(`/insurances/${cat.id}`)}
-                className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all duration-200 ${
+                className={`px-5 py-2 rounded-lg text-sm font-semibold whitespace-nowrap transition-all duration-200 font-sans ${
                   activeCategory.id === cat.id
-                    ? "bg-primary text-white shadow-sm"
-                    : "text-gray-600 hover:bg-gray-100"
+                    ? "bg-primary text-white shadow-md"
+                    : "text-gray-500 hover:bg-gray-50 hover:text-primary"
                 }`}
               >
                 {cat.label}
@@ -836,7 +961,7 @@ export default function Insurances() {
       </div>
 
       {/* ── Main ───────────────────────────────────────────────── */}
-      <section className="py-10 md:py-16 bg-gray-50">
+      <section className="py-12 md:py-16 bg-gray-50 section-pattern">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col lg:flex-row gap-8">
 
@@ -873,7 +998,7 @@ export default function Insurances() {
                 <div className="mt-6 bg-primary rounded-2xl p-5 text-white shadow-md hidden lg:block">
                   <Shield className="size-8 mb-3 opacity-80" />
                   <p className="text-sm font-semibold mb-1">Need help choosing?</p>
-                  <p className="text-xs text-blue-200 mb-4">Talk to our expert advisors.</p>
+                  <p className="text-xs text-white/70 mb-4">Talk to our expert advisors.</p>
                   <a
                     href="https://wa.me/+918778912704?text=Hi%2C%20I%20need%20info%20on%20policies"
                     target="_blank"
@@ -892,7 +1017,7 @@ export default function Insurances() {
               <HealthPanel category={activeCategory} />
             ) : (
               <div className="flex-1 min-w-0">
-                <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center justify-between mb-4">
                   <div>
                     <h2 className="text-2xl font-bold text-gray-900">{activeSub?.label}</h2>
                     <p className="text-sm text-gray-500 mt-0.5">
@@ -900,6 +1025,15 @@ export default function Insurances() {
                     </p>
                   </div>
                 </div>
+
+                {/* Feedback #16: Riders description */}
+                {activeSubId === "riders" && (
+                  <div className="bg-primary/5 border border-primary/10 rounded-xl p-4 mb-6">
+                    <p className="text-sm text-gray-700 leading-relaxed">
+                      Riders are optional add-ons that can be attached to your base insurance policy to enhance its coverage and benefits. They provide additional financial protection against specific risks such as accidents, disability, or critical illness, based on your needs. By paying an extra premium, riders allow you to customize your policy for more comprehensive coverage without purchasing a separate plan.
+                    </p>
+                  </div>
+                )}
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {activeSub?.plans.map((plan, i) => (
@@ -922,6 +1056,7 @@ export default function Insurances() {
                     </button>
                   ))}
                 </div>
+
               </div>
             )}
           </div>
@@ -943,7 +1078,7 @@ export default function Insurances() {
                     {selectedPlan.name}
                   </SheetTitle>
                 </SheetHeader>
-                <p className="mt-2 text-sm text-blue-100 leading-relaxed">{selectedPlan.description}</p>
+                <p className="mt-2 text-sm text-white/80 leading-relaxed">{selectedPlan.description}</p>
               </div>
 
               <div className="px-6 py-6 space-y-7">
@@ -1008,38 +1143,8 @@ export default function Insurances() {
         </SheetContent>
       </Sheet>
 
-      {/* ── CTA ────────────────────────────────────────────────── */}
-      <section
-        className="relative overflow-hidden py-14 md:py-20"
-        style={{ background: "radial-gradient(100% 100% at 50% 50%, #002E5F 62.5%, #0D5097 100%)" }}
-      >
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(0,0,0,0.3)_100%)]" />
-        <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <Phone className="size-12 mx-auto mb-5 text-white/60 stroke-[1.2]" />
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">Ready to secure your future?</h2>
-          <p className="text-lg text-blue-100 mb-8 max-w-xl mx-auto">
-            Our advisors will help you pick the perfect plan for your needs and budget.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild size="lg" className="bg-white text-primary hover:bg-blue-50">
-              <Link to="/contact">
-                Request a Consultation
-                <ArrowRight className="ml-2 size-5" />
-              </Link>
-            </Button>
-            <a
-              href="https://wa.me/+918778912704?text=Hi%2C%20I%20need%20info%20on%20policies"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-3 px-6 py-3 rounded-full font-semibold text-white text-sm transition-all duration-300 hover:brightness-110 hover:scale-105 shadow-lg"
-              style={{ background: "#cc9c42" }}
-            >
-              <img src={whatsappIcon} alt="WhatsApp" className="h-5 w-5" />
-              Enquire on WhatsApp
-            </a>
-          </div>
-        </div>
-      </section>
+      {/* ── Contact CTA (Feedback #5: on all pages) ─────────── */}
+      <ContactCTA />
     </div>
   );
 }
