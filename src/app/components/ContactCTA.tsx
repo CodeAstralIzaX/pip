@@ -16,10 +16,10 @@ export function ContactCTA() {
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Heading */}
         <div className="text-center mb-12">
-          <span className="text-secondary text-xs font-semibold tracking-[0.2em] uppercase font-sans">Get In Touch</span>
-          <h2 className="text-3xl md:text-4xl font-bold text-white mt-3 mb-3">Need Assistance? Contact Us</h2>
-          <div className="gold-divider mx-auto mb-4" />
-          <p className="text-white/60 text-sm max-w-lg mx-auto font-sans">
+          <span className="text-secondary text-sm font-semibold tracking-[0.2em] uppercase font-sans">Get In Touch</span>
+          <h2 className="text-4xl md:text-5xl font-bold text-white mt-3 mb-3">Need Assistance? Contact Us</h2>
+          <div className="gold-divider mx-auto mb-5" />
+          <p className="text-white/70 text-base max-w-lg mx-auto font-sans leading-relaxed">
             Our team of insurance experts is ready to help you find the perfect coverage.
           </p>
         </div>
@@ -34,9 +34,9 @@ export function ContactCTA() {
               </div>
               <div>
                 <p className="text-xs text-white/40 font-semibold tracking-[0.15em] uppercase mb-1.5 font-sans">Visit Us</p>
-                <p className="text-white font-semibold text-sm leading-snug font-sans">First Floor, Dhasan Complex</p>
-                <p className="text-white/60 text-sm mt-0.5 font-sans">No 292D/16, MS Rd, Vetturnimadam</p>
-                <p className="text-white/60 text-sm font-sans">Nagercoil, Tamil Nadu 629003</p>
+                <p className="text-white font-bold text-base leading-snug font-sans">First Floor, Dhasan Complex</p>
+                <p className="text-white/70 text-base mt-0.5 font-sans">No 292D/16, MS Rd, Vetturnimadam</p>
+                <p className="text-white/70 text-base font-sans">Nagercoil, Tamil Nadu 629003</p>
               </div>
             </div>
           </div>
@@ -49,8 +49,8 @@ export function ContactCTA() {
               </div>
               <div>
                 <p className="text-xs text-white/40 font-semibold tracking-[0.15em] uppercase mb-1.5 font-sans">Call Us</p>
-                <p className="text-white font-semibold text-sm font-sans">+91 87789 12704</p>
-                <p className="text-white/60 text-sm mt-0.5 font-sans">Tap to call</p>
+                <p className="text-white font-bold text-base font-sans">+91 87789 12704</p>
+                <p className="text-white/70 text-base mt-0.5 font-sans">Tap to call</p>
               </div>
             </div>
           </a>
@@ -63,7 +63,7 @@ export function ContactCTA() {
               </div>
               <div>
                 <p className="text-xs text-white/40 font-semibold tracking-[0.15em] uppercase mb-1.5 font-sans">Email Us</p>
-                <p className="text-white font-semibold text-sm font-sans">info@premierinsurance-partners.in</p>
+                <p className="text-white font-bold text-base font-sans">info@premierinsurance-partners.in</p>
               </div>
             </div>
           </a>
@@ -76,8 +76,8 @@ export function ContactCTA() {
               </div>
               <div>
                 <p className="text-xs text-white/40 font-semibold tracking-[0.15em] uppercase mb-1.5 font-sans">Office Hours</p>
-                <p className="text-white font-semibold text-sm font-sans">Mon – Fri · 8 AM – 6 PM</p>
-                <p className="text-white/60 text-sm mt-0.5 font-sans">Sat · 9 AM – 3 PM</p>
+                <p className="text-white font-bold text-base font-sans">Mon – Fri · 8 AM – 6 PM</p>
+                <p className="text-white/70 text-base mt-0.5 font-sans">Sat · 9 AM – 3 PM</p>
               </div>
             </div>
           </div>
