@@ -4,7 +4,6 @@ import {
   ArrowRight,
   ChevronRight,
   Shield,
-  Phone,
   CheckCircle2,
   Info,
   ChevronDown,
@@ -15,6 +14,8 @@ import {
   ShieldOff,
   Clock,
   BadgeCheck,
+  Stethoscope,
+  Building2,
 } from "lucide-react";
 import { Button } from "../components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "../components/ui/sheet";
@@ -24,8 +25,22 @@ import familyHealthImg from "../components/assets/family_health.jpg";
 import coupleWalkingImg from "../components/assets/couple_walking.png";
 import elderlyImg from "../components/assets/elderly_couple.png";
 import graduationImg from "../components/assets/graduation.png";
-import claimsFormImg from "../components/assets/claims_form.jpg";
 
+// ─── Pastel colour palettes ───────────────────────────────────────────────────
+const PLAN_PASTELS = [
+  { bg: "#EFF6FF", border: "#BFDBFE", dot: "#2563EB" }, // blue
+  { bg: "#F0FDF4", border: "#BBF7D0", dot: "#16A34A" }, // green
+  { bg: "#FEFCE8", border: "#FDE68A", dot: "#CA8A04" }, // yellow
+  { bg: "#FFF7ED", border: "#FED7AA", dot: "#EA580C" }, // orange
+  { bg: "#FFF1F2", border: "#FECDD3", dot: "#E11D48" }, // pink
+];
+
+const HEALTH_CARD_PASTELS = [
+  { bg: "#EFF6FF", border: "#BFDBFE", icon: "#2563EB" },
+  { bg: "#F0FDF4", border: "#BBF7D0", icon: "#16A34A" },
+  { bg: "#FFF7ED", border: "#FED7AA", icon: "#EA580C" },
+  { bg: "#FDF4FF", border: "#E9D5FF", icon: "#9333EA" },
+];
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 interface PlanDetail {
@@ -82,7 +97,7 @@ const HEALTH_INTRO = [
       "Coverage for unexpected medical expenses",
       "Tax deduction benefits",
       "Coverage for pre- and post-hospitalisation costs",
-      "Holistic product with holistic benefits — Star Comprehensive Insurance Policy",
+      "Holistic product — Star Comprehensive Insurance Policy",
     ],
   },
   {
@@ -101,7 +116,16 @@ const HEALTH_INTRO = [
       "Well-being and financial safety ensured",
       "Coverage for pre-existing diseases",
       "Stress-free retirement",
-      "Wealth of benefits to make those golden years count — Senior Citizens Red Carpet Health Insurance Policy",
+      "Senior Citizens Red Carpet Health Insurance Policy",
+    ],
+  },
+  {
+    title: "Group Health Insurance",
+    points: [
+      "Comprehensive coverage for entire organisations",
+      "Cashless treatment at 14,000+ network hospitals",
+      "Covers employees and their dependents",
+      "Flexible sum insured options for groups",
     ],
   },
 ];
@@ -110,7 +134,7 @@ const HEALTH_SECTIONS: HealthSection[] = [
   {
     id: "inclusion",
     label: "Inclusions",
-    icon: <ShieldCheck className="size-5" />,
+    icon: <ShieldCheck className="size-6" />,
     accent: "#002147",
     items: [
       { title: "Hospitalisation Expenses", body: "Most Medical Insurance plans cover hospitalisation expenses such as room rents, ICU charges, surgery expenses, doctor consultations, etc. incurred on illness, injury or accidents." },
@@ -127,7 +151,7 @@ const HEALTH_SECTIONS: HealthSection[] = [
   {
     id: "exclusion",
     label: "Exclusions",
-    icon: <ShieldOff className="size-5" />,
+    icon: <ShieldOff className="size-6" />,
     accent: "#8b3a3a",
     items: [
       { title: "Self-Inflicted Injuries", body: "Any form of self-inflicted injuries will not be covered under Medical Insurance policies." },
@@ -141,7 +165,7 @@ const HEALTH_SECTIONS: HealthSection[] = [
   {
     id: "waiting",
     label: "Waiting Periods",
-    icon: <Clock className="size-5" />,
+    icon: <Clock className="size-6" />,
     accent: "#cc9c42",
     items: [
       { title: "Initial Waiting Period", body: "Initial waiting period denotes the time during which the policyholder has to wait to avail the Health policy benefits. However, it will not apply for hospitalisation expenses due to accidents as they will be covered from day 1." },
@@ -153,7 +177,7 @@ const HEALTH_SECTIONS: HealthSection[] = [
   {
     id: "claims",
     label: "Claims",
-    icon: <BadgeCheck className="size-5" />,
+    icon: <BadgeCheck className="size-6" />,
     accent: "#2563eb",
     items: [
       { title: "Anywhere Cashless Claims", body: "Now avail Anywhere Cashless Claims all across India. With 14,000+ Network Hospitals, we are also one of India's widest medical coverage providers." },
@@ -507,7 +531,6 @@ const CATEGORIES: Category[] = [
           },
         ],
       },
-
       {
         id: "riders",
         label: "Riders — Optional Add-ons",
@@ -597,9 +620,9 @@ function getCategoryById(id: string): Category {
 // ─── Detail row helper ────────────────────────────────────────────────────────
 function DetailRow({ label, value }: { label: string; value: string }) {
   return (
-    <div className="flex flex-col sm:flex-row sm:items-start gap-1 py-2.5 border-b border-gray-100 last:border-b-0">
-      <span className="text-xs font-semibold text-gray-400 uppercase tracking-wide sm:w-40 shrink-0">{label}</span>
-      <span className="text-sm text-gray-800">{value}</span>
+    <div className="flex flex-col sm:flex-row sm:items-start gap-1 py-3 border-b border-gray-100 last:border-b-0">
+      <span className="text-sm font-bold text-gray-500 uppercase tracking-wide sm:w-44 shrink-0">{label}</span>
+      <span className="text-base text-gray-800">{value}</span>
     </div>
   );
 }
@@ -623,7 +646,7 @@ function LifeHeroSlider({ tagline }: { tagline: string }) {
   }, []);
 
   return (
-    <section className="relative text-white py-20 md:py-28 overflow-hidden min-h-[420px]">
+    <section className="relative text-white py-20 md:py-28 overflow-hidden min-h-[480px]">
       {/* Sliding background images */}
       {LIFE_QUOTES.map((slide, i) => (
         <div
@@ -631,34 +654,35 @@ function LifeHeroSlider({ tagline }: { tagline: string }) {
           className="absolute inset-0 transition-opacity duration-1000 ease-in-out"
           style={{ opacity: current === i ? 1 : 0 }}
         >
-          <img src={slide.image} alt={slide.quote} className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/80 to-primary/50" />
+          <img src={slide.image} alt={slide.quote} className="w-full h-full object-cover object-right" />
+          {/* Lighter gradient so image is visible on the right */}
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/65 to-primary/25" />
         </div>
       ))}
 
       <div className="pointer-events-none absolute inset-0 section-pattern opacity-10" />
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <nav className="flex items-center gap-1.5 text-sm text-white/50 mb-8 font-sans" aria-label="Breadcrumb">
+        <nav className="flex items-center gap-1.5 text-base text-white/50 mb-8 font-sans" aria-label="Breadcrumb">
           <Link to="/" className="hover:text-white transition-colors">Home</Link>
-          <ChevronRight className="size-3.5 shrink-0" />
-          <span className="text-white font-medium">Life Insurance</span>
+          <ChevronRight className="size-4 shrink-0" />
+          <span className="text-white font-semibold">Life Insurance</span>
         </nav>
 
         <div className="max-w-2xl">
           <div className="flex items-center gap-2 mb-5">
             <div className="gold-divider" />
-            <span className="text-secondary text-xs font-semibold tracking-[0.2em] uppercase font-sans">Life Insurance Plans</span>
+            <span className="text-secondary text-sm font-semibold tracking-[0.2em] uppercase font-sans">Life Insurance Plans</span>
           </div>
 
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 leading-tight">Life Insurance</h1>
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-5 leading-tight">Life Insurance</h1>
 
-          {/* Auto-sliding quote */}
-          <div className="relative h-16 mb-6 overflow-hidden">
+          {/* Auto-sliding quote — larger, gold colour */}
+          <div className="relative h-20 mb-6 overflow-hidden">
             {LIFE_QUOTES.map((slide, i) => (
               <p
                 key={i}
-                className="absolute inset-0 text-lg md:text-xl text-white/80 italic font-sans transition-all duration-700 ease-in-out"
+                className="absolute inset-0 text-2xl md:text-3xl text-secondary font-bold font-sans transition-all duration-700 ease-in-out leading-snug"
                 style={{
                   opacity: current === i ? 1 : 0,
                   transform: current === i ? "translateY(0)" : "translateY(20px)",
@@ -670,15 +694,15 @@ function LifeHeroSlider({ tagline }: { tagline: string }) {
           </div>
 
           {/* Dot indicators */}
-          <div className="flex items-center gap-2 mb-6">
+          <div className="flex items-center gap-2 mb-8">
             {LIFE_QUOTES.map((_, i) => (
               <button
                 key={i}
                 onClick={() => setCurrent(i)}
-                className={`h-2 rounded-full transition-all duration-300 ${
+                className={`h-2.5 rounded-full transition-all duration-300 ${
                   current === i
-                    ? "w-8 bg-secondary"
-                    : "w-2 bg-white/30 hover:bg-white/50"
+                    ? "w-10 bg-secondary"
+                    : "w-2.5 bg-white/30 hover:bg-white/50"
                 }`}
                 aria-label={`Slide ${i + 1}`}
               />
@@ -689,10 +713,10 @@ function LifeHeroSlider({ tagline }: { tagline: string }) {
             href="https://wa.me/+918778912704?text=Hi%2C%20I%20need%20info%20on%20life%20insurance"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg font-semibold text-white text-sm bg-secondary hover:bg-secondary/90 shadow-lg hover:shadow-xl transition-all duration-200 font-sans"
+            className="inline-flex items-center gap-2 px-8 py-4 rounded-lg font-bold text-white text-base bg-secondary hover:bg-secondary/90 shadow-lg hover:shadow-xl transition-all duration-200 font-sans"
           >
             Get a Quote
-            <ArrowRight className="size-4" />
+            <ArrowRight className="size-5" />
           </a>
         </div>
       </div>
@@ -702,69 +726,50 @@ function LifeHeroSlider({ tagline }: { tagline: string }) {
   );
 }
 
-function LifeQuoteCards() {
-  return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mt-8 mb-4">
-      {LIFE_QUOTES.map((item, i) => (
-        <div
-          key={i}
-          className="group relative rounded-2xl overflow-hidden h-56 shadow-lg hover:shadow-xl transition-shadow duration-300"
-        >
-          <img
-            src={item.image}
-            alt={item.quote}
-            className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/30 to-transparent" />
-          <div className="absolute inset-0 p-5 flex flex-col justify-end">
-            <p className="text-white font-semibold text-base leading-snug drop-shadow-lg">
-              &ldquo;{item.quote}&rdquo;
-            </p>
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-}
-
 // ─── Health Intro Cards ───────────────────────────────────────────────────────
 const INTRO_ICONS = [
-  <User className="size-6" />,
-  <Users className="size-6" />,
-  <HeartPulse className="size-6" />,
+  <User className="size-7" />,
+  <Users className="size-7" />,
+  <HeartPulse className="size-7" />,
+  <Building2 className="size-7" />,
 ];
 
 function HealthIntroCards({ items }: { items: { title: string; irdai?: string; points: string[] }[] }) {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-8">
-      {items.map((item, i) => (
-        <div
-          key={i}
-          className="bg-white rounded-2xl border border-gray-200 shadow-sm p-5 flex flex-col gap-3"
-        >
-          <div className="flex items-center gap-3">
-            <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-primary/5 text-primary shrink-0">
-              {INTRO_ICONS[i]}
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-10">
+      {items.map((item, i) => {
+        const pastel = HEALTH_CARD_PASTELS[i % HEALTH_CARD_PASTELS.length];
+        return (
+          <div
+            key={i}
+            className="rounded-2xl border shadow-sm p-6 flex flex-col gap-3"
+            style={{ background: pastel.bg, borderColor: pastel.border }}
+          >
+            <div className="flex items-center gap-3">
+              <div
+                className="flex items-center justify-center w-12 h-12 rounded-xl shrink-0"
+                style={{ background: `${pastel.icon}18`, color: pastel.icon }}
+              >
+                {INTRO_ICONS[i]}
+              </div>
+              <h3 className="text-base font-bold text-gray-900 leading-snug">{item.title}</h3>
             </div>
-            <h3 className="text-sm font-bold text-gray-900 leading-snug">{item.title}</h3>
+            {item.irdai && (
+              <p className="text-sm font-semibold px-3 py-1.5 rounded-lg inline-block" style={{ color: pastel.icon, background: `${pastel.icon}15` }}>
+                {item.irdai}
+              </p>
+            )}
+            <ul className="space-y-2">
+              {item.points.map((point, j) => (
+                <li key={j} className="flex items-start gap-2 text-sm text-gray-700 leading-relaxed">
+                  <CheckCircle2 className="size-4 shrink-0 mt-0.5" style={{ color: pastel.icon }} />
+                  <span>{point}</span>
+                </li>
+              ))}
+            </ul>
           </div>
-          {/* Feedback #6: IRDAI number comes first */}
-          {item.irdai && (
-            <p className="text-xs font-semibold text-primary bg-primary/5 px-3 py-1.5 rounded-lg inline-block">
-              {item.irdai}
-            </p>
-          )}
-          {/* Feedback #7: Bullet points instead of paragraph */}
-          <ul className="space-y-1.5">
-            {item.points.map((point, j) => (
-              <li key={j} className="flex items-start gap-2 text-xs text-gray-600 leading-relaxed">
-                <CheckCircle2 className="size-3.5 text-primary shrink-0 mt-0.5" />
-                <span>{point}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 }
@@ -779,15 +784,15 @@ function HealthSectionCard({ section }: { section: HealthSection }) {
     <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
       {/* Section Header */}
       <div
-        className="flex items-center gap-3 px-6 py-4 text-white"
+        className="flex items-center gap-3 px-6 py-5 text-white"
         style={{ background: `linear-gradient(135deg, ${section.accent}ee, ${section.accent}99)` }}
       >
-        <div className="flex items-center justify-center w-9 h-9 rounded-lg bg-white/20">
+        <div className="flex items-center justify-center w-11 h-11 rounded-lg bg-white/20">
           {section.icon}
         </div>
         <div>
-          <h3 className="text-base font-bold leading-none">{section.label}</h3>
-          <p className="text-xs text-white/70 mt-0.5">{section.items.length} items</p>
+          <h3 className="text-xl font-bold leading-none">{section.label}</h3>
+          <p className="text-sm text-white/80 mt-1">{section.items.length} items</p>
         </div>
       </div>
 
@@ -797,26 +802,26 @@ function HealthSectionCard({ section }: { section: HealthSection }) {
           <div key={i}>
             <button
               onClick={() => toggle(i)}
-              className="w-full flex items-center justify-between px-6 py-4 text-left hover:bg-gray-50 transition-colors group"
+              className={`w-full flex items-center justify-between px-6 py-4 text-left transition-colors group ${openIndex === i ? "bg-gray-50" : "hover:bg-gray-50"}`}
             >
               <div className="flex items-center gap-3">
                 <span
-                  className="w-1.5 h-1.5 rounded-full shrink-0"
+                  className="w-2 h-2 rounded-full shrink-0"
                   style={{ background: section.accent }}
                 />
-                <span className="text-sm font-semibold text-gray-800 group-hover:text-gray-900">
+                <span className={`text-base font-bold transition-colors ${openIndex === i ? "text-gray-900" : "text-gray-700 group-hover:text-gray-900"}`}>
                   {item.title}
                 </span>
               </div>
               <ChevronDown
-                className="size-4 text-gray-400 shrink-0 transition-transform duration-200"
-                style={{ transform: openIndex === i ? "rotate(180deg)" : "rotate(0deg)" }}
+                className="size-5 shrink-0 transition-transform duration-200"
+                style={{ color: openIndex === i ? section.accent : "#9CA3AF", transform: openIndex === i ? "rotate(180deg)" : "rotate(0deg)" }}
               />
             </button>
             {openIndex === i && (
-              <div className="px-6 pb-4">
+              <div className="px-6 pb-5">
                 <p
-                  className="text-sm text-gray-600 leading-relaxed pl-4 border-l-2"
+                  className="text-base text-gray-600 leading-relaxed pl-5 border-l-2 py-1"
                   style={{ borderColor: section.accent }}
                 >
                   {item.body}
@@ -834,9 +839,12 @@ function HealthSectionCard({ section }: { section: HealthSection }) {
 function HealthPanel({ category }: { category: Category }) {
   return (
     <div className="flex-1 min-w-0">
-      <div className="mb-6">
-        <h2 className="text-2xl font-bold text-gray-900 mb-1">Health Insurance Plans</h2>
-        <p className="text-sm text-gray-500">
+      <div className="mb-8">
+        <div className="flex items-center gap-3 mb-3">
+          <Stethoscope className="size-8 text-primary" />
+          <h2 className="text-3xl font-bold text-gray-900">Health Insurance Plans</h2>
+        </div>
+        <p className="text-base text-gray-600 leading-relaxed">
           A shield that protects you and your family from financial instability during health emergencies.
         </p>
       </div>
@@ -853,21 +861,39 @@ function HealthPanel({ category }: { category: Category }) {
 
       {/* CTA */}
       <div className="mt-8 flex flex-col sm:flex-row gap-3">
-        <Button asChild className="bg-primary hover:bg-primary/90 text-white">
+        <Button asChild className="bg-primary hover:bg-primary/90 text-white text-base font-bold px-6 py-3">
           <Link to="/contact">
             Get a Quote
-            <ArrowRight className="ml-2 size-4" />
+            <ArrowRight className="ml-2 size-5" />
           </Link>
         </Button>
         <a
           href="https://wa.me/+918778912704?text=Hi%2C%20I%20need%20info%20on%20health%20insurance"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg font-semibold text-white text-sm transition-all hover:brightness-110 shadow"
+          className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-bold text-white text-base transition-all hover:brightness-110 shadow"
           style={{ background: "#cc9c42" }}
         >
-          <img src={whatsappIcon} alt="WhatsApp" className="h-4 w-4" />
+          <img src={whatsappIcon} alt="WhatsApp" className="h-5 w-5" />
           Enquire on WhatsApp
+        </a>
+      </div>
+
+      {/* Stethoscope decorative CTA */}
+      <div className="mt-12 flex flex-col items-center text-center rounded-3xl p-10 border border-primary/10" style={{ background: "linear-gradient(135deg, #EFF6FF 0%, #F0FDF4 100%)" }}>
+        <Stethoscope className="size-20 text-primary/25 mb-5" />
+        <h3 className="text-2xl font-bold text-primary mb-3">Your Health, Our Priority</h3>
+        <p className="text-base text-gray-600 max-w-md leading-relaxed mb-6">
+          Expert health insurance guidance tailored to your family's needs. Our certified advisors help you find the right coverage — quickly and affordably.
+        </p>
+        <a
+          href="https://wa.me/+918778912704?text=Hi%2C%20I%20need%20info%20on%20health%20insurance"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 px-8 py-3.5 rounded-lg font-bold text-white text-base bg-primary hover:bg-primary/90 shadow-md hover:shadow-lg transition-all duration-200"
+        >
+          Speak to an Expert
+          <ArrowRight className="size-5" />
         </a>
       </div>
     </div>
@@ -905,33 +931,47 @@ export default function Insurances() {
       {activeCategory.id === "life" ? (
         <LifeHeroSlider tagline={activeCategory.tagline} />
       ) : (
-        <section className="relative text-white py-20 md:py-28 overflow-hidden">
+        <section className="relative text-white py-20 md:py-28 overflow-hidden min-h-[480px]">
           <div className="absolute inset-0">
-            <img src={familyHealthImg} alt={activeCategory.label} className="w-full h-full object-cover" />
-            <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/85 to-primary/60" />
+            <img
+              src={familyHealthImg}
+              alt={activeCategory.label}
+              className="w-full h-full object-cover object-right"
+            />
+            {/* Lighter gradient — image visible on the right side */}
+            <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/65 to-primary/20" />
           </div>
           <div className="pointer-events-none absolute inset-0 section-pattern opacity-10" />
+
+          {/* Stethoscope decorative icon floating right side */}
+          <div className="absolute right-8 top-1/2 -translate-y-1/2 opacity-10 hidden lg:block">
+            <Stethoscope className="size-64 text-white" />
+          </div>
+
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <nav className="flex items-center gap-1.5 text-sm text-white/50 mb-8 font-sans" aria-label="Breadcrumb">
+            <nav className="flex items-center gap-1.5 text-base text-white/50 mb-8 font-sans" aria-label="Breadcrumb">
               <Link to="/" className="hover:text-white transition-colors">Home</Link>
-              <ChevronRight className="size-3.5 shrink-0" />
-              <span className="text-white font-medium">{activeCategory.label}</span>
+              <ChevronRight className="size-4 shrink-0" />
+              <span className="text-white font-semibold">{activeCategory.label}</span>
             </nav>
             <div className="max-w-2xl">
               <div className="flex items-center gap-2 mb-5">
                 <div className="gold-divider" />
-                <span className="text-secondary text-xs font-semibold tracking-[0.2em] uppercase font-sans">Insurance Plans</span>
+                <span className="text-secondary text-sm font-semibold tracking-[0.2em] uppercase font-sans">Insurance Plans</span>
               </div>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 leading-tight">{activeCategory.label}</h1>
-              <p className="text-lg text-white/70 italic font-sans mb-6">&ldquo;{activeCategory.tagline}&rdquo;</p>
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-5 leading-tight">{activeCategory.label}</h1>
+              {/* Prominent running tagline — gold colour */}
+              <p className="text-2xl md:text-3xl text-secondary font-bold font-sans mb-8 leading-snug">
+                &ldquo;{activeCategory.tagline}&rdquo;
+              </p>
               <a
                 href="https://wa.me/+918778912704?text=Hi%2C%20I%20need%20info%20on%20policies"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-lg font-semibold text-white text-sm bg-secondary hover:bg-secondary/90 shadow-lg hover:shadow-xl transition-all duration-200 font-sans"
+                className="inline-flex items-center gap-2 px-8 py-4 rounded-lg font-bold text-white text-base bg-secondary hover:bg-secondary/90 shadow-lg hover:shadow-xl transition-all duration-200 font-sans"
               >
                 Get a Quote
-                <ArrowRight className="size-4" />
+                <ArrowRight className="size-5" />
               </a>
             </div>
           </div>
@@ -942,14 +982,14 @@ export default function Insurances() {
       {/* ── Category pills ─────────────────────────────────────── */}
       <div className="bg-white border-b border-gray-100 shadow-sm sticky top-0 z-20 overflow-x-auto">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex gap-1 py-2.5 min-w-max">
+          <div className="flex gap-2 py-3 min-w-max">
             {CATEGORIES.map((cat) => (
               <button
                 key={cat.id}
                 onClick={() => navigate(`/insurances/${cat.id}`)}
-                className={`px-5 py-2 rounded-lg text-sm font-semibold whitespace-nowrap transition-all duration-200 font-sans ${
+                className={`px-6 py-2.5 rounded-lg text-base font-bold whitespace-nowrap transition-all duration-200 font-sans ${
                   activeCategory.id === cat.id
-                    ? "bg-primary text-white shadow-md"
+                    ? "bg-secondary text-white shadow-md"
                     : "text-gray-500 hover:bg-gray-50 hover:text-primary"
                 }`}
               >
@@ -967,10 +1007,10 @@ export default function Insurances() {
 
             {/* LEFT SIDEBAR — only for categories with subcategories */}
             {hasSubCategories && (
-              <aside className="lg:w-64 shrink-0">
+              <aside className="lg:w-72 shrink-0">
                 <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                   <div
-                    className="px-5 py-4 text-white text-sm font-semibold uppercase tracking-wide"
+                    className="px-5 py-5 text-white text-lg font-bold uppercase tracking-wide"
                     style={{ background: activeCategory.heroGradient }}
                   >
                     Plan Categories
@@ -980,30 +1020,30 @@ export default function Insurances() {
                       <button
                         key={sub.id}
                         onClick={() => setActiveSubId(sub.id)}
-                        className={`flex items-center justify-between px-5 py-3.5 text-sm font-medium text-left whitespace-nowrap lg:whitespace-normal border-b border-gray-50 last:border-b-0 transition-all duration-150 ${
+                        className={`flex items-center justify-between px-5 py-4 text-base font-semibold text-left whitespace-nowrap lg:whitespace-normal border-b border-gray-50 last:border-b-0 transition-all duration-150 ${
                           activeSub?.id === sub.id
-                            ? "bg-primary/5 text-primary border-l-4 border-l-primary"
+                            ? "bg-blue-50 text-blue-700 border-l-4 border-l-blue-600"
                             : "text-gray-600 hover:bg-gray-50 hover:text-gray-900 border-l-4 border-l-transparent"
                         }`}
                       >
                         <span>{sub.label}</span>
                         {activeSub?.id === sub.id && (
-                          <ChevronRight className="size-4 shrink-0 hidden lg:block" />
+                          <ChevronRight className="size-5 shrink-0 text-blue-600 hidden lg:block" />
                         )}
                       </button>
                     ))}
                   </nav>
                 </div>
 
-                <div className="mt-6 bg-primary rounded-2xl p-5 text-white shadow-md hidden lg:block">
-                  <Shield className="size-8 mb-3 opacity-80" />
-                  <p className="text-sm font-semibold mb-1">Need help choosing?</p>
-                  <p className="text-xs text-white/70 mb-4">Talk to our expert advisors.</p>
+                <div className="mt-6 bg-primary rounded-2xl p-6 text-white shadow-md hidden lg:block">
+                  <Shield className="size-10 mb-3 opacity-80" />
+                  <p className="text-base font-bold mb-1">Need help choosing?</p>
+                  <p className="text-sm text-white/70 mb-4">Talk to our expert advisors.</p>
                   <a
                     href="https://wa.me/+918778912704?text=Hi%2C%20I%20need%20info%20on%20policies"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 text-xs font-medium bg-white/10 hover:bg-white/20 transition px-3 py-2 rounded-lg"
+                    className="flex items-center gap-2 text-sm font-semibold bg-white/10 hover:bg-white/20 transition px-4 py-2.5 rounded-lg"
                   >
                     <img src={whatsappIcon} alt="WhatsApp" className="h-4 w-4" />
                     Chat on WhatsApp
@@ -1017,46 +1057,49 @@ export default function Insurances() {
               <HealthPanel category={activeCategory} />
             ) : (
               <div className="flex-1 min-w-0">
-                <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center justify-between mb-6">
                   <div>
-                    <h2 className="text-2xl font-bold text-gray-900">{activeSub?.label}</h2>
-                    <p className="text-sm text-gray-500 mt-0.5">
+                    <h2 className="text-3xl font-bold text-gray-900">{activeSub?.label}</h2>
+                    <p className="text-base text-gray-500 mt-1">
                       {activeSub?.plans.length} plan{activeSub?.plans.length !== 1 ? "s" : ""} available
                     </p>
                   </div>
                 </div>
 
-                {/* Feedback #16: Riders description */}
+                {/* Riders description */}
                 {activeSubId === "riders" && (
-                  <div className="bg-primary/5 border border-primary/10 rounded-xl p-4 mb-6">
-                    <p className="text-sm text-gray-700 leading-relaxed">
-                      Riders are optional add-ons that can be attached to your base insurance policy to enhance its coverage and benefits. They provide additional financial protection against specific risks such as accidents, disability, or critical illness, based on your needs. By paying an extra premium, riders allow you to customize your policy for more comprehensive coverage without purchasing a separate plan.
+                  <div className="bg-primary/5 border border-primary/10 rounded-xl p-5 mb-6">
+                    <p className="text-base text-gray-700 leading-relaxed">
+                      Riders are optional add-ons that can be attached to your base insurance policy to enhance its coverage and benefits. They provide additional financial protection against specific risks such as accidents, disability, or critical illness, based on your needs.
                     </p>
                   </div>
                 )}
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {activeSub?.plans.map((plan, i) => (
-                    <button
-                      key={i}
-                      onClick={() => setSelectedPlan(plan)}
-                      className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 hover:shadow-md hover:-translate-y-0.5 hover:border-primary/20 transition-all duration-200 flex flex-col gap-3 text-left group"
-                    >
-                      <div className="flex items-start gap-3">
-                        <div className="mt-0.5 h-5 w-1 rounded-full bg-primary shrink-0" />
-                        <h3 className="text-base font-semibold text-gray-900 leading-snug group-hover:text-primary transition-colors">{plan.name}</h3>
-                      </div>
-                      <p className="text-sm text-gray-500 leading-relaxed pl-4">{plan.description}</p>
-                      <div className="pl-4 flex items-center justify-between">
-                        <span className="inline-flex items-center gap-1 text-xs font-semibold text-primary">
-                          View Details <Info className="size-3" />
-                        </span>
-                        <ChevronRight className="size-4 text-gray-300 group-hover:text-primary group-hover:translate-x-0.5 transition-all" />
-                      </div>
-                    </button>
-                  ))}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  {activeSub?.plans.map((plan, i) => {
+                    const pastel = PLAN_PASTELS[i % PLAN_PASTELS.length];
+                    return (
+                      <button
+                        key={i}
+                        onClick={() => setSelectedPlan(plan)}
+                        className="rounded-2xl border shadow-sm p-6 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 flex flex-col gap-3 text-left group"
+                        style={{ background: pastel.bg, borderColor: pastel.border }}
+                      >
+                        <div className="flex items-start gap-3">
+                          <div className="mt-1 h-6 w-1.5 rounded-full shrink-0" style={{ background: pastel.dot }} />
+                          <h3 className="text-xl font-bold text-gray-900 leading-snug group-hover:text-primary transition-colors">{plan.name}</h3>
+                        </div>
+                        <p className="text-base text-gray-600 leading-relaxed pl-5">{plan.description}</p>
+                        <div className="pl-5 flex items-center justify-between mt-1">
+                          <span className="inline-flex items-center gap-1.5 text-sm font-bold" style={{ color: pastel.dot }}>
+                            View Details <Info className="size-4" />
+                          </span>
+                          <ChevronRight className="size-5 text-gray-300 group-hover:text-primary group-hover:translate-x-0.5 transition-all" />
+                        </div>
+                      </button>
+                    );
+                  })}
                 </div>
-
               </div>
             )}
           </div>
@@ -1069,21 +1112,21 @@ export default function Insurances() {
           {selectedPlan && (
             <>
               <div
-                className="relative px-6 pt-8 pb-6 text-white"
+                className="relative px-6 pt-10 pb-8 text-white"
                 style={{ background: activeCategory.heroGradient }}
               >
-                <p className="text-xs font-semibold uppercase tracking-widest text-white/60 mb-2">{activeCategory.label}</p>
+                <p className="text-sm font-bold uppercase tracking-widest text-white/60 mb-3">{activeCategory.label}</p>
                 <SheetHeader>
-                  <SheetTitle className="text-white text-xl font-bold leading-snug text-left">
+                  <SheetTitle className="text-white text-3xl font-bold leading-snug text-left">
                     {selectedPlan.name}
                   </SheetTitle>
                 </SheetHeader>
-                <p className="mt-2 text-sm text-white/80 leading-relaxed">{selectedPlan.description}</p>
+                <p className="mt-3 text-base text-white/80 leading-relaxed">{selectedPlan.description}</p>
               </div>
 
-              <div className="px-6 py-6 space-y-7">
+              <div className="px-6 py-7 space-y-8">
                 <div>
-                  <h3 className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-3">Plan Specifications</h3>
+                  <h3 className="text-sm font-bold uppercase tracking-widest text-gray-400 mb-4">Plan Specifications</h3>
                   <div className="bg-gray-50 rounded-xl px-4 py-1">
                     {selectedPlan.details.eligibility && (
                       <DetailRow label="Eligibility" value={selectedPlan.details.eligibility} />
@@ -1101,39 +1144,39 @@ export default function Insurances() {
                 </div>
 
                 <div>
-                  <h3 className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-3">Key Benefits</h3>
-                  <ul className="space-y-2.5">
+                  <h3 className="text-sm font-bold uppercase tracking-widest text-gray-400 mb-4">Key Benefits</h3>
+                  <ul className="space-y-3">
                     {selectedPlan.details.keyBenefits.map((benefit, i) => (
                       <li key={i} className="flex items-start gap-3">
-                        <CheckCircle2 className="size-4 text-primary shrink-0 mt-0.5" />
-                        <span className="text-sm text-gray-700">{benefit}</span>
+                        <CheckCircle2 className="size-5 text-primary shrink-0 mt-0.5" />
+                        <span className="text-base text-gray-700 leading-relaxed">{benefit}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
 
                 {selectedPlan.details.idealFor && (
-                  <div className="bg-primary/5 border border-primary/10 rounded-xl p-4">
-                    <p className="text-xs font-bold uppercase tracking-widest text-primary mb-1.5">Ideal For</p>
-                    <p className="text-sm text-gray-700 leading-relaxed">{selectedPlan.details.idealFor}</p>
+                  <div className="bg-primary/5 border border-primary/10 rounded-xl p-5">
+                    <p className="text-sm font-bold uppercase tracking-widest text-primary mb-2">Ideal For</p>
+                    <p className="text-base text-gray-700 leading-relaxed">{selectedPlan.details.idealFor}</p>
                   </div>
                 )}
 
                 <div className="flex flex-col gap-3 pt-2">
-                  <Button asChild className="w-full bg-primary hover:bg-primary/90">
+                  <Button asChild className="w-full bg-primary hover:bg-primary/90 text-base font-bold py-3">
                     <Link to="/contact" onClick={() => setSelectedPlan(null)}>
                       Get a Quote
-                      <ArrowRight className="ml-2 size-4" />
+                      <ArrowRight className="ml-2 size-5" />
                     </Link>
                   </Button>
                   <a
                     href={`https://wa.me/+918778912704?text=Hi%2C%20I%20am%20interested%20in%20${encodeURIComponent(selectedPlan.name)}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full inline-flex items-center justify-center gap-3 px-5 py-2.5 rounded-lg font-semibold text-white text-sm transition-all hover:brightness-110 shadow"
+                    className="w-full inline-flex items-center justify-center gap-3 px-5 py-3 rounded-lg font-bold text-white text-base transition-all hover:brightness-110 shadow"
                     style={{ background: "#cc9c42" }}
                   >
-                    <img src={whatsappIcon} alt="WhatsApp" className="h-4 w-4" />
+                    <img src={whatsappIcon} alt="WhatsApp" className="h-5 w-5" />
                     Enquire on WhatsApp
                   </a>
                 </div>
@@ -1143,7 +1186,6 @@ export default function Insurances() {
         </SheetContent>
       </Sheet>
 
-      {/* ── Contact CTA (Feedback #5: on all pages) ─────────── */}
       <ContactCTA />
     </div>
   );

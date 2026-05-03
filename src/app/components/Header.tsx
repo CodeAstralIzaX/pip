@@ -36,7 +36,7 @@ export function Header() {
               <Link
                 key={link.path}
                 to={link.path}
-                className={`relative px-5 py-2.5 rounded-lg text-sm font-semibold tracking-wide transition-all duration-200 font-sans ${
+                className={`relative px-5 py-2.5 rounded-lg text-base font-bold tracking-wide transition-all duration-200 font-sans ${
                   isActive(link.path)
                     ? "bg-primary text-white shadow-md"
                     : "text-gray-600 hover:text-primary hover:bg-primary/5"
@@ -80,7 +80,7 @@ export function Header() {
                 <Link
                   key={link.path}
                   to={link.path}
-                  className={`text-sm font-semibold transition-all duration-200 px-4 py-3 rounded-lg ${
+                  className={`text-base font-bold transition-all duration-200 px-4 py-3 rounded-lg ${
                     isActive(link.path)
                       ? "bg-primary text-white shadow-sm"
                       : "text-gray-600 hover:bg-gray-50"
