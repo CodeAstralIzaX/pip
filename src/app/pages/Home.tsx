@@ -1,10 +1,107 @@
+import React from "react";
 import { Link } from "react-router";
-import { ArrowRight, Shield, Heart, ChevronRight, Compass, Handshake, ClipboardCheck } from "lucide-react";
+import { ArrowRight, Shield, Heart, ChevronRight, Compass, Handshake, ClipboardCheck, HelpCircle, ChevronDown } from "lucide-react";
 import { Button } from "../components/ui/button";
 import { ContactCTA } from "../components/ContactCTA";
 import heroFamilyImg from "../components/assets/hero_family.jpg";
 import lifeInsuranceImg from "../components/assets/card2.jpeg";
 import homeInsuranceImg from "../components/assets/Home_Insurance.jpeg";
+
+const FAQ_ITEMS: { question: string; answer: string }[] = [
+  {
+    question: "Who needs life insurance?",
+    answer:
+      "The income earners of the family and those who have dependants to support require Life Insurance. Loved ones are adversely impacted by an untimely demise and subsequent loss of income — Life Insurance plans ensure that this financial burden is protected. Having a life cover also helps your family pay off debts using the payout received against the insurance claim. In the event of the insured person's unfortunate demise, Life Insurance plans not only help financially but also become an avenue for sound long-term investment — helping meet goals such as children's education, retirement corpus or other long-term investments.",
+  },
+  {
+    question: "Why Life Insurance?",
+    answer:
+      "Buying life insurance protects your dependents after you. It provides financial security, helps to pay off debts, and lets your family live life smoothly even after you. Life insurance can give you lasting peace of mind by ensuring you have provided a legacy. It offers guaranteed protection, income replacement, and guaranteed cash value growth.",
+  },
+  {
+    question: "Why LIC Life Insurance Plans?",
+    answer:
+      "LIC is one of the largest insurance companies in India, offering a wide range of life insurance plans. LIC offers term plans with affordable premiums and high coverage and has a strong Claim Settlement ratio compared to other Life Insurance companies. It has raised trust over the years and, with its customer-centric approach, has become one of the top Life Insurers in India and the 5th largest in the world. For more details, call us on the number on the Contact Us page.",
+  },
+  {
+    question: "Why Health Insurance?",
+    answer:
+      "Emergencies never knock — they come suddenly. Rising medical costs shouldn't be the hurdle to getting superior medical treatment. Health Insurance protects our savings during medical emergencies and provides cashless claim benefit, which allows you to take care of your health instead of worrying about hefty medical bills.",
+  },
+  {
+    question: "How to change nomination in the policy?",
+    answer:
+      "Changing the nominee in an LIC policy is a simple process. You need to notify the Life Insurance Corporation of India by filing Form 3750. Documents required for nominee change: (1) Form 3750, (2) Relationship proof between the policyholder and the person being nominated, (3) Policy contract (for endorsement), (4) Photocopy of the LIC policy. You can make this change multiple times during your policy term.",
+  },
+  {
+    question: "How to pay premium online?",
+    answer:
+      "You can pay your premium online by visiting https://licindia.in/Home/Pay-Premium-Online — this will redirect you to the LIC website. If you don't want to register you can select the 'Pay Direct' option: (1) Select Renewal from the drop-down, (2) Enter Policy No, DOB, Mobile Number, Email ID and Premium (without any tax), (3) Pay the premium.",
+  },
+];
+
+function FAQAccordion() {
+  const [open, setOpen] = React.useState<number | null>(0);
+  const pastels = [
+    { bg: "#EFF6FF", border: "#BFDBFE", accent: "#2563EB" },
+    { bg: "#F0FDF4", border: "#BBF7D0", accent: "#16A34A" },
+    { bg: "#FEFCE8", border: "#FDE68A", accent: "#CA8A04" },
+    { bg: "#FFF7ED", border: "#FED7AA", accent: "#EA580C" },
+    { bg: "#FFF1F2", border: "#FECDD3", accent: "#E11D48" },
+    { bg: "#FDF4FF", border: "#E9D5FF", accent: "#9333EA" },
+  ];
+
+  return (
+    <div className="space-y-4">
+      {FAQ_ITEMS.map((item, i) => {
+        const isOpen = open === i;
+        const p = pastels[i % pastels.length];
+        return (
+          <div
+            key={i}
+            className="rounded-2xl border shadow-sm overflow-hidden transition-all"
+            style={{ background: p.bg, borderColor: p.border }}
+          >
+            <button
+              onClick={() => setOpen(isOpen ? null : i)}
+              className="w-full flex items-center justify-between gap-4 p-6 text-left"
+              style={isOpen ? { borderLeft: `4px solid ${p.accent}` } : { borderLeft: "4px solid transparent" }}
+            >
+              <div className="flex items-center gap-4">
+                <div
+                  className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0"
+                  style={{ background: `${p.accent}18`, color: p.accent }}
+                >
+                  <HelpCircle className="size-6" />
+                </div>
+                <h3 className="text-lg md:text-xl font-bold text-gray-900 leading-snug">
+                  {item.question}
+                </h3>
+              </div>
+              <ChevronDown
+                className="size-6 shrink-0 transition-transform duration-200"
+                style={{
+                  color: isOpen ? p.accent : "#9CA3AF",
+                  transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
+                }}
+              />
+            </button>
+            {isOpen && (
+              <div className="px-6 pb-6">
+                <p
+                  className="text-base text-gray-700 leading-relaxed pl-5 border-l-2 py-1 ml-1"
+                  style={{ borderColor: p.accent }}
+                >
+                  {item.answer}
+                </p>
+              </div>
+            )}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
 
 export default function Home() {
   const services = [
@@ -32,7 +129,7 @@ export default function Home() {
         style={{
           backgroundImage: `url(${heroFamilyImg})`,
           backgroundSize: "cover",
-          backgroundPosition: "center right",
+          backgroundPosition: "right top",
           backgroundAttachment: "fixed",
         }}
       >
@@ -208,6 +305,24 @@ export default function Home() {
                 <p className="text-base text-gray-600 leading-relaxed font-sans">{item.desc}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── FAQ Section ──────────────────────────────────────────── */}
+      <section className="py-16 md:py-24 bg-gray-50 section-pattern">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-14">
+            <span className="text-secondary text-sm font-semibold tracking-[0.2em] uppercase font-sans">FAQ</span>
+            <h2 className="text-4xl md:text-5xl font-bold text-primary mt-3 mb-4">Frequently Asked Questions</h2>
+            <div className="gold-divider mx-auto mb-5" />
+            <p className="text-base md:text-lg text-gray-600 max-w-2xl mx-auto font-sans leading-relaxed">
+              Answers to the most common questions about life and health insurance — and how to manage your policy.
+            </p>
+          </div>
+
+          <div className="max-w-4xl mx-auto">
+            <FAQAccordion />
           </div>
         </div>
       </section>

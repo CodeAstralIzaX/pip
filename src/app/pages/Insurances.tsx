@@ -28,11 +28,11 @@ import graduationImg from "../components/assets/graduation.png";
 
 // ─── Pastel colour palettes ───────────────────────────────────────────────────
 const PLAN_PASTELS = [
-  { bg: "#EFF6FF", border: "#BFDBFE", dot: "#2563EB" }, // blue
-  { bg: "#F0FDF4", border: "#BBF7D0", dot: "#16A34A" }, // green
-  { bg: "#FEFCE8", border: "#FDE68A", dot: "#CA8A04" }, // yellow
-  { bg: "#FFF7ED", border: "#FED7AA", dot: "#EA580C" }, // orange
-  { bg: "#FFF1F2", border: "#FECDD3", dot: "#E11D48" }, // pink
+  { bg: "#EFF6FF", border: "#BFDBFE", dot: "#2563EB" },
+  { bg: "#F0FDF4", border: "#BBF7D0", dot: "#16A34A" },
+  { bg: "#FEFCE8", border: "#FDE68A", dot: "#CA8A04" },
+  { bg: "#FFF7ED", border: "#FED7AA", dot: "#EA580C" },
+  { bg: "#FFF1F2", border: "#FECDD3", dot: "#E11D48" },
 ];
 
 const HEALTH_CARD_PASTELS = [
@@ -45,8 +45,10 @@ const HEALTH_CARD_PASTELS = [
 // ─── Types ────────────────────────────────────────────────────────────────────
 interface PlanDetail {
   eligibility?: string;
+  maturityAge?: string;
   policyTerm?: string;
   premiumPayingTerm?: string;
+  modeOfPremium?: string;
   sumAssured?: string;
   keyBenefits: string[];
   idealFor?: string;
@@ -64,7 +66,6 @@ interface SubCategory {
   plans: Plan[];
 }
 
-// ─── Health Section Types ─────────────────────────────────────────────────────
 interface HealthItem {
   title: string;
   body: string;
@@ -186,7 +187,7 @@ const HEALTH_SECTIONS: HealthSection[] = [
   },
 ];
 
-// ─── Data ─────────────────────────────────────────────────────────────────────
+// ─── Life Insurance Data — Specific LIC Plans ─────────────────────────────────
 const CATEGORIES: Category[] = [
   {
     id: "life",
@@ -199,178 +200,110 @@ const CATEGORIES: Category[] = [
         label: "Endowment Plans",
         plans: [
           {
-            name: "Single Premium Endowment Plan",
-            description: "A single-premium savings plan that provides life cover with a lump-sum maturity benefit.",
+            name: "Plan 714: LIC's New Endowment Plan",
+            description: "With profits, non-linked, protection and saving Endowment Plan offering high sum assured at low premium.",
             details: {
-              eligibility: "Age 90 days – 65 years",
-              policyTerm: "10 – 25 years",
-              premiumPayingTerm: "Single premium (one-time)",
-              sumAssured: "₹50,000 and above",
-              keyBenefits: [
-                "One-time premium — no recurring payment hassle",
-                "Lump sum paid on maturity or death",
-                "Eligible for bonuses declared by LIC",
-                "Loan facility available after 1 year",
-                "Tax benefit under Section 80C & 10(10D)",
-              ],
-              idealFor: "Individuals who receive a lump sum (gratuity, bonus, inheritance) and want to invest it securely.",
-            },
-          },
-          {
-            name: "New Endowment Plan",
-            description: "LIC's New Endowment Plan (Plan 714) — a regular premium, non-linked, participating savings endowment plan offering life cover with bonus participation and a lump-sum maturity benefit.",
-            details: {
-              eligibility: "Age 8 – 50 years (max maturity age 75 years)",
+              eligibility: "8 years – 50 years",
+              maturityAge: "Maximum 75 years",
               policyTerm: "12 – 35 years",
-              premiumPayingTerm: "Regular premium — equal to policy term",
-              sumAssured: "₹2,00,000 and above (no maximum limit)",
-              keyBenefits: [
-                "Death Benefit: Higher of Basic SA or 7× Annualised Premium + Vested Bonus + Final Additional Bonus (FAB)",
-                "Maturity Benefit: Basic Sum Assured + Vested Bonus + FAB if any",
-                "Participates in LIC profits through annual reversionary bonuses and FAB",
-                "Riders available: ADDB/AB Rider (up to Basic SA), Term Rider (up to ₹25 lakhs), PWB Rider, Critical Illness Rider",
-                "Maturity/Death claim can be paid in instalments over 5/10/15 years",
-                "Loan facility available after 1 year",
-                "Tax benefit under Section 80C & 10(10D)",
-              ],
-              idealFor: "Salaried individuals and families saving for long-term goals like children's education, marriage, or retirement with the security of life cover.",
-            },
-          },
-          {
-            name: "New Jeevan Anand",
-            description: "LIC's New Jeevan Anand (Plan 715) — a regular premium, non-linked, participating savings endowment plan with extended whole-life risk cover even after the policy matures.",
-            details: {
-              eligibility: "Age 18 – 50 years (max maturity age 75 years)",
-              policyTerm: "15 – 35 years",
-              premiumPayingTerm: "Regular premium — equal to policy term",
-              sumAssured: "₹2,00,000 and above (no maximum limit)",
-              keyBenefits: [
-                "Life cover continues for whole life even after policy maturity",
-                "Death during policy term: Higher of 1.25× Basic SA or 7× Annualised Premium + Vested Bonus + FAB",
-                "Death after maturity: Basic Sum Assured paid to nominee",
-                "Maturity Benefit: Basic Sum Assured + Vested Bonus + FAB if any",
-                "Riders available: ADDB/AB Rider (up to Basic SA), Term Rider (up to ₹25 lakhs), Critical Illness Rider",
-                "Maturity/Death claim can be paid in instalments over 5/10/15 years",
-                "Loan facility available after 1 year",
-                "Tax benefit under Section 80C & 10(10D)",
-              ],
-              idealFor: "Those who want both a maturity payout and continued life protection for their family for their entire lifetime.",
-            },
-          },
-          {
-            name: "Jeevan Lakshya",
-            description: "LIC's Jeevan Lakshya (Plan 733) — a limited premium, non-linked, participating savings endowment plan designed to ensure the family receives regular annual income on policyholder's death, plus a lump sum at maturity.",
-            details: {
-              eligibility: "Age 18 – 50 years (maximum maturity age 65 years)",
-              policyTerm: "13 – 25 years",
-              premiumPayingTerm: "Policy term minus 3 years (PT – 3) — limited pay",
-              sumAssured: "₹2,00,000 and above (no maximum limit)",
-              keyBenefits: [
-                "Annual Income Benefit: 10% of Basic SA paid to nominee every year from the policy anniversary after death until 1 year before maturity",
-                "Maturity Benefit on Death: 110% of Basic SA + Vested Bonus for full term + FAB (if any) paid at maturity date",
-                "Normal Maturity Benefit (survival): Basic Sum Assured + Vested Bonus + FAB if any",
-                "Limited premium paying term — pay for PT–3 years, covered for the full policy term",
-                "Riders available: ADDB Rider (full term) or AB Rider (up to PPT), Term Rider (up to ₹25 lakhs)",
-                "Maturity/Death claim payable in instalments over 5/10/15 years",
-                "Loan facility available after 1 year",
-                "Tax benefit under Section 80C & 10(10D)",
-              ],
-              idealFor: "Breadwinners who want to ensure their family receives a steady annual income if they pass away early, plus a lump sum at maturity.",
-            },
-          },
-          {
-            name: "Jeevan Labh Plan",
-            description: "LIC's Jeevan Labh (Plan 736) — a limited premium, non-linked, participating savings endowment plan where premiums stop well before the policy matures, yet cover and bonus accumulation continue.",
-            details: {
-              eligibility: "Age 8 years min; max entry age 59/54/50 years for 16/21/25-year terms respectively (max maturity age 75 years)",
-              policyTerm: "16, 21, or 25 years",
-              premiumPayingTerm: "10 years (for 16-yr term), 15 years (for 21-yr term), 16 years (for 25-yr term) — limited pay",
-              sumAssured: "₹2,00,000 and above (no maximum limit)",
-              keyBenefits: [
-                "Death Benefit: Basic Sum Assured + Vested Bonus + FAB if any",
-                "Maturity Benefit: Basic Sum Assured + Vested Bonus + FAB if any",
-                "Premiums stop early but life cover and bonus accumulation continue for full policy term",
-                "Riders available: ADDB Rider (full term) or AB Rider (up to PPT), Term Rider (up to ₹25 lakhs), PWB Rider",
-                "Maturity/Death claim payable in instalments over 5/10/15 years",
-                "Loan facility available after 1 year",
-                "Tax benefit under Section 80C & 10(10D)",
-              ],
-              idealFor: "Those who want to stop paying premiums early but still enjoy long-term life cover and higher bonus returns over a longer coverage period.",
-            },
-          },
-          {
-            name: "Amritbaal",
-            description: "A child-focused endowment plan ensuring funds for key milestones like education and marriage.",
-            details: {
-              eligibility: "Child: 0 – 13 years; Proposer: 18 – 55 years",
-              policyTerm: "Up to child's age 25",
-              premiumPayingTerm: "Up to child's age 18",
+              modeOfPremium: "Yearly, Half-Yearly, Quarterly & Monthly (SSS / ECS)",
               sumAssured: "₹2,00,000 and above",
               keyBenefits: [
-                "Premiums waived off if proposer (parent) dies",
-                "Guaranteed sum assured paid at maturity",
-                "Supports education, marriage, or other life goals",
-                "Policy vests in child's name at age 18",
-                "Tax benefit under Section 80C & 10(10D)",
+                "With profits, non-linked, protection and saving Endowment Plan",
+                "High sum assured at low premium",
+                "Maturity Benefit: Sum Assured + Vested Bonus + FAB (if any)",
+                "Death Benefit: Basic SA or 7× yearly premium (whichever is higher) + Vested Bonus + FAB; not less than 105% of total premiums paid",
+                "Loan and Surrender facility for emergency needs (available after 1 year)",
+                "Tax benefit as per Income Tax Exemption and Service Tax rules",
               ],
-              idealFor: "Parents planning financially for their child's future education or marriage.",
+              idealFor: "Plan tailored to your planned needs — marriage, education or family expenses.",
             },
           },
           {
-            name: "Bima Jyoti",
-            description: "Guaranteed additions-based endowment with predictable returns and life cover.",
+            name: "Plan 715: LIC's New Jeevan Anand",
+            description: "An unparalleled plan combining whole life and endowment — lifelong cover even after maturity payout.",
             details: {
-              eligibility: "Age 90 days – 60 years",
-              policyTerm: "15 – 20 years",
-              premiumPayingTerm: "Policy term minus 5 years",
-              sumAssured: "₹1,00,000 and above",
+              eligibility: "18 years – 50 years",
+              maturityAge: "Maximum 75 years",
+              policyTerm: "15 – 35 years",
+              modeOfPremium: "Yearly, Half-Yearly, Quarterly & Monthly (SSS / ECS)",
+              sumAssured: "₹2,00,000 and above",
               keyBenefits: [
-                "Guaranteed additions of ₹50 per ₹1,000 SA each year",
-                "No market risk — returns are predictable",
-                "Death benefit = sum assured + guaranteed additions",
-                "Suitable for risk-averse investors",
-                "Tax benefit under Section 80C & 10(10D)",
+                "An unparalleled plan combining whole life and endowment",
+                "Accident Insurance amount increased to ₹1 crore (all plans included)",
+                "Maturity Benefit: Basic Sum Assured + Vested Bonus + FAB (if any)",
+                "Death Benefit: 125% of Basic SA or 7× annualised premium (whichever is higher) + Vested Bonus + FAB; not less than 105% of premiums paid",
+                "Loan and Surrender facility for emergency needs (after 1 year)",
+                "Tax benefit as per Income Tax Exemption rules",
               ],
-              idealFor: "Conservative investors who want guaranteed, predictable returns without market exposure.",
+              idealFor: "Plan that provides lifelong insurance coverage even after the maturity amount is paid. While living and after life.",
             },
           },
           {
-            name: "Nav Jeevan Shree",
-            description: "Flexible premium payment option with guaranteed additions and maturity benefits.",
+            name: "Plan 733: LIC's Jeevan Lakshya",
+            description: "A limited premium, non-linked, participating savings endowment plan that secures family income on early death plus a lump sum at maturity.",
             details: {
-              eligibility: "Age 90 days – 55 years",
-              policyTerm: "15 – 30 years",
-              premiumPayingTerm: "5, 7, or 10 years (flexible limited pay)",
-              sumAssured: "₹3,00,000 and above",
+              eligibility: "18 years – 50 years",
+              maturityAge: "Maximum 65 years",
+              policyTerm: "13 – 25 years",
+              modeOfPremium: "Yearly, Half-Yearly, Quarterly & Monthly (SSS / ECS — 3 months' premium required at proposal under monthly mode)",
+              sumAssured: "₹2,00,000 and above",
               keyBenefits: [
-                "Choose from 3 premium payment terms",
-                "Guaranteed additions accrue throughout policy term",
-                "Maturity = sum assured + all guaranteed additions",
-                "Loan facility available after 2 years",
-                "Tax benefit under Section 80C & 10(10D)",
+                "Limited premium, non-linked, participating Savings Endowment Plan",
+                "No premium payment is required for the final 3 years of policy term",
+                "Maturity Benefit: Basic Sum Assured + Vested Bonus + FAB (if any)",
+                "On death: 10% of Basic SA paid every year from date of death until 1 year before maturity",
+                "Premiums stop on death — policy continues in force",
+                "At maturity: 110% of Basic SA + Bonus + FAB (if any) paid to nominee",
+                "Available riders: Accidental Death & Disability, Accident Benefit, Term Assurance",
+                "Loan facility available after 3 years",
               ],
-              idealFor: "Working professionals who want flexibility in how long they pay while securing long-term returns.",
+              idealFor: "Parents with young children, primary earners, and long-term savers planning for education, marriage or family security.",
             },
           },
           {
-            name: "Bima Lakshmi",
-            description: "LIC Bima Lakshmi (Plan 881) — an exclusive women-centric endowment plan with guaranteed additions, money-back survival benefits, and a female critical illness rider.",
+            name: "Plan 736: LIC's Jeevan Labh Plan",
+            description: "A limited premium, non-linked, participating savings Endowment Plan where premiums stop early but cover and bonus accumulation continue.",
+            details: {
+              eligibility: "Minimum 8 years; max entry age 59 / 54 / 50 years for 16 / 21 / 25-year terms",
+              maturityAge: "75 years NBD",
+              policyTerm: "16, 21, or 25 years",
+              premiumPayingTerm: "10, 15, or 16 years respectively (limited pay)",
+              modeOfPremium: "Yearly, Half-Yearly, Quarterly & Monthly (SSS / NACH)",
+              sumAssured: "₹2,00,000 and above (no maximum). Multiples of ₹10,000 up to ₹4.5 L; ₹25,000 above ₹4.5 L",
+              keyBenefits: [
+                "Limited premium, non-linked, Participating Savings Endowment Plan",
+                "Sum Assured on Death: Basic Sum Assured",
+                "Death Benefit: SA on Death + Vested Bonus + FAB (if any)",
+                "Maturity Benefit: Basic Sum Assured + Vested Bonus + FAB (if any)",
+                "Maturity / Death claim payable in 5 / 10 / 15-year instalments (option exercisable 3 months before maturity)",
+                "If Term Rider opted for ₹5,00,000 — additional ₹5,00,000 paid with death benefit",
+                "If ADDB Rider opted for ₹5,00,000 — additional ₹5,00,000 on accidental death",
+                "Surrender / Loan facility after one year",
+              ],
+              idealFor: "Those who want to stop paying premiums early but still enjoy long-term life cover and higher bonus returns.",
+            },
+          },
+          {
+            name: "Plan 881: LIC Bima Lakshmi",
+            description: "An exclusive women-centric endowment plan with guaranteed additions, periodic money-back payouts and a female critical illness rider.",
             details: {
               eligibility: "Females aged 8 – 55 years",
+              maturityAge: "End of 25th policy year",
               policyTerm: "25 years",
-              premiumPayingTerm: "Policy term minus 5 years (limited pay)",
+              premiumPayingTerm: "Limited pay (chosen at proposal)",
+              modeOfPremium: "Yearly, Half-Yearly, Quarterly & Monthly",
               sumAssured: "₹2,00,000 and above (no maximum limit)",
               keyBenefits: [
-                "Survival Benefits (Money Back): Periodic payouts every 2 or 4 years, or after premium payment term — depending on chosen option",
+                "Periodic Money-Back: payouts every 2 or 4 years, or after the premium payment term — based on the chosen option",
                 "Guaranteed Additions: 7% of total tabular annual premium added every year while policy is in force",
-                "Maturity Benefit: Sum Assured on Maturity + all accrued Guaranteed Additions paid at end of 25th year",
-                "Female Critical Illness Rider: Covers early-stage cancer, specific female surgeries, pregnancy complications, and congenital anomalies",
-                "Auto Cover: 6 months auto cover after 3 full years of premiums; 2 years auto cover after 5 full years of premiums",
+                "Exclusive Female Critical Illness Rider: covers early-stage cancer, female-specific surgeries, pregnancy complications, congenital anomalies",
+                "Auto Cover: 6 months after 3 full years of premiums; 2 years after 5 full years of premiums",
                 "Loan facility available to meet liquidity needs",
+                "Maturity Benefit: Sum Assured on Maturity + all accrued Guaranteed Additions paid at end of 25th year",
                 "Exclusively for women policyholders",
-                "Tax benefit under Section 80C & 10(10D)",
               ],
-              idealFor: "Women seeking a dedicated plan that combines guaranteed savings, periodic payouts, life cover, and specialized health coverage for female-specific conditions.",
+              idealFor: "Women seeking a dedicated plan combining guaranteed savings, periodic payouts, life cover and specialised coverage for female-specific health conditions.",
             },
           },
         ],
@@ -380,65 +313,26 @@ const CATEGORIES: Category[] = [
         label: "Whole Life Plans",
         plans: [
           {
-            name: "Whole Life Policy",
-            description: "Provides lifelong coverage with premiums payable for a limited period and sum assured at age 100.",
+            name: "Plan 745: LIC's Jeevan Umang",
+            description: "A limited premium, non-linked, Participating Whole Life Plan with annual survival income from end of PPT and a large maturity payout at age 100.",
             details: {
-              eligibility: "Age 18 – 55 years",
-              policyTerm: "Whole life (up to age 100)",
-              premiumPayingTerm: "Up to age 80 or 35 years (whichever is earlier)",
-              sumAssured: "₹1,00,000 and above",
+              eligibility: "30 days – 55 years (PPT 15); 30 days – 50 / 45 / 40 years (PPT 20 / 25 / 30 respectively). Min age at end of PPT: 18 years; Max age at end of PPT: 70 years",
+              maturityAge: "100 years NBD",
+              policyTerm: "100 minus age at entry (whole life)",
+              premiumPayingTerm: "15, 20, 25 or 30 years (limited pay)",
+              modeOfPremium: "Yearly, Half-Yearly, Quarterly & Monthly (SSS / NACH — 3 months' premium required at proposal under monthly mode)",
+              sumAssured: "₹2,00,000 and above (no maximum). Multiples of ₹25,000 / ₹50,000 / ₹1 lakh based on band",
               keyBenefits: [
-                "Life cover extends to age 100",
-                "Sum assured + bonuses payable on death or at 100",
-                "Loan facility available after 3 years",
-                "Can be used for wealth transfer across generations",
-                "Tax benefit under Section 80C & 10(10D)",
-              ],
-              idealFor: "Those planning estate or wealth transfer to children and grandchildren.",
-            },
-          },
-          {
-            name: "LIC Jeevan Umang",
-            description: "LIC's Jeevan Umang (Plan 745) — a limited premium, non-linked, participating whole life plan that provides annual survival benefits from the end of the premium paying term, plus a large maturity payout at age 100.",
-            details: {
-              eligibility: "Age 30 days – 55 years (PPT 15); 30 days – 50/45/40 years (PPT 20/25/30 respectively); minimum age at end of PPT: 18 years",
-              policyTerm: "Whole life — 100 minus age at entry (matures at age 100)",
-              premiumPayingTerm: "15, 20, 25, or 30 years (limited pay)",
-              sumAssured: "₹2,00,000 and above (no maximum limit)",
-              keyBenefits: [
+                "Limited premium, non-linked, Participating Whole Life Plan",
                 "Annual Survival Benefit: 8% of Basic SA paid every year from end of PPT till age 99 or earlier death",
-                "Maturity Benefit at age 100: Basic SA + Vested Bonus (during & after PPT) + FAB if any",
-                "Death Benefit (after risk commencement): SA on Death + Vested Bonus + FAB if any",
-                "Death before risk commencement: Refund of premiums paid (excluding GST)",
-                "Riders available: ADDB/AB Rider (up to age 70), Term Rider (up to age 75 or 35 years), PWB Rider (up to child age 25)",
-                "Death benefit can be received in instalments over 5/10/15 years",
-                "Loan facility available after 1 year",
-                "Tax benefit under Section 80C & 10(10D)",
+                "Maturity Benefit at age 100: Basic SA + Vested Bonus (during & after PPT) + FAB (if any)",
+                "Death Benefit (after risk commencement): Sum Assured on Death + Vested Bonus + FAB (if any)",
+                "Sum Assured on Death = Higher of Basic SA or 7× Annual Premium",
+                "Death before risk commencement: Refund of premiums paid (excluding GST & extra)",
+                "Available Riders: ADDB Rider, AB Rider (3× Basic SA), Term Rider, PWB Rider",
+                "Death benefit payable in instalments over 5 / 10 / 15 years (life-assured option)",
               ],
               idealFor: "Individuals seeking a guaranteed annual income stream post-retirement alongside whole-life cover and a large maturity corpus at age 100.",
-            },
-          },
-          {
-            name: "LIC Jeevan Utsav",
-            description: "LIC's Jeevan Utsav (Plan 771) — a limited premium, non-linked, non-participating whole life plan with Guaranteed Additions during the PPT and a lifelong guaranteed income benefit after a short premium paying period.",
-            details: {
-              eligibility: "Age 8 years min; max entry age 65 years (varies by PPT); PPT options: 5 to 16 years",
-              policyTerm: "Whole life (100 minus age at entry)",
-              premiumPayingTerm: "5 to 16 years (limited pay)",
-              sumAssured: "₹5,00,000 and above (no maximum limit)",
-              keyBenefits: [
-                "Guaranteed Additions: ₹40 per ₹1,000 SA every year during the PPT",
-                "Income Benefit Option I (Regular Income): 10% of Basic SA every year from income start year till death",
-                "Income Benefit Option II (Flexi Income): 10% of Basic SA/yr with option to accumulate at 5.50% p.a.; up to 75% of accumulated amount withdrawable once per year",
-                "Income Start Year: end of 11th policy year (PPT 5–8 yrs) or 3rd year after end of PPT (PPT 9–16 yrs)",
-                "Death Benefit: SA on Death + Guaranteed Additions; SA on Death = Higher of Basic SA or 7× Annualised Premium",
-                "Death before risk commencement: Refund of premiums paid (excluding GST)",
-                "Riders: ADDB/AB Rider (up to age 70), Term Rider (up to age 75 or 35 yrs), PWB Rider (up to child age 25)",
-                "Death benefit payable in instalments over 5/10/15 years option",
-                "Loan facility available after 1 year",
-                "Tax benefit under Section 80C & 10(10D)",
-              ],
-              idealFor: "HNI investors or those who want a guaranteed lifelong income stream (like a pension) after a short, defined premium paying period.",
             },
           },
         ],
@@ -448,85 +342,26 @@ const CATEGORIES: Category[] = [
         label: "Money Back Plans",
         plans: [
           {
-            name: "New Money Back Plan – 20 Years",
-            description: "LIC's New Money Back Plan – 20 Years (Plan 720) — a limited premium, non-linked, participating savings money-back plan with periodic survival benefits every 5 years.",
+            name: "Plan 734: LIC's Jeevan Tarun",
+            description: "A non-linked, participating, limited premium child plan designed for education needs — with flexible survival benefit options from age 20 to 24.",
             details: {
-              eligibility: "Age 13 – 50 years (max maturity age 70 years)",
-              policyTerm: "20 years",
-              premiumPayingTerm: "15 years (limited pay)",
-              sumAssured: "₹2,00,000 and above (no maximum limit)",
-              keyBenefits: [
-                "Survival Benefit: 20% of Basic SA at end of 5th, 10th, and 15th policy year",
-                "Maturity Benefit: 40% of Basic SA + Vested Bonus + FAB if any at end of 20th year",
-                "Death Benefit: Higher of 125% of Basic SA or 7× Annualised Premium + Vested Bonus + FAB (full SA paid regardless of prior survival benefit payouts)",
-                "Premiums stop at 15 years; cover continues for full 20-year term",
-                "Riders available: ADDB/AB Rider, Term Rider (up to ₹25 lakhs)",
-                "Loan facility available after 1 year",
-                "Tax benefit under Section 80C & 10(10D)",
-              ],
-              idealFor: "Those who need regular cash flows at fixed 5-year intervals for goals like home renovation, children's fees, or family events — alongside life protection.",
-            },
-          },
-          {
-            name: "New Money Back Plan – 25 Years",
-            description: "LIC's New Money Back Plan – 25 Years (Plan 721) — a limited premium, non-linked, participating savings money-back plan with survival benefits paid every 5 years over a 25-year horizon.",
-            details: {
-              eligibility: "Age 13 – 45 years (max maturity age 70 years)",
-              policyTerm: "25 years",
-              premiumPayingTerm: "20 years (limited pay)",
-              sumAssured: "₹2,00,000 and above (no maximum limit)",
-              keyBenefits: [
-                "Survival Benefit: 15% of Basic SA at end of 5th, 10th, 15th, and 20th policy year",
-                "Maturity Benefit: 40% of Basic SA + Vested Bonus + FAB if any at end of 25th year",
-                "Death Benefit: Higher of 125% of Basic SA or 7× Annualised Premium + Vested Bonus + FAB (irrespective of prior survival benefit payouts)",
-                "Premiums stop at 20 years; cover continues for full 25-year term",
-                "Riders available: ADDB/AB Rider, Term Rider (up to ₹25 lakhs)",
-                "Loan facility available after 1 year",
-                "Tax benefit under Section 80C & 10(10D)",
-              ],
-              idealFor: "Younger investors with a longer 25-year horizon who want regular cash payouts and a larger maturity bonus accumulation.",
-            },
-          },
-          {
-            name: "Jeevan Tarun",
-            description: "LIC's Jeevan Tarun (Plan 734) — a non-linked, participating, limited premium child plan designed for children's education needs, with flexible survival benefit options from age 20 to 24.",
-            details: {
-              eligibility: "Child: 30 days – 12 years (matures at age 25); Proposer: parent/guardian",
-              policyTerm: "25 minus age at entry (policy matures when child turns 25)",
+              eligibility: "Child: 30 days – 12 years LBD",
+              maturityAge: "25 years LBD",
+              policyTerm: "25 minus age at entry",
               premiumPayingTerm: "20 minus age at entry (limited pay)",
-              sumAssured: "₹2,00,000 and above (no maximum limit)",
+              modeOfPremium: "Yearly, Half-Yearly, Quarterly & Monthly (SSS / NACH — 3 months' premium required at proposal under monthly mode)",
+              sumAssured: "₹2,00,000 and above (no maximum). Multiples of ₹5,000 / ₹50,000 / ₹1 lakh based on band",
               keyBenefits: [
-                "4 Survival Benefit Options (choose at proposal stage): Option 1 — No SB, 100% SA + Bonus at 25 | Option 2 — 5% SA/yr (age 20–24), 75% SA + Bonus at 25 | Option 3 — 10% SA/yr (age 20–24), 50% SA + Bonus at 25 | Option 4 — 15% SA/yr (age 20–24), 25% SA + Bonus at 25",
-                "Death Benefit: Higher of 125% of Basic SA or 7× Annualised Premium + Vested Bonus + FAB",
-                "Risk commencement: immediately if child is 8+ years; otherwise after 2 years from policy start or age 8 anniversary, whichever is earlier",
-                "Premium Waiver Benefit Rider available — premiums waived if proposer (parent) dies",
-                "Maturity/Death claim payable in instalments over 5/10/15 years",
-                "Loan facility available after 1 year",
-                "Tax benefit under Section 80C & 10(10D)",
+                "Non-linked, participating, limited premium plan for children's education",
+                "Sum Assured on Death: Higher of 125% of Basic SA or 7× annualised premium",
+                "Death Benefit (after risk commencement): SA on Death + Vested Bonus + FAB (if any)",
+                "Death before risk commencement: Refund of premiums paid (excluding GST)",
+                "4 Survival & Maturity options — Option 1: No SB, 100% SA + Bonus at 25 | Option 2: 5% SA/yr (20–24), 75% SA + Bonus | Option 3: 10% SA/yr, 50% SA + Bonus | Option 4: 15% SA/yr, 25% SA + Bonus",
+                "Option can be changed 3 months before SB due (by paying premium difference with interest)",
+                "Premium Waiver Benefit Rider available",
+                "Maturity / Death claim payable in 5 / 10 / 15-year instalments",
               ],
-              idealFor: "Parents who want to fund their child's higher education with flexible annual payouts from age 20 to 24, with the option to maximise the final corpus.",
-            },
-          },
-          {
-            name: "Bima Shree",
-            description: "LIC's Bima Shree (Plan 748) — a limited premium, non-linked, participating savings money-back plan with Guaranteed Additions and Loyalty Additions, exclusively for high-value policies (min ₹10 lakh SA).",
-            details: {
-              eligibility: "Age 8 years min; max entry age 55/53/51/49/45/41 years for 14/16/18/20/24/28-year terms respectively",
-              policyTerm: "14, 16, 18, 20, 24, or 28 years",
-              premiumPayingTerm: "10, 12, 14, 16, 20, or 24 years respectively (limited pay)",
-              sumAssured: "₹10,00,000 and above (no maximum limit)",
-              keyBenefits: [
-                "Guaranteed Additions: ₹50 per ₹1,000 SA for first 5 years; ₹55 per ₹1,000 SA from 6th year till end of PPT",
-                "Loyalty Additions payable from 6th policy year onwards",
-                "Death Benefit (first 5 yrs): SA on Death + Guaranteed Additions",
-                "Death Benefit (6th yr+): SA on Death + Guaranteed Additions + Loyalty Additions (if any); SA on Death = Higher of 125% Basic SA or 7× Annualised Premium",
-                "Survival & Maturity benefits vary by term (e.g., 14-yr: 30% SA at 10th & 12th yr; 40% SA + GA + LA at maturity)",
-                "Option to defer Survival Benefits to maturity with interest",
-                "Riders: ADDB/AB Rider, Term Rider (up to ₹25 lakhs), PWB Rider",
-                "Loan facility available after 1 year",
-                "Tax benefit under Section 80C & 10(10D)",
-              ],
-              idealFor: "High-income individuals seeking guaranteed additions, loyalty bonuses, and staggered money-back payouts on a premium policy (minimum ₹10 lakh sum assured).",
+              idealFor: "Parents funding their child's higher education with flexible annual payouts from age 20 to 24.",
             },
           },
         ],
@@ -539,7 +374,7 @@ const CATEGORIES: Category[] = [
             name: "Accidental Death & Disability Benefit Rider",
             description: "Extra benefit paid on accidental death or permanent disability during the policy term.",
             details: {
-              eligibility: "Must be attached to an eligible base plan; age 18–65",
+              eligibility: "Must be attached to an eligible base plan; age 18 – 65",
               sumAssured: "Up to ₹1,00,00,000 (subject to base SA)",
               keyBenefits: [
                 "Additional SA paid on accidental death",
@@ -548,14 +383,14 @@ const CATEGORIES: Category[] = [
                 "Covers road, rail, air accidents and natural calamities",
                 "Very low additional premium",
               ],
-              idealFor: "Anyone in a high-risk occupation or frequent traveller.",
+              idealFor: "Anyone in a high-risk occupation or a frequent traveller.",
             },
           },
           {
             name: "Accident Benefit Rider",
             description: "Additional sum paid on accidental death; can be attached to select base plans.",
             details: {
-              eligibility: "Must be attached to eligible base plan; age 18–70",
+              eligibility: "Must be attached to eligible base plan; age 18 – 70",
               sumAssured: "Up to ₹50,00,000",
               keyBenefits: [
                 "Equal to base SA paid additionally on accidental death",
@@ -571,7 +406,7 @@ const CATEGORIES: Category[] = [
             name: "New Critical Illness Benefit Rider",
             description: "Lump sum on diagnosis of any of the covered 15 critical illnesses.",
             details: {
-              eligibility: "Age 18 – 65 years; can be attached to select term/endowment plans",
+              eligibility: "Age 18 – 65 years; can be attached to select term / endowment plans",
               sumAssured: "₹1,00,000 – ₹25,00,000",
               keyBenefits: [
                 "15 covered illnesses including cancer, heart attack, stroke, kidney failure",
@@ -587,7 +422,7 @@ const CATEGORIES: Category[] = [
             name: "Premium Waiver Benefit Rider",
             description: "Waives future premiums if the proposer dies during the term.",
             details: {
-              eligibility: "Proposer age 18–55; applicable on child plans only",
+              eligibility: "Proposer age 18 – 55; applicable on child plans only",
               keyBenefits: [
                 "All future premiums waived if proposer (parent) dies",
                 "Policy continues in full force for the child",
@@ -621,20 +456,19 @@ function getCategoryById(id: string): Category {
 function DetailRow({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex flex-col sm:flex-row sm:items-start gap-1 py-3 border-b border-gray-100 last:border-b-0">
-      <span className="text-sm font-bold text-gray-500 uppercase tracking-wide sm:w-44 shrink-0">{label}</span>
-      <span className="text-base text-gray-800">{value}</span>
+      <span className="text-sm font-bold text-gray-500 uppercase tracking-wide sm:w-48 shrink-0">{label}</span>
+      <span className="text-base text-gray-800 leading-relaxed">{value}</span>
     </div>
   );
 }
 
-// ─── Life Insurance Quote Cards ───────────────────────────────────────────────
+// ─── Life Insurance Hero Slider ───────────────────────────────────────────────
 const LIFE_QUOTES = [
   { image: coupleWalkingImg, quote: "Small steps today, strong future tomorrow" },
   { image: graduationImg, quote: "The best gift you can give your child is a secure future" },
   { image: elderlyImg, quote: "Retirement planning starts whenever you're ready, start today" },
 ];
 
-// ─── Life Hero Auto-Slider ───────────────────────────────────────────────────
 function LifeHeroSlider({ tagline }: { tagline: string }) {
   const [current, setCurrent] = React.useState(0);
 
@@ -646,16 +480,19 @@ function LifeHeroSlider({ tagline }: { tagline: string }) {
   }, []);
 
   return (
-    <section className="relative text-white py-20 md:py-28 overflow-hidden min-h-[480px]">
-      {/* Sliding background images */}
+    <section className="relative text-white py-20 md:py-28 overflow-hidden min-h-[520px]">
       {LIFE_QUOTES.map((slide, i) => (
         <div
           key={i}
           className="absolute inset-0 transition-opacity duration-1000 ease-in-out"
           style={{ opacity: current === i ? 1 : 0 }}
         >
-          <img src={slide.image} alt={slide.quote} className="w-full h-full object-cover object-right" />
-          {/* Lighter gradient so image is visible on the right */}
+          <img
+            src={slide.image}
+            alt={slide.quote}
+            className="w-full h-full object-cover"
+            style={{ objectPosition: "right top" }}
+          />
           <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/65 to-primary/25" />
         </div>
       ))}
@@ -677,7 +514,6 @@ function LifeHeroSlider({ tagline }: { tagline: string }) {
 
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-5 leading-tight">Life Insurance</h1>
 
-          {/* Auto-sliding quote — larger, gold colour */}
           <div className="relative h-20 mb-6 overflow-hidden">
             {LIFE_QUOTES.map((slide, i) => (
               <p
@@ -693,7 +529,6 @@ function LifeHeroSlider({ tagline }: { tagline: string }) {
             ))}
           </div>
 
-          {/* Dot indicators */}
           <div className="flex items-center gap-2 mb-8">
             {LIFE_QUOTES.map((_, i) => (
               <button
@@ -774,7 +609,7 @@ function HealthIntroCards({ items }: { items: { title: string; irdai?: string; p
   );
 }
 
-// ─── Health Section Accordion Card ───────────────────────────────────────────
+// ─── Health Section Accordion Card — selected state uses section accent ──────
 function HealthSectionCard({ section }: { section: HealthSection }) {
   const [openIndex, setOpenIndex] = React.useState<number | null>(null);
 
@@ -782,7 +617,6 @@ function HealthSectionCard({ section }: { section: HealthSection }) {
 
   return (
     <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-      {/* Section Header */}
       <div
         className="flex items-center gap-3 px-6 py-5 text-white"
         style={{ background: `linear-gradient(135deg, ${section.accent}ee, ${section.accent}99)` }}
@@ -796,46 +630,55 @@ function HealthSectionCard({ section }: { section: HealthSection }) {
         </div>
       </div>
 
-      {/* Accordion Items */}
       <div className="divide-y divide-gray-50">
-        {section.items.map((item, i) => (
-          <div key={i}>
-            <button
-              onClick={() => toggle(i)}
-              className={`w-full flex items-center justify-between px-6 py-4 text-left transition-colors group ${openIndex === i ? "bg-gray-50" : "hover:bg-gray-50"}`}
-            >
-              <div className="flex items-center gap-3">
-                <span
-                  className="w-2 h-2 rounded-full shrink-0"
-                  style={{ background: section.accent }}
+        {section.items.map((item, i) => {
+          const isOpen = openIndex === i;
+          return (
+            <div key={i} style={isOpen ? { background: `${section.accent}12` } : undefined}>
+              <button
+                onClick={() => toggle(i)}
+                className={`w-full flex items-center justify-between px-6 py-4 text-left transition-colors group ${isOpen ? "" : "hover:bg-gray-50"}`}
+                style={isOpen ? { borderLeft: `4px solid ${section.accent}` } : { borderLeft: "4px solid transparent" }}
+              >
+                <div className="flex items-center gap-3">
+                  <span
+                    className="w-2 h-2 rounded-full shrink-0"
+                    style={{ background: section.accent }}
+                  />
+                  <span
+                    className="text-base font-bold transition-colors"
+                    style={{ color: isOpen ? section.accent : "#374151" }}
+                  >
+                    {item.title}
+                  </span>
+                </div>
+                <ChevronDown
+                  className="size-5 shrink-0 transition-transform duration-200"
+                  style={{
+                    color: isOpen ? section.accent : "#9CA3AF",
+                    transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
+                  }}
                 />
-                <span className={`text-base font-bold transition-colors ${openIndex === i ? "text-gray-900" : "text-gray-700 group-hover:text-gray-900"}`}>
-                  {item.title}
-                </span>
-              </div>
-              <ChevronDown
-                className="size-5 shrink-0 transition-transform duration-200"
-                style={{ color: openIndex === i ? section.accent : "#9CA3AF", transform: openIndex === i ? "rotate(180deg)" : "rotate(0deg)" }}
-              />
-            </button>
-            {openIndex === i && (
-              <div className="px-6 pb-5">
-                <p
-                  className="text-base text-gray-600 leading-relaxed pl-5 border-l-2 py-1"
-                  style={{ borderColor: section.accent }}
-                >
-                  {item.body}
-                </p>
-              </div>
-            )}
-          </div>
-        ))}
+              </button>
+              {isOpen && (
+                <div className="px-6 pb-5" style={{ borderLeft: `4px solid ${section.accent}` }}>
+                  <p
+                    className="text-base text-gray-700 leading-relaxed pl-5 border-l-2 py-1"
+                    style={{ borderColor: section.accent }}
+                  >
+                    {item.body}
+                  </p>
+                </div>
+              )}
+            </div>
+          );
+        })}
       </div>
     </div>
   );
 }
 
-// ─── Health Page Panel ────────────────────────────────────────────────────────
+// ─── Health Panel ─────────────────────────────────────────────────────────────
 function HealthPanel({ category }: { category: Category }) {
   return (
     <div className="flex-1 min-w-0">
@@ -849,17 +692,14 @@ function HealthPanel({ category }: { category: Category }) {
         </p>
       </div>
 
-      {/* Intro type cards */}
       {category.healthIntro && <HealthIntroCards items={category.healthIntro} />}
 
-      {/* Section accordion cards — 2 col grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         {category.healthSections?.map((section) => (
           <HealthSectionCard key={section.id} section={section} />
         ))}
       </div>
 
-      {/* CTA */}
       <div className="mt-8 flex flex-col sm:flex-row gap-3">
         <Button asChild className="bg-primary hover:bg-primary/90 text-white text-base font-bold px-6 py-3">
           <Link to="/contact">
@@ -879,7 +719,6 @@ function HealthPanel({ category }: { category: Category }) {
         </a>
       </div>
 
-      {/* Stethoscope decorative CTA */}
       <div className="mt-12 flex flex-col items-center text-center rounded-3xl p-10 border border-primary/10" style={{ background: "linear-gradient(135deg, #EFF6FF 0%, #F0FDF4 100%)" }}>
         <Stethoscope className="size-20 text-primary/25 mb-5" />
         <h3 className="text-2xl font-bold text-primary mb-3">Your Health, Our Priority</h3>
@@ -931,19 +770,18 @@ export default function Insurances() {
       {activeCategory.id === "life" ? (
         <LifeHeroSlider tagline={activeCategory.tagline} />
       ) : (
-        <section className="relative text-white py-20 md:py-28 overflow-hidden min-h-[480px]">
+        <section className="relative text-white py-20 md:py-28 overflow-hidden min-h-[520px]">
           <div className="absolute inset-0">
             <img
               src={familyHealthImg}
               alt={activeCategory.label}
-              className="w-full h-full object-cover object-right"
+              className="w-full h-full object-cover"
+              style={{ objectPosition: "right top" }}
             />
-            {/* Lighter gradient — image visible on the right side */}
             <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/65 to-primary/20" />
           </div>
           <div className="pointer-events-none absolute inset-0 section-pattern opacity-10" />
 
-          {/* Stethoscope decorative icon floating right side */}
           <div className="absolute right-8 top-1/2 -translate-y-1/2 opacity-10 hidden lg:block">
             <Stethoscope className="size-64 text-white" />
           </div>
@@ -960,7 +798,6 @@ export default function Insurances() {
                 <span className="text-secondary text-sm font-semibold tracking-[0.2em] uppercase font-sans">Insurance Plans</span>
               </div>
               <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-5 leading-tight">{activeCategory.label}</h1>
-              {/* Prominent running tagline — gold colour */}
               <p className="text-2xl md:text-3xl text-secondary font-bold font-sans mb-8 leading-snug">
                 &ldquo;{activeCategory.tagline}&rdquo;
               </p>
@@ -1005,7 +842,6 @@ export default function Insurances() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col lg:flex-row gap-8">
 
-            {/* LEFT SIDEBAR — only for categories with subcategories */}
             {hasSubCategories && (
               <aside className="lg:w-72 shrink-0">
                 <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
@@ -1052,7 +888,6 @@ export default function Insurances() {
               </aside>
             )}
 
-            {/* RIGHT PANEL */}
             {isHealth ? (
               <HealthPanel category={activeCategory} />
             ) : (
@@ -1066,11 +901,10 @@ export default function Insurances() {
                   </div>
                 </div>
 
-                {/* Riders description */}
                 {activeSubId === "riders" && (
                   <div className="bg-primary/5 border border-primary/10 rounded-xl p-5 mb-6">
                     <p className="text-base text-gray-700 leading-relaxed">
-                      Riders are optional add-ons that can be attached to your base insurance policy to enhance its coverage and benefits. They provide additional financial protection against specific risks such as accidents, disability, or critical illness, based on your needs.
+                      Riders are optional add-ons that can be attached to your base insurance policy to enhance its coverage and benefits. They provide additional financial protection against specific risks such as accidents, disability, or critical illness, based on your needs. By paying an extra premium, riders allow you to customise your policy for more comprehensive coverage without purchasing a separate plan.
                     </p>
                   </div>
                 )}
@@ -1131,11 +965,17 @@ export default function Insurances() {
                     {selectedPlan.details.eligibility && (
                       <DetailRow label="Eligibility" value={selectedPlan.details.eligibility} />
                     )}
+                    {selectedPlan.details.maturityAge && (
+                      <DetailRow label="Maturity Age" value={selectedPlan.details.maturityAge} />
+                    )}
                     {selectedPlan.details.policyTerm && (
                       <DetailRow label="Policy Term" value={selectedPlan.details.policyTerm} />
                     )}
                     {selectedPlan.details.premiumPayingTerm && (
                       <DetailRow label="Premium Paying" value={selectedPlan.details.premiumPayingTerm} />
+                    )}
+                    {selectedPlan.details.modeOfPremium && (
+                      <DetailRow label="Mode of Premium" value={selectedPlan.details.modeOfPremium} />
                     )}
                     {selectedPlan.details.sumAssured && (
                       <DetailRow label="Sum Assured" value={selectedPlan.details.sumAssured} />
