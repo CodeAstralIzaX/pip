@@ -116,7 +116,8 @@ export default function Contact() {
           <img
             src={familyHealthImg}
             alt="Contact Premier Insurance Partners"
-            className="w-full h-full object-cover object-right"
+            className="w-full h-full object-cover"
+            style={{ objectPosition: "right top" }}
           />
           <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/65 to-primary/20" />
         </div>

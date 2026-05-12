@@ -46,7 +46,8 @@ export default function Claims() {
           <img
             src={claimsFormImg}
             alt="Insurance Claims"
-            className="w-full h-full object-cover object-right"
+            className="w-full h-full object-cover"
+            style={{ objectPosition: "right top" }}
           />
           {/* Lighter gradient — image visible on right side */}
           <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/65 to-primary/20" />
