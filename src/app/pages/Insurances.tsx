@@ -16,6 +16,9 @@ import {
   BadgeCheck,
   Stethoscope,
   Building2,
+  HandHeart,
+  Umbrella,
+  ShieldPlus,
 } from "lucide-react";
 import { Button } from "../components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "../components/ui/sheet";
@@ -184,6 +187,63 @@ const HEALTH_SECTIONS: HealthSection[] = [
       { title: "Anywhere Cashless Claims", body: "Now avail Anywhere Cashless Claims all across India. With 14,000+ Network Hospitals, we are also one of India's widest medical coverage providers." },
       { title: "Network Hospitals", body: "We got you covered by offering best health insurance plans under our valuable service providers, agreed network and network hospitals for quality treatment." },
     ],
+  },
+];
+
+// ─── Star Health Plans ───────────────────────────────────────────────────────
+interface HealthPlan {
+  name: string;
+  irdai: string;
+  tagline: string;
+  benefits: string[];
+  ctaLabel: string;
+  icon: React.ReactNode;
+}
+
+const HEALTH_PLANS: HealthPlan[] = [
+  {
+    name: "Star Health Assure Insurance Policy",
+    irdai: "IRDAI UIN: SHAHLIP23131V022223",
+    tagline: "For those seeking widest benefits & highest coverage for risk.",
+    icon: <HandHeart className="size-9" />,
+    benefits: [
+      "Unlimited 100% Automatic Restoration & consumables included.",
+      "The perfect companion for your family planning — Extensive Maternity benefits, Highest Delivery Expenses & Assisted Reproduction Treatment, New Born Cover & More.",
+      "Entry Age upto 75, as well as 2 child dependent from 91 days so you can add your children, parents & parent in laws.",
+      "25% no claim bonus / year.",
+      "Any room category on higher S.I.",
+      "AYUSH treatments complete cover, Free health check-up every year.",
+      "All Daycare Treatments, Modern Treatments, Consumables cover, Midterm Inclusion & more.",
+    ],
+    ctaLabel: "Get Assure",
+  },
+  {
+    name: "Young Star Insurance Policy",
+    irdai: "IRDAI UIN: SHAHLIP25035V052425",
+    tagline: "For the young & healthy, seeking a risk protection policy.",
+    icon: <Umbrella className="size-9" />,
+    benefits: [
+      "Lowest premium, meant for those under 40.",
+      "Only 1 year waiting period for slow-growing diseases.",
+      "Midterm Inclusion for future spouse + child.",
+    ],
+    ctaLabel: "Get Young Star",
+  },
+  {
+    name: "Star Comprehensive Insurance Policy",
+    irdai: "IRDAI UIN: SHAHLIP25037V082425",
+    tagline: "For those seeking complete coverage & pre-existing disease waiting period reduction.",
+    icon: <ShieldPlus className="size-9" />,
+    benefits: [
+      "Secure yourself sooner — PED Buyback option to reduce waiting period for PED to 1 year.",
+      "Support for family planning: Delivery expenses, New Born Baby cover & more.",
+      "50% no claim bonus / year — with Personal Accident Cover equal to your sum insured, get benefits of life insurance in Health.",
+      "100% Automatic restoration once per year on complete exhaustion of sum insured.",
+      "Entry age from 3 months up to 65 years, add your 2 children.",
+      "OP, Dental & Ophthalmic benefits up to sublimits.",
+      "Modern Treatments, Midterm inclusion, & more.",
+    ],
+    ctaLabel: "Get Comprehensive",
   },
 ];
 
@@ -368,72 +428,8 @@ const CATEGORIES: Category[] = [
       },
       {
         id: "riders",
-        label: "Riders — Optional Add-ons",
-        plans: [
-          {
-            name: "Accidental Death & Disability Benefit Rider",
-            description: "Extra benefit paid on accidental death or permanent disability during the policy term.",
-            details: {
-              eligibility: "Must be attached to an eligible base plan; age 18 – 65",
-              sumAssured: "Up to ₹1,00,00,000 (subject to base SA)",
-              keyBenefits: [
-                "Additional SA paid on accidental death",
-                "Monthly income for 10 years on total permanent disability",
-                "Base policy continues on disability",
-                "Covers road, rail, air accidents and natural calamities",
-                "Very low additional premium",
-              ],
-              idealFor: "Anyone in a high-risk occupation or a frequent traveller.",
-            },
-          },
-          {
-            name: "Accident Benefit Rider",
-            description: "Additional sum paid on accidental death; can be attached to select base plans.",
-            details: {
-              eligibility: "Must be attached to eligible base plan; age 18 – 70",
-              sumAssured: "Up to ₹50,00,000",
-              keyBenefits: [
-                "Equal to base SA paid additionally on accidental death",
-                "Available on most traditional LIC plans",
-                "No separate medical examination needed",
-                "Minimal premium addition",
-                "Tax benefit on rider premium under 80C",
-              ],
-              idealFor: "Policyholders wanting extra accidental death protection on their existing plans.",
-            },
-          },
-          {
-            name: "New Critical Illness Benefit Rider",
-            description: "Lump sum on diagnosis of any of the covered 15 critical illnesses.",
-            details: {
-              eligibility: "Age 18 – 65 years; can be attached to select term / endowment plans",
-              sumAssured: "₹1,00,000 – ₹25,00,000",
-              keyBenefits: [
-                "15 covered illnesses including cancer, heart attack, stroke, kidney failure",
-                "Lump sum paid on first diagnosis",
-                "Base policy continues after claim",
-                "Survival period of 30 days post-diagnosis",
-                "Tax benefit under Section 80D",
-              ],
-              idealFor: "Anyone with a family history of critical illness or seeking financial cushion for treatment costs.",
-            },
-          },
-          {
-            name: "Premium Waiver Benefit Rider",
-            description: "Waives future premiums if the proposer dies during the term.",
-            details: {
-              eligibility: "Proposer age 18 – 55; applicable on child plans only",
-              keyBenefits: [
-                "All future premiums waived if proposer (parent) dies",
-                "Policy continues in full force for the child",
-                "Child benefits are preserved completely",
-                "No additional underwriting for child",
-                "Minimal additional premium cost",
-              ],
-              idealFor: "Parents who have taken a child plan and want to ensure continuity of the plan's benefits.",
-            },
-          },
-        ],
+        label: "Riders",
+        plans: [],
       },
     ],
   },
@@ -678,6 +674,67 @@ function HealthSectionCard({ section }: { section: HealthSection }) {
   );
 }
 
+// ─── Star Health Plan Card ────────────────────────────────────────────────────
+function HealthPlanCard({ plan }: { plan: HealthPlan }) {
+  const [expanded, setExpanded] = React.useState(false);
+  const visibleBenefits = expanded ? plan.benefits : plan.benefits.slice(0, 3);
+  const hasMore = plan.benefits.length > 3;
+
+  return (
+    <div className="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all duration-200 p-7 flex flex-col">
+      {/* Centered icon */}
+      <div className="flex justify-center mb-5">
+        <div className="w-20 h-20 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center">
+          {plan.icon}
+        </div>
+      </div>
+
+      {/* Title + IRDAI */}
+      <h3 className="text-xl md:text-2xl font-bold text-blue-600 text-center leading-snug mb-2">
+        {plan.name}
+      </h3>
+      <p className="text-sm font-bold text-gray-500 tracking-wider text-center uppercase mb-5">
+        {plan.irdai}
+      </p>
+
+      {/* Tagline */}
+      <p className="text-base text-gray-700 text-center leading-relaxed mb-6">
+        {plan.tagline}
+      </p>
+
+      {/* Benefits */}
+      <ul className="space-y-4 mb-5 flex-1">
+        {visibleBenefits.map((benefit, i) => (
+          <li key={i} className="flex items-start gap-3">
+            <CheckCircle2 className="size-5 text-blue-600 shrink-0 mt-0.5" />
+            <span className="text-base text-gray-700 leading-relaxed">{benefit}</span>
+          </li>
+        ))}
+      </ul>
+
+      {hasMore && (
+        <button
+          onClick={() => setExpanded(!expanded)}
+          className="text-blue-600 text-base font-bold text-left mb-6 hover:text-blue-700 transition-colors"
+        >
+          {expanded ? "Read Less" : "Read More"}
+        </button>
+      )}
+
+      {/* CTA — coral orange button */}
+      <a
+        href={`https://wa.me/+918778912704?text=Hi%2C%20I%20am%20interested%20in%20${encodeURIComponent(plan.name)}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="block w-full text-center px-6 py-4 rounded-xl font-bold text-white text-lg transition-all hover:brightness-110 shadow-md"
+        style={{ background: "#F08161" }}
+      >
+        {plan.ctaLabel}
+      </a>
+    </div>
+  );
+}
+
 // ─── Health Panel ─────────────────────────────────────────────────────────────
 function HealthPanel({ category }: { category: Category }) {
   return (
@@ -693,6 +750,24 @@ function HealthPanel({ category }: { category: Category }) {
       </div>
 
       {category.healthIntro && <HealthIntroCards items={category.healthIntro} />}
+
+      {/* Star Health Plan cards */}
+      <div className="mb-12">
+        <div className="mb-6">
+          <h3 className="text-2xl md:text-3xl font-bold text-primary mb-2">Our Star Health Plans</h3>
+          <p className="text-base text-gray-600">Choose the policy that fits your needs — every plan comes with cashless treatment at 14,000+ network hospitals.</p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {HEALTH_PLANS.map((plan, i) => (
+            <HealthPlanCard key={i} plan={plan} />
+          ))}
+        </div>
+      </div>
+
+      <div className="mb-6">
+        <h3 className="text-2xl md:text-3xl font-bold text-primary mb-2">Plan Details</h3>
+        <p className="text-base text-gray-600">Everything you need to know — inclusions, exclusions, waiting periods and claims.</p>
+      </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         {category.healthSections?.map((section) => (
@@ -895,45 +970,75 @@ export default function Insurances() {
                 <div className="flex items-center justify-between mb-6">
                   <div>
                     <h2 className="text-3xl font-bold text-gray-900">{activeSub?.label}</h2>
-                    <p className="text-base text-gray-500 mt-1">
-                      {activeSub?.plans.length} plan{activeSub?.plans.length !== 1 ? "s" : ""} available
-                    </p>
+                    {activeSubId !== "riders" && (
+                      <p className="text-base text-gray-500 mt-1">
+                        {activeSub?.plans.length} plan{activeSub?.plans.length !== 1 ? "s" : ""} available
+                      </p>
+                    )}
                   </div>
                 </div>
 
-                {activeSubId === "riders" && (
-                  <div className="bg-primary/5 border border-primary/10 rounded-xl p-5 mb-6">
-                    <p className="text-base text-gray-700 leading-relaxed">
-                      Riders are optional add-ons that can be attached to your base insurance policy to enhance its coverage and benefits. They provide additional financial protection against specific risks such as accidents, disability, or critical illness, based on your needs. By paying an extra premium, riders allow you to customise your policy for more comprehensive coverage without purchasing a separate plan.
+                {activeSubId === "riders" ? (
+                  <div className="bg-white border border-gray-100 rounded-2xl p-8 md:p-10 shadow-sm">
+                    <div className="flex items-start gap-4 mb-5">
+                      <div className="w-14 h-14 rounded-2xl bg-primary/5 text-primary flex items-center justify-center shrink-0">
+                        <Shield className="size-7" />
+                      </div>
+                      <div>
+                        <h3 className="text-2xl font-bold text-primary mb-2">Optional Add-ons</h3>
+                        <p className="text-base text-gray-500 font-sans">Customise your base policy with riders.</p>
+                      </div>
+                    </div>
+                    <p className="text-lg text-gray-700 leading-relaxed">
+                      Riders are optional add-ons that can be attached to your base insurance policy to enhance its coverage and benefits. They provide additional financial protection against specific risks such as accidents, disability, or critical illness, based on your needs. By paying an extra premium, riders allow you to customize your policy for more comprehensive coverage without purchasing a separate plan.
                     </p>
+
+                    <div className="mt-8 flex flex-col sm:flex-row gap-3">
+                      <Button asChild className="bg-primary hover:bg-primary/90 text-white text-base font-bold px-6 py-3">
+                        <Link to="/contact">
+                          Talk to an Advisor
+                          <ArrowRight className="ml-2 size-5" />
+                        </Link>
+                      </Button>
+                      <a
+                        href="https://wa.me/+918778912704?text=Hi%2C%20I%20need%20info%20on%20policy%20riders"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-bold text-white text-base transition-all hover:brightness-110 shadow"
+                        style={{ background: "#cc9c42" }}
+                      >
+                        <img src={whatsappIcon} alt="WhatsApp" className="h-5 w-5" />
+                        Enquire on WhatsApp
+                      </a>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    {activeSub?.plans.map((plan, i) => {
+                      const pastel = PLAN_PASTELS[i % PLAN_PASTELS.length];
+                      return (
+                        <button
+                          key={i}
+                          onClick={() => setSelectedPlan(plan)}
+                          className="rounded-2xl border shadow-sm p-6 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 flex flex-col gap-3 text-left group"
+                          style={{ background: pastel.bg, borderColor: pastel.border }}
+                        >
+                          <div className="flex items-start gap-3">
+                            <div className="mt-1 h-6 w-1.5 rounded-full shrink-0" style={{ background: pastel.dot }} />
+                            <h3 className="text-xl font-bold text-gray-900 leading-snug group-hover:text-primary transition-colors">{plan.name}</h3>
+                          </div>
+                          <p className="text-base text-gray-600 leading-relaxed pl-5">{plan.description}</p>
+                          <div className="pl-5 flex items-center justify-between mt-1">
+                            <span className="inline-flex items-center gap-1.5 text-sm font-bold" style={{ color: pastel.dot }}>
+                              View Details <Info className="size-4" />
+                            </span>
+                            <ChevronRight className="size-5 text-gray-300 group-hover:text-primary group-hover:translate-x-0.5 transition-all" />
+                          </div>
+                        </button>
+                      );
+                    })}
                   </div>
                 )}
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                  {activeSub?.plans.map((plan, i) => {
-                    const pastel = PLAN_PASTELS[i % PLAN_PASTELS.length];
-                    return (
-                      <button
-                        key={i}
-                        onClick={() => setSelectedPlan(plan)}
-                        className="rounded-2xl border shadow-sm p-6 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 flex flex-col gap-3 text-left group"
-                        style={{ background: pastel.bg, borderColor: pastel.border }}
-                      >
-                        <div className="flex items-start gap-3">
-                          <div className="mt-1 h-6 w-1.5 rounded-full shrink-0" style={{ background: pastel.dot }} />
-                          <h3 className="text-xl font-bold text-gray-900 leading-snug group-hover:text-primary transition-colors">{plan.name}</h3>
-                        </div>
-                        <p className="text-base text-gray-600 leading-relaxed pl-5">{plan.description}</p>
-                        <div className="pl-5 flex items-center justify-between mt-1">
-                          <span className="inline-flex items-center gap-1.5 text-sm font-bold" style={{ color: pastel.dot }}>
-                            View Details <Info className="size-4" />
-                          </span>
-                          <ChevronRight className="size-5 text-gray-300 group-hover:text-primary group-hover:translate-x-0.5 transition-all" />
-                        </div>
-                      </button>
-                    );
-                  })}
-                </div>
               </div>
             )}
           </div>
