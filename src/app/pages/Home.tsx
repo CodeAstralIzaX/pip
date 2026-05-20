@@ -146,7 +146,7 @@ export default function Home() {
                 <span className="text-secondary text-sm font-semibold tracking-[0.2em] uppercase font-sans">Trusted Insurance Partners</span>
               </div>
 
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+              <h1 className="text-4xl md:text-5xl lg:text-5xl font-bold mb-6 leading-tight">
                 To serve as a sole, reliable source for addressing all{" "}
                 <span className="text-secondary">insurance needs</span>
               </h1>
@@ -186,25 +186,6 @@ export default function Home() {
         </div>
 
         <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-secondary to-transparent" />
-      </section>
-
-      {/* ── Trust Indicators ─────────────────────────────────────── */}
-      <section className="py-8 bg-white border-b border-gray-100">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-            {[
-              { value: "15+", label: "Years Experience" },
-              { value: "5000+", label: "Happy Clients" },
-              { value: "₹100Cr+", label: "Claims Settled" },
-              { value: "24/7", label: "Customer Support" },
-            ].map((stat, i) => (
-              <div key={i} className="py-4">
-                <p className="text-3xl font-bold text-primary">{stat.value}</p>
-                <p className="text-sm text-gray-500 font-semibold tracking-wide uppercase font-sans mt-1">{stat.label}</p>
-              </div>
-            ))}
-          </div>
-        </div>
       </section>
 
       {/* ── Services Section ─────────────────────────────────────── */}
